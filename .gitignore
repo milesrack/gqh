@@ -1,0 +1,21 @@
+# Local agent context, copied references, scratch work and source snapshots
+/.agent-work/
+
+# Credentials and licensed market data
+.env
+.env.*
+!.env.example
+.massive_cache/
+/data/raw/
+/data/cache/
+
+# Local Python and notebook artefacts
+.venv/
+__pycache__/
+*.py[cod]
+.ipynb_checkpoints/
+.pytest_cache/
+.ruff_cache/
+
+# macOS
+.DS_Store
