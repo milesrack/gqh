@@ -64,13 +64,15 @@ def run(args, cfg, output):
             pd.read_parquet(path).sort_values("ts_recv", kind="stable"), cfg, day
         )
         frames[day], audits[day] = frame, audit
-        if day in valid_days and "FDXS" in book:
+        if not args.forecast_only and day in valid_days and "FDXS" in book:
             books[day] = {"FDXS": book["FDXS"]}
 
     train = pd.concat([frames[d] for d in train_days]).dropna(subset=["Y"])
     validation = pd.concat([frames[d] for d in valid_days]).dropna(subset=["Y"])
     if train.empty or validation.empty:
         raise ValueError("No eligible training or validation observations")
+    train.to_parquet(output / "training-features.parquet")
+    validation.to_parquet(output / "validation-features.parquet")
     m0, m1 = fit(train, BASE), fit(train, CROSS)
     p0, p1 = predict(m0, validation, BASE), predict(m1, validation, CROSS)
     score, losses = forecast_metrics(validation, p0.to_numpy(), p1.to_numpy(), cfg)

@@ -17,7 +17,9 @@ def quotes(events):
     valid &= (q.bid < 1e8) & (q.ask < 1e8) & (q.bid_size > 0) & (q.ask_size > 0)
     q["valid"] = valid.fillna(False)
     q["mid"] = ((q.bid + q.ask) / 2).where(valid)
-    q["bi"] = ((q.bid_size - q.ask_size) / (q.bid_size + q.ask_size)).where(valid)
+    bid_size = q.bid_size.astype(float)
+    ask_size = q.ask_size.astype(float)
+    q["bi"] = ((bid_size - ask_size) / (bid_size + ask_size)).where(valid)
     return q.set_index("ts_recv")
 
 
@@ -99,6 +101,13 @@ def features(events, cfg, day):
         cfg["quote_age_seconds"],
     )
     frame["Y"] = future.mid.to_numpy() - frame.mid_FDXS
+    for target in cfg["products"]:
+        f = observed(
+            books[target],
+            grid + pd.Timedelta(seconds=cfg["horizon_seconds"]),
+            cfg["quote_age_seconds"],
+        )
+        frame[f"Y_{target}"] = f.mid.to_numpy() - frame[f"mid_{target}"]
     frame["day"] = day
     eligible = frame.dropna(subset=CROSS)
     audit = {

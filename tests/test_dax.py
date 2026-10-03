@@ -145,3 +145,12 @@ def test_trade_features_do_not_require_future_label():
     frame, _, _ = features(full, cfg, "2025-06-02")
     assert frame.Y.isna().any()
     assert frame.OF_FDXS.notna().all()
+
+
+def test_unsigned_book_sizes_preserve_negative_imbalance():
+    e = events()
+    e["bid_size"] = np.array([1] * len(e), dtype=np.uint32)
+    e["ask_size"] = np.array([3] * len(e), dtype=np.uint32)
+    q = quotes(e)
+    assert (q.bi == -0.5).all()
+    assert q.bi.between(-1, 1).all()
