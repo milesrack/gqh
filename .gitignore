@@ -1,9 +1,6 @@
 # Local agent context, copied references, scratch work and source snapshots
 /.agent-work/
 
-# Optional local context-search runtime
-/tools/context-search/node_modules/
-
 # Credentials and licensed market data
 .env
 .env.*

@@ -52,3 +52,7 @@ Keep the tunnel running while using Jupyter. The connector reads the existing to
 5. Add each teammate’s SSH public key to their own Vultr Unix account. Start a separate Jupyter process and forward its localhost port.
 
 For the first 24 hours, reserve $30 of Snowflake trial usage for ingestion, queries and context indexing. Actual cost depends on active warehouse time and Cortex usage. The five-credit daily warehouse monitor does not cap Cortex. Check account billing before enabling continuous indexing. Stop or destroy the Vultr worker when finished; powering it off continues billing.
+
+[Team access and public-key registration](team-access.md). [Teammate agent prompt](../team-agent-prompt.md).
+
+Completed collection manifests can be retrieved with `manifest --collection <market|context|results> --manifest <path>`. Use `fetch --path '<glob>'` to download only required assets. Record the returned version in each experiment.

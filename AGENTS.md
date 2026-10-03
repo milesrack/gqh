@@ -14,41 +14,13 @@ Compare against the committed baseline on identical samples. Report uncertainty,
 
 Check material claims against primary sources. Code and paper must reproduce the same results. The quant note allows five pages including figures and tables, at least 11 pt type and standard margins; references and an optional appendix are excluded.
 
-## Context
+## Shared assets
 
-The private [context repository](https://github.com/milesrack/gqh-systematic-track-context) is checked out at `.agent-work/shared/`.
+Use Snowflake for shared data, notes and source documents. Follow `deployment/snowflake/README.md` and `deployment/snowflake/team-access.md`.
 
-```sh
-# First checkout: Node.js >=22
-node tools/context-sync.mjs --no-refresh
-node tools/context.mjs setup
+Use `tools/snowflake_store.py manifest` to retrieve asset versions, `fetch` to download required files and `search --query` to retrieve cited passages. Search notes before sources and read passages before making claims. Preserve source paths, hashes and provenance. Check current versions before editing; coordinate overlapping subjects.
 
-# Before research: clean main only
-node tools/context-sync.mjs
-```
-
-Read its `INDEX.md`. Search notes first, then source texts; read retrieved passages before making claims. Use keyword search for exact terms and structured hybrid queries for concepts:
-
-```sh
-node tools/context.mjs query 'intent: Find predictable trades caused by participant constraints.
-lex: forced selling inventory constraints
-vec: participants who must trade despite unfavourable prices' -c notes --json -n 5
-node tools/context.mjs search 'FDXS' -c notes --json -n 5
-node tools/context.mjs get '<returned-document-uri>'
-```
-
-Edit the existing subject note on a context feature branch and submit a PR there. Coordinate overlapping edits. Refresh after edits with `node tools/context.mjs refresh`. Sync refuses dirty, non-main or unpublished checkouts. Preserve local work on failure; disclose stale coverage and use raw search.
-
-| Location | Contents |
-| --- | --- |
-| Context `notes/` | Requirements, reading notes and hypotheses |
-| Context `library/` | Books, transcripts/audio, handoffs and readable texts |
-| Context `sources/` | Official captures, papers, starter kits and provenance |
-| Context `data/` | Research datasets and manifests |
-| `.agent-work/.cache/` | Generated QMD index, models and installation cache |
-| `.agent-work/runs/` | Personal scratch work |
-
-Keep one canonical context copy. Preserve originals, hashes, edition, timestamps and private sharing permission. Credentials stay outside context. QMD indexes notes, readable texts and starter Markdown. Set `GQH_CONTEXT_DIR` for a standalone checkout. The context CLI uses its own pinned Node dependencies.
+Use ignored `.agent-work/assets/` for caches, `.agent-work/runs/` for scratch work and `.agent-work/.secrets/` for private keys. Keep credentials outside shared storage. The legacy context repository and QMD tools are retired.
 
 ## Project layout
 
@@ -63,7 +35,7 @@ Keep one canonical context copy. Preserve originals, hashes, edition, timestamps
 
 Create modules when needed; do not prescribe filenames for an unselected strategy. Script the adopted strategy and provide a single reproduction command after approval.
 
-Purchased datasets remain in the private context repository's `data/`. Root `data/` is reserved for ignored local caches; do not duplicate paid datasets there. Keep acquisition separate from evaluation. Record dataset locations, availability timestamps, adjustments and hashes in manifests. A future shared store must preserve these manifests and dataset versions.
+Purchased datasets reside in Snowflake. Root `data/` and `.agent-work/assets/` are ignored caches. Keep acquisition separate from evaluation; retain availability timestamps, adjustments, hashes and immutable asset versions.
 
 ## Experiment notebooks
 
@@ -105,4 +77,4 @@ Use Snowflake for shared source assets, market tables and cited context retrieva
 
 Develop experiments as research notebooks, record every trial and write reproducible results. Script the selected strategy after approval. Use substantial compute when the experiment requires it; estimate cloud spend, memory and runtime first. Save checkpoints and progress logs.
 
-During migration, retain the context repository and tools until complete uploads, fresh downloads with matching hashes, cited search and teammate retrieval are verified.
+Migration runs independently of research. Keep original assets until upload and hash verification finish.

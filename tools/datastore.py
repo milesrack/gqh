@@ -1,5 +1,6 @@
 """Build content-addressed inventories of private research assets."""
 
+import fnmatch
 import hashlib
 
 COLLECTIONS = {
@@ -8,7 +9,18 @@ COLLECTIONS = {
         "data/futures-daily-development",
         "data/sr3-macro-revisions",
     ],
-    "context": ["INDEX.md", "notes", "library", "sources"],
+    "context": [
+        "INDEX.md",
+        "SOURCES.md",
+        "README.md",
+        "AGENTS.md",
+        "notes",
+        "library",
+        "sources",
+        "data/binance-btc-eth-daily",
+        "data/dax-ranked-pilot",
+        "data/dax-ranked-membership",
+    ],
     "results": ["data/experiment-results"],
 }
 
@@ -21,13 +33,17 @@ def sha(path):
     return digest.hexdigest()
 
 
-def inventory(source, collection):
+def inventory(source, collection, pattern=None):
     rows = []
     for name in COLLECTIONS[collection]:
         folder = source / name
+        if not folder.exists() and pattern:
+            continue
         if not folder.exists():
             raise ValueError(f"Missing canonical source: {folder}")
         for p in [folder] if folder.is_file() else sorted(folder.rglob("*")):
+            if pattern and not fnmatch.fnmatch(str(p.relative_to(source)), pattern):
+                continue
             if p.is_symlink():
                 raise ValueError(f"Symlink excluded: {p}")
             if not p.is_file():
@@ -43,6 +59,8 @@ def inventory(source, collection):
                     "sha256": sha(p),
                 }
             )
+    if not rows:
+        raise ValueError("No source assets matched")
     return {
         "collection": collection,
         "files": rows,

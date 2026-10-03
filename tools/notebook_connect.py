@@ -15,6 +15,7 @@ def main():
     parser.add_argument("--key", type=Path, required=True)
     parser.add_argument("--known-hosts", type=Path, required=True)
     parser.add_argument("--port", type=int, default=8888)
+    parser.add_argument("--remote-port", type=int, default=8888)
     args = parser.parse_args()
     ssh = [
         "ssh",
@@ -37,7 +38,8 @@ def main():
         if line.startswith("c.IdentityProvider.token")
     )
     process = subprocess.Popen(
-        ssh + ["-N", "-L", f"127.0.0.1:{args.port}:127.0.0.1:8888", target]
+        ssh
+        + ["-N", "-L", f"127.0.0.1:{args.port}:127.0.0.1:{args.remote_port}", target]
     )
     try:
         time.sleep(1)
