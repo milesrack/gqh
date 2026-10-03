@@ -80,7 +80,9 @@ def run(args, cfg, output):
         "condition_number": float(m1.condition_number),
     }
     execution = []
-    for name, model, cols in [("M0", m0, BASE), ("M1", m1, CROSS)]:
+    for name, model, cols in (
+        [] if args.forecast_only else [("M0", m0, BASE), ("M1", m1, CROSS)]
+    ):
         for fee in cfg["fee_scenarios_eur_per_side"]:
             for buffer in cfg["buffer_ticks"]:
                 trades = pd.concat(
@@ -113,7 +115,7 @@ def run(args, cfg, output):
                 daily.to_csv(output / f"{stem}-daily.csv")
     stress = []
     # Fixed five/five model, zero buffer; scenarios do not choose a winner.
-    for latency in cfg["latency_sensitivity_ms"]:
+    for latency in [] if args.forecast_only else cfg["latency_sensitivity_ms"]:
         for slippage in cfg["slippage_ticks_per_side"]:
             for multiplier in [1, 2]:
                 trades = pd.concat(
@@ -175,6 +177,7 @@ def main():
     )
     p.add_argument("--run-id", required=True)
     p.add_argument("--stage", choices=["smoke", "development"], default="development")
+    p.add_argument("--forecast-only", action="store_true")
     args = p.parse_args()
     if "/" in args.run_id or args.run_id in [".", ".."]:
         p.error("run-id must be one directory name")
@@ -207,7 +210,12 @@ def main():
         "code_commit": code,
         "config_sha256": hashlib.sha256(args.config.read_bytes()).hexdigest(),
         "sample": args.stage,
-        "parameters": str(args.config.relative_to(ROOT)),
+        "parameters": json.dumps(
+            {
+                "config": str(args.config.relative_to(ROOT)),
+                "forecast_only": args.forecast_only,
+            }
+        ),
         "cost_model": "illustrative fee scenarios; observed spread",
         "result_path": str(output.relative_to(ROOT)),
         "holdout_access": "false",

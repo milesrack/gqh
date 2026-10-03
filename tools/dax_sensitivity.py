@@ -63,6 +63,7 @@ def main():
         path = out / f"config-L{lookback}-H{horizon}.json"
         path.write_text(json.dumps(variant, indent=2))
         run_id = f"{args.run_prefix}-L{lookback}-H{horizon}"
+        extra = [] if (lookback, horizon) == (5, 5) else ["--forecast-only"]
         proc = subprocess.run(
             [
                 "uv",
@@ -76,7 +77,8 @@ def main():
                 str(path),
                 "--run-id",
                 run_id,
-            ],
+            ]
+            + extra,
             cwd=ROOT,
             env=dict(os.environ, UV_CACHE_DIR="/private/tmp/gqh-uv-cache"),
             check=False,
