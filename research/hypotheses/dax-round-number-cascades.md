@@ -1,0 +1,15 @@
+# DAX round-level stop cascades
+
+Mechanism: protective stops and breakout orders can cluster at salient prices. A first crossing accompanied by unusually large one-sided aggressive volume can activate further price-insensitive orders. The strategy supplies an earlier long or short position to that subsequent demand. Harris chapter 11 motivates predicting constrained orders rather than fundamental value; stop clustering is a deduction to test, not an established DAX fact.
+
+Null: executable continuation after a round-level crossing has non-positive expected daily net PnL and no improvement over the same rule at shifted levels.
+
+Data: existing matched FDXM/FDAX outright sessions only. Training 10 March–20 June 2025; validation 23 June–25 July; 28 July–29 August final holdout inaccessible. Receipt-time complete on-market quotes, maximum age one second, one-second decision grid, 09:05–17:22 Europe/Berlin.
+
+Signal: Mini midpoint crosses a 50- or 100-point lattice between consecutive one-second observations. Its return is at least one point in the crossing direction; Large return has that same sign. Mini one-second aggressive-flow imbalance is at least 0.6 in that direction, and Mini one-second classified volume exceeds its pooled training 90th percentile. Zero-volume seconds enter that percentile distribution. A ten-minute cooldown applies to the same level and direction.
+
+Finite menu: level spacing {50,100} × holding {30,60,120} seconds. Placebo: identical rules with the lattice shifted by 17 points, for all six variants. No threshold fitting beyond the fixed training-volume percentile. Select the round-level variant with highest training mean daily net PnL among those with at least 100 trades over 20 active days. Reject the family without validation if no eligible variant is profitable. Freeze the selected candidate before opening validation.
+
+Execution: one FDXM contract, €5 per index point. Marketable first valid quote at or after decision plus 100 ms; reject entry delays over one second. Exit after the selected holding period plus 100 ms, or after a 20-point adverse midpoint stop plus 100 ms. No overlapping trades, no overnight exposure. Refuse new entries after realised daily loss of €500. Retain delayed exits and actual quoted losses; a missing exit invalidates the run. Primary fee €0.50 per side. Stress €1 and €2 per side; doubled spread plus doubled primary fee; 250 ms latency; 0.5 point adverse slippage per side.
+
+Validation: evaluate the frozen candidate, its two other declared holding periods, and matching shifted-level placebos. Report daily Sharpe, trades, active days and five-session circular block-bootstrap intervals using 2,000 samples, seed 20261003. A credible finding requires positive validation net PnL with 95% daily-mean interval above zero, positive round-minus-placebo interval, and profitability at doubled costs and 250 ms latency. Validation is exploratory; final holdout remains locked. Neither statistical novelty nor uncrowded implementation is established by this test.

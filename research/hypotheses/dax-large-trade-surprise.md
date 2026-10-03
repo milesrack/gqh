@@ -1,0 +1,13 @@
+# Large aggressive-trade surprise
+
+An urgent informed trader may consume liquidity before its execution programme is complete. A large aggressive FDAX print has greater index exposure than an ordinary print, but size alone does not establish information. Require same-direction contemporaneous FDXM signed flow and a positive FDAX price response. Opposing FDXS flow is a separate predeclared state: cross-tier disagreement may reveal inventory suppliers rather than three interchangeable copies of the same trend.
+
+H0: Size-surprise continuation has non-positive executable net return; its conditional state adds no value beyond ordinary price momentum. H1: Large aggressive-trade surprise confirmed in FDAX and FDXM predicts sufficient continuing index demand over minutes to overcome FDXS spreads and fees.
+
+Use only the existing March 10–June 20 training and June 23–July 25 validation cache, matched expiry and publisher/quality/quote constraints from the first information specification. Final holdout remains locked.
+
+Decision grid every 10 seconds. In the trailing 10 seconds, identify the largest classified FDAX aggressive trade. It must exceed a size quantile estimated from training FDAX classified trade sizes, and FDAX net signed volume must have its direction. Require FDXM net signed volume to agree and FDAX 10-second midpoint change strictly in that direction. Current FDXS quote age at most one second and spread at most three index points. Candidate size quantiles 0.95 and 0.99; fixed holding periods 300, 900 and 1800 seconds; FDXS flow states unrestricted or strictly opposing. Twelve candidates. Buy continuation after a large buy; sell after a large sell. Fit size quantiles using training only, retaining ties. No size-dependent outcome fit.
+
+Execute one FDXS, observed marketable entry and exit after 100 ms, no overlap/overnight, 30-index-point adverse-mid stop, daily EUR 100 realised loss cap, primary EUR 1/side fees. Training selection maximises mean daily net EUR among candidates with at least 100 trades and positive net mean. Freeze before validation. Reject the family if none qualifies.
+
+Validation compares chosen candidate with FDAX/FDXM 10-second same-direction price-only momentum and its own-FDXS momentum baseline at the selected horizon. Evaluate all twelve fixed neighbours, EUR 0.5 and 2/side fees, 250 ms latency, doubled spreads plus EUR 2/side fees, day coverage, trade count, daily five-session circular bootstrap with 2,000 draws. Report 95% and discovery-family-adjusted intervals; current family count is six. No new validation-selected variants. Retain every trial and failure.
