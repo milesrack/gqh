@@ -77,3 +77,7 @@ Start from current default `main` on a new `feature/`, `bugfix/`, `hotfix/`, `re
 Submit PRs using `.github/pull_request_template.md`. Push and open PRs when authorised. History rewrites, force-pushes and merges require authorisation; authorised rewrites use `--force-with-lease`.
 
 After merge, verify no subsequent branch work, remove the local branch and confirm automatic remote deletion. Preserve default, unmerged and dependent branches. Completion requires verified outcomes and disclosed limitations.
+
+## Experiment notebooks
+
+Use `notebooks/` for user-run experiments. Launch with `uv run --locked jupyter lab`. Provide visible progress, sample counts, distribution plots, Pearson/rank IC, equity, drawdown, exposure, turnover, costs and parameter sensitivity where applicable. Save the plotted data, tables, figures and configuration to `results/<run_id>/`; record trials in the ledger. Keep notebook outputs untracked and distinguish reused validation from a fresh holdout. Use `notebooks/experiment_console.ipynb` to run existing committed experiment scripts.
