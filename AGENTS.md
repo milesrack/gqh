@@ -38,6 +38,10 @@ Create implementation files when their behaviour is defined. Keep the chosen con
 
 Use `uv` with Python 3.12. `pyproject.toml` declares dependencies; `uv.lock` records resolved versions. Use `uv sync --locked` to create or restore `.venv`, and `uv run --locked` for project scripts and checks. Add dependencies with `uv add` or `uv add --dev`; commit both project metadata and the updated lockfile. Do not maintain a separate requirements file or install undeclared packages into the project environment. Record Python and package versions with experiments.
 
+## Credentials
+
+Keep local credentials in the ignored root `.env`; `.env.example` contains blank credential values and public defaults. Use `DATABENTO_API_KEY`, which the Databento SDK reads directly, and the Webull starter conventions `WEBULL_APP_KEY`, `WEBULL_APP_SECRET`, `WEBULL_API_ENDPOINT` and `WEBULL_REGION_ID`. Preserve credentials already present when adding variables. Load the file with `uv run --env-file .env --locked` when credentials are needed; existing environment variables take precedence. Check required variables only for the selected provider and fail clearly if missing. Never print credential values, put them in command-line arguments, notebooks, results or notes, or commit `.env`. Confirm entitlements and cost before requesting market data; credentials alone do not authorise spending or live trading.
+
 ## Procedure
 
 1. Inspect Git status, branch, recent history, relevant code, documentation, dependencies and conventions before editing. Read only the context needed for the task.
@@ -52,7 +56,9 @@ Start new work from an up-to-date default branch and create a feature branch bef
 
 Commit coherent, independently reviewable changes using Conventional Commits: `<type>[optional scope]: <imperative description>`. Keep summaries specific and normally under 72 characters. Do not add AI attribution or generated-by text.
 
-Submit changes through pull requests. Push and open pull requests when authorised by the requested workflow, using `.github/pull_request_template.md`. Complete its summary, validation, risks and checklist. Never rewrite shared history, force-push, merge pull requests or delete remote branches without explicit authorisation. If rewriting is authorised, use `--force-with-lease`.
+Submit changes through pull requests. Push and open pull requests when authorised by the requested workflow, using `.github/pull_request_template.md`. Complete its summary, validation, risks and checklist. Never rewrite shared history, force-push or merge pull requests without explicit authorisation. If rewriting is authorised, use `--force-with-lease`.
+
+After a pull request is merged, verify the branch has no subsequent work, remove its local branch and confirm GitHub deleted the remote head branch. Use automatic head-branch deletion; delete a remaining remote branch after verifying the merge. Preserve the default branch and branches with unmerged work or open dependent pull requests. Do not reuse merged branches.
 
 ## Safety and completion
 
