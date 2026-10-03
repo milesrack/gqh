@@ -4,7 +4,7 @@ import argparse
 import hashlib
 import json
 import os
-from concurrent.futures import ThreadPoolExecutor
+from concurrent.futures import ThreadPoolExecutor, as_completed
 from datetime import UTC, datetime
 from pathlib import Path
 
@@ -40,30 +40,42 @@ def acquire(plan, max_usd):
     DATA.mkdir(parents=True, exist_ok=True)
     manifest = DATA / "manifest.jsonl"
 
+    recorded = (
+        {json.loads(line)["path"] for line in manifest.read_text().splitlines()}
+        if manifest.exists()
+        else set()
+    )
+
     def fetch(item):
         request = item["request"]
         identity = hashlib.sha256(
             json.dumps(request, sort_keys=True).encode()
         ).hexdigest()[:20]
         target = DATA / f"{identity}.dbn.zst"
-        if target.exists():
+        relative = target.relative_to(DATA.parent).as_posix()
+        if target.exists() and relative in recorded:
             return None
         partial = target.with_suffix(".partial")
         if partial.exists():
             raise FileExistsError(f"Prior partial request needs review: {partial.name}")
-        client().timeseries.get_range(**request, path=partial)
-        partial.rename(target)
+        recovered = target.exists()
+        if not recovered:
+            client().timeseries.get_range(**request, path=partial)
+            partial.rename(target)
         with target.open("rb") as stream:
             sha = hashlib.file_digest(stream, "sha256").hexdigest()
         return dict(
             item,
-            path=target.relative_to(DATA.parent).as_posix(),
+            path=relative,
+            recovered_existing_file=recovered,
             sha256=sha,
             downloaded_utc=datetime.now(UTC).isoformat(),
         )
 
     with ThreadPoolExecutor(max_workers=4) as pool:
-        for record in pool.map(fetch, estimates):
+        futures = [pool.submit(fetch, item) for item in estimates]
+        for future in as_completed(futures):
+            record = future.result()
             if record:
                 with manifest.open("a") as stream:
                     stream.write(json.dumps(record) + "\n")

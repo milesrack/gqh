@@ -154,3 +154,72 @@ def test_unsigned_book_sizes_preserve_negative_imbalance():
     q = quotes(e)
     assert (q.bi == -0.5).all()
     assert q.bi.between(-1, 1).all()
+
+
+def test_acquisition_recovers_existing_file_without_download(tmp_path, monkeypatch):
+    import hashlib
+    import json
+    from data import download
+
+    request = {"dataset": "XEUR.EOBI", "schema": "mbp-1", "start": "2025-03-10"}
+    identity = hashlib.sha256(json.dumps(request, sort_keys=True).encode()).hexdigest()[
+        :20
+    ]
+    target = tmp_path / f"{identity}.dbn.zst"
+    target.write_bytes(b"completed download before manifest write")
+    monkeypatch.setattr(download, "DATA", tmp_path)
+    monkeypatch.setattr(
+        download, "quote", lambda r: [{"request": r[0], "estimated_usd": 1}]
+    )
+    monkeypatch.setattr(
+        download, "client", lambda: pytest.fail("existing data must not be downloaded")
+    )
+    download.acquire({"requests": [{"request": request}]}, 2)
+    row = json.loads((tmp_path / "manifest.jsonl").read_text())
+    assert row["recovered_existing_file"]
+    assert row["sha256"] == hashlib.sha256(target.read_bytes()).hexdigest()
+    download.acquire({"requests": [{"request": request}]}, 2)
+    assert len((tmp_path / "manifest.jsonl").read_text().splitlines()) == 1
+
+
+def test_daily_loss_limit_stops_new_entries():
+    q = quotes(events())
+    t = q.index[0]
+    frame = pd.DataFrame(
+        {"spread_FDXS": [1, 1]}, index=[t, t + pd.Timedelta(seconds=4)]
+    )
+    cfg = {
+        "latency_ms": 0,
+        "horizon_seconds": 2,
+        "quote_age_seconds": 1,
+        "daily_loss_limit_eur": 0.5,
+    }
+    trades = simulate(frame, [-10, -10], {"FDXS": q}, cfg, fee=0, buffer=0)
+    assert len(trades) == 1
+    assert trades.net_eur.iloc[0] == -2
+
+
+def test_holdout_files_are_excluded_before_opening(tmp_path):
+    import json
+    from src.market_data import prepare
+
+    manifest = {
+        "request": {"schema": "mbp-1", "start": "2025-07-28", "end": "2025-07-29"},
+        "path": "does-not-exist.dbn.zst",
+    }
+    (tmp_path / "manifest.jsonl").write_text(json.dumps(manifest))
+    with pytest.raises(ValueError, match="Both MBP-1 and definitions"):
+        prepare(tmp_path, {"holdout_start": "2025-07-28"})
+
+
+def test_mixed_holdout_file_is_rejected_before_opening(tmp_path):
+    import json
+    from src.market_data import prepare
+
+    manifest = {
+        "request": {"schema": "mbp-1", "start": "2025-07-27", "end": "2025-07-29"},
+        "path": "does-not-exist.dbn.zst",
+    }
+    (tmp_path / "manifest.jsonl").write_text(json.dumps(manifest))
+    with pytest.raises(ValueError, match="locked holdout"):
+        prepare(tmp_path, {"holdout_start": "2025-07-28"})
