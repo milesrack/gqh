@@ -41,11 +41,13 @@ def prepare_registration(username, path):
 
 def main():
     parser = argparse.ArgumentParser()
-    parser.add_argument("username", choices=["NELSON", "SEAN", "AMIR"])
+    parser.add_argument("username")
     parser.add_argument(
         "--bundle", type=Path, help="Owner: prepare registration SQL from public keys"
     )
     args = parser.parse_args()
+    if not re.fullmatch(r"[A-Z][A-Z0-9_]{0,30}", args.username):
+        parser.error("Use an uppercase Snowflake identifier with at most 31 characters")
     if args.bundle:
         prepare_registration(args.username, args.bundle)
         return
@@ -85,7 +87,6 @@ def main():
     output = Path(".agent-work/runs") / f"{name}-access.json"
     output.parent.mkdir(parents=True, exist_ok=True)
     output.write_text(json.dumps(bundle, indent=2) + "\n")
-    assert re.fullmatch(r"[A-Z]+", bundle["snowflake_user"])
     print("Share only:", output)
     print("Private keys retained in:", folder)
 

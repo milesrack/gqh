@@ -5,6 +5,9 @@ import fnmatch
 import json
 import lzma
 import os
+import shutil
+import tempfile
+import threading
 from concurrent.futures import ThreadPoolExecutor
 from pathlib import Path
 
@@ -67,6 +70,22 @@ def passages(path, limit=5000):
         yield ordinal, start, len(lines), "\n".join(text)
 
 
+def put_asset(cur, path, prefix, filename):
+    with tempfile.TemporaryDirectory(prefix="gqh-stage-") as folder:
+        staged = Path(folder) / filename
+        try:
+            os.link(path.resolve(), staged)
+        except OSError:
+            shutil.copyfile(path, staged)
+        cur.execute(
+            f"PUT {literal('file://' + str(staged))} @GQH.RAW.ASSETS/{prefix}/ SOURCE_COMPRESSION=NONE AUTO_COMPRESS=FALSE OVERWRITE=FALSE PARALLEL=4"
+        )
+        rows = cur.fetchall()
+        if not rows or any(r[6] not in ["UPLOADED", "SKIPPED"] for r in rows):
+            raise ValueError("Asset upload failed")
+        return prefix + "/" + Path(str(rows[0][1])).name
+
+
 def upload(cur, source, manifest, selected=None, publish=True):
     data = json.loads(manifest.read_text())
     if "version" in data:
@@ -96,20 +115,16 @@ def upload(cur, source, manifest, selected=None, publish=True):
         if existing and existing[0]:
             print(f"[{number}/{len(data['files'])}] cached {r['path']}", flush=True)
             continue
-        cur.execute(
-            f"PUT {literal('file://' + str(path.resolve()))} @GQH.RAW.ASSETS/{prefix}/ SOURCE_COMPRESSION=NONE AUTO_COMPRESS=FALSE OVERWRITE=FALSE PARALLEL=4"
-        )
-        transfer = cur.fetchall()
-        if not transfer or any(
-            row[6] not in ["UPLOADED", "SKIPPED"] for row in transfer
-        ):
-            raise ValueError(f"Upload failed: {r['path']}")
-        target = str(transfer[0][1])
-        stage_path = prefix + "/" + Path(target).name
+        stage_path = put_asset(cur, path, prefix, r["sha256"] + ".asset")
         if collection == "market" and path.suffix == ".parquet":
             cur.execute(
-                f"COPY INTO GQH.MARKET.OBSERVATIONS(DATA,SOURCE_PATH,VERSION) FROM (SELECT $1,{literal(r['path'])},{literal(version)} FROM @GQH.RAW.ASSETS/{prefix}/) FILE_FORMAT=(FORMAT_NAME='GQH.RAW.PARQUET') ON_ERROR=ABORT_STATEMENT"
+                "SELECT COUNT(*) FROM GQH.MARKET.OBSERVATIONS WHERE SOURCE_PATH=%s AND VERSION=%s",
+                (r["path"], version),
             )
+            if cur.fetchone()[0] == 0:
+                cur.execute(
+                    f"COPY INTO GQH.MARKET.OBSERVATIONS(DATA,SOURCE_PATH,VERSION) FROM (SELECT $1,{literal(r['path'])},{literal(version)} FROM @GQH.RAW.ASSETS/{stage_path}) FILE_FORMAT=(FORMAT_NAME='GQH.RAW.PARQUET') ON_ERROR=ABORT_STATEMENT"
+                )
         if (
             collection == "context"
             and "original" not in path.relative_to(source).parts
@@ -188,13 +203,7 @@ def publish_manifest(cur, manifest):
     version = sha(manifest)
     collection = data["collection"]
     prefix = f"{collection}/{version}"
-    cur.execute(
-        f"PUT {literal('file://' + str(manifest.resolve()))} @GQH.RAW.ASSETS/{prefix}/ SOURCE_COMPRESSION=NONE AUTO_COMPRESS=FALSE OVERWRITE=FALSE"
-    )
-    rows = cur.fetchall()
-    if not rows or any(r[6] not in ["UPLOADED", "SKIPPED"] for r in rows):
-        raise ValueError("Manifest upload failed")
-    stage_path = prefix + "/" + Path(str(rows[0][1])).name
+    stage_path = put_asset(cur, manifest, prefix, "manifest.json")
     cur.execute(
         "MERGE INTO GQH.RAW.FILES t USING (SELECT %s COLLECTION,%s VERSION) s ON t.COLLECTION=s.COLLECTION AND t.VERSION=s.VERSION AND t.SOURCE_PATH='@manifest' WHEN NOT MATCHED THEN INSERT(COLLECTION,VERSION,SOURCE_PATH,SHA256,BYTES,STAGE_PATH,LOADED) VALUES(s.COLLECTION,s.VERSION,'@manifest',%s,%s,%s,TRUE)",
         (collection, version, version, manifest.stat().st_size, stage_path),
@@ -234,15 +243,83 @@ def verify(cur, manifest):
         (data["collection"],),
     )
     remote = {(r[0], r[4]): r for r in cur.fetchall()}
+    staged = {}
+    versions = {r.get("version", version) for r in data["files"]}
+    for v in versions:
+        cur.execute("LIST " + literal(f"@GQH.RAW.ASSETS/{data['collection']}/{v}/"))
+        staged.update({str(r[0]): r[1] for r in cur.fetchall()})
     for row in data["files"]:
         record = remote.get((row["path"], row.get("version", version)))
         if not record or record[1] != row["sha256"] or record[2] != row["bytes"]:
             raise ValueError("Incomplete remote inventory: " + row["path"])
-        cur.execute("LIST " + literal("@GQH.RAW.ASSETS/" + record[3]))
-        listed = cur.fetchall()
-        if len(listed) != 1 or listed[0][1] != row["bytes"]:
+        sizes = [
+            size
+            for name, size in staged.items()
+            if name.endswith("/" + record[3]) or name == record[3]
+        ]
+        if sizes != [row["bytes"]]:
             raise ValueError("Missing or incomplete stage object: " + row["path"])
     print("Verified stage sizes and catalog hashes:", len(data["files"]))
+
+
+def fetch_assets(source, manifest, pattern=None, workers=4):
+    data = json.loads(manifest.read_text())
+    version = data.get("version") or sha(manifest)
+    selected = [
+        r for r in data["files"] if not pattern or fnmatch.fnmatch(r["path"], pattern)
+    ]
+    if not selected:
+        raise ValueError("No assets match --path")
+    with connect() as conn, conn.cursor() as cur:
+        cur.execute("USE WAREHOUSE GQH_WH")
+        cur.execute(
+            "SELECT SOURCE_PATH,VERSION,STAGE_PATH,SHA256 FROM GQH.RAW.FILES WHERE COLLECTION=%s AND LOADED=TRUE",
+            (data["collection"],),
+        )
+        remote = {(r[0], r[1]): (r[2], r[3]) for r in cur.fetchall()}
+    pending = []
+    for r in selected:
+        relative = Path(r["path"])
+        if relative.is_absolute() or ".." in relative.parts:
+            raise ValueError("Invalid manifest path")
+        if data["collection"] == "market" and relative.parts[0] == "data":
+            relative = Path(*relative.parts[1:])
+        path = source / relative
+        if path.exists() and sha(path) == r["sha256"]:
+            continue
+        record = remote.get((r["path"], r.get("version", version)))
+        if not record or record[1] != r["sha256"]:
+            raise ValueError("Unknown asset or catalog hash mismatch")
+        pending.append((r, path, record[0]))
+    lock = threading.Lock()
+    done = len(selected) - len(pending)
+    print(f"{done}/{len(selected)} cached; {workers} download workers", flush=True)
+
+    def run(rows):
+        nonlocal done
+        with connect() as conn, conn.cursor() as cur:
+            for r, path, stage in rows:
+                path.parent.mkdir(parents=True, exist_ok=True)
+                cur.execute(
+                    f"GET {literal('@GQH.RAW.ASSETS/' + stage)} {literal('file://' + str(path.parent.resolve()) + '/')}"
+                )
+                fetched = path.parent / Path(stage).name
+                if fetched != path:
+                    fetched.replace(path)
+                if sha(path) != r["sha256"]:
+                    raise ValueError("Downloaded SHA-256 mismatch")
+                with lock:
+                    done += 1
+                    print(f"[{done}/{len(selected)}] verified {r['path']}", flush=True)
+
+    with ThreadPoolExecutor(max_workers=workers) as pool:
+        list(
+            pool.map(
+                run,
+                [pending[i::workers] for i in range(workers) if pending[i::workers]],
+            )
+        )
+    print("Downloaded and verified", len(selected), "files", flush=True)
 
 
 def main():
@@ -261,7 +338,7 @@ def main():
             "index-context",
         ],
     )
-    parser.add_argument("--source", type=Path, default=Path(".agent-work/shared"))
+    parser.add_argument("--source", type=Path, default=Path("data"))
     parser.add_argument(
         "--collection", choices=["market", "context", "results"], default="market"
     )
@@ -288,13 +365,13 @@ def main():
             retrieve_manifest(cur, args.collection, args.manifest, args.version)
         elif args.action == "setup":
             with (
-                Path(__file__).resolve().parents[1] / "deployment/snowflake/setup.sql"
+                Path(__file__).resolve().parents[1] / "tools/sql/setup.sql"
             ).open() as stream:
                 for c in conn.execute_stream(stream):
                     print(c.fetchall())
         elif args.action == "index-context":
             with (
-                Path(__file__).resolve().parents[1] / "deployment/snowflake/search.sql"
+                Path(__file__).resolve().parents[1] / "tools/sql/search.sql"
             ).open() as stream:
                 for c in conn.execute_stream(stream):
                     print(c.fetchall())
@@ -304,39 +381,7 @@ def main():
         elif args.action == "verify":
             verify(cur, args.manifest)
         elif args.action == "fetch":
-            data = json.loads(args.manifest.read_text())
-            version = data.get("version") or sha(args.manifest)
-            selected = [
-                r
-                for r in data["files"]
-                if not args.path or fnmatch.fnmatch(r["path"], args.path)
-            ]
-            if not selected:
-                raise ValueError("No assets match --path")
-            for r in selected:
-                relative = Path(r["path"])
-                if relative.is_absolute() or ".." in relative.parts:
-                    raise ValueError("Invalid manifest path")
-                path = args.source / relative
-                if path.exists() and sha(path) == r["sha256"]:
-                    continue
-                path.parent.mkdir(parents=True, exist_ok=True)
-                cur.execute(
-                    "SELECT STAGE_PATH FROM GQH.RAW.FILES WHERE COLLECTION=%s AND VERSION=%s AND SOURCE_PATH=%s",
-                    (data["collection"], r.get("version", version), r["path"]),
-                )
-                row = cur.fetchone()
-                if not row:
-                    raise ValueError("Unknown remote asset")
-                cur.execute(
-                    f"GET {literal('@GQH.RAW.ASSETS/' + row[0])} {literal('file://' + str(path.parent.resolve()) + '/')}"
-                )
-                fetched = path.parent / Path(row[0]).name
-                if fetched != path:
-                    fetched.replace(path)
-                if sha(path) != r["sha256"]:
-                    raise ValueError("Downloaded SHA-256 mismatch")
-            print("Downloaded and verified", len(selected), "files")
+            fetch_assets(args.source, args.manifest, args.path, args.workers)
         elif args.action == "search":
             if not args.query:
                 parser.error("--query is required")

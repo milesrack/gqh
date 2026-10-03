@@ -6,10 +6,8 @@
 .env.*
 !.env.example
 .massive_cache/
-/data/raw/
-/data/cache/
-/data/interim/
-/data/processed/
+/data/*
+!/data/.gitkeep
 
 # Generated research outputs; retain directory scaffold
 /results/*

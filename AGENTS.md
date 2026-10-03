@@ -16,7 +16,7 @@ Check material claims against primary sources. Code and paper must reproduce the
 
 ## Shared assets
 
-Use Snowflake for shared data, notes and source documents. Follow `deployment/snowflake/README.md` and `deployment/snowflake/team-access.md`.
+Use Snowflake for shared data, notes and source documents. Follow `docs/shared-assets.md`, including the inventory, upload and verification commands.
 
 Use `tools/snowflake_store.py manifest` to retrieve asset versions, `fetch` to download required files and `search --query` to retrieve cited passages. Search notes before sources and read passages before making claims. Preserve source paths, hashes and provenance. Check current versions before editing; coordinate overlapping subjects.
 
@@ -71,10 +71,8 @@ Submit PRs using `.github/pull_request_template.md`. Push and open PRs when auth
 
 After merge, verify no subsequent branch work, remove the local branch and confirm automatic remote deletion. Preserve default, unmerged and dependent branches. Completion requires verified outcomes and disclosed limitations.
 
-## Shared storage and compute
+## Compute
 
-Use Snowflake for shared source assets, market tables and cited context retrieval; use Vultr for notebook compute. Follow `deployment/snowflake/README.md`. Keep manifests and research code in Git. Use individual credentials in ignored `.env`; never share administrator keys.
+Use notebook experiments with individual Unix accounts, workspaces and uv environments. Bind Jupyter to localhost and connect through SSH. Keep connection details outside Git.
 
-Develop experiments as research notebooks, record every trial and write reproducible results. Script the selected strategy after approval. Use substantial compute when the experiment requires it; estimate cloud spend, memory and runtime first. Save checkpoints and progress logs.
-
-Migration runs independently of research. Keep original assets until upload and hash verification finish.
+Use substantial compute when the hypothesis requires it; estimate spend, memory and runtime first. Save checkpoints and progress logs. The manual notebook-upload workflow publishes source snapshots; it never runs an experiment or accesses the holdout.

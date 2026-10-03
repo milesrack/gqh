@@ -3,27 +3,6 @@
 import fnmatch
 import hashlib
 
-COLLECTIONS = {
-    "market": [
-        "data/dax-cross-contract-flow",
-        "data/futures-daily-development",
-        "data/sr3-macro-revisions",
-    ],
-    "context": [
-        "INDEX.md",
-        "SOURCES.md",
-        "README.md",
-        "AGENTS.md",
-        "notes",
-        "library",
-        "sources",
-        "data/binance-btc-eth-daily",
-        "data/dax-ranked-pilot",
-        "data/dax-ranked-membership",
-    ],
-    "results": ["data/experiment-results"],
-}
-
 
 def sha(path):
     digest = hashlib.sha256()
@@ -35,30 +14,29 @@ def sha(path):
 
 def inventory(source, collection, pattern=None):
     rows = []
-    for name in COLLECTIONS[collection]:
-        folder = source / name
-        if not folder.exists() and pattern:
+    if not source.is_dir():
+        raise ValueError(f"Source must be a directory: {source}")
+    folder = source
+    if folder.is_symlink():
+        raise ValueError(f"Symlink excluded: {folder}")
+    for p in sorted(folder.rglob("*")):
+        if pattern and not fnmatch.fnmatch(str(p.relative_to(source)), pattern):
             continue
-        if not folder.exists():
-            raise ValueError(f"Missing canonical source: {folder}")
-        for p in [folder] if folder.is_file() else sorted(folder.rglob("*")):
-            if pattern and not fnmatch.fnmatch(str(p.relative_to(source)), pattern):
-                continue
-            if p.is_symlink():
-                raise ValueError(f"Symlink excluded: {p}")
-            if not p.is_file():
-                continue
-            if p.stat().st_size < 200 and p.read_bytes().startswith(
-                b"version https://git-lfs.github.com/spec/v1"
-            ):
-                raise ValueError(f"Git LFS pointer: pull the real source first: {p}")
-            rows.append(
-                {
-                    "path": str(p.relative_to(source)),
-                    "bytes": p.stat().st_size,
-                    "sha256": sha(p),
-                }
-            )
+        if p.is_symlink():
+            raise ValueError(f"Symlink excluded: {p}")
+        if not p.is_file():
+            continue
+        if p.stat().st_size < 200 and p.read_bytes().startswith(
+            b"version https://git-lfs.github.com/spec/v1"
+        ):
+            raise ValueError(f"Git LFS pointer: pull the real source first: {p}")
+        rows.append(
+            {
+                "path": str(p.relative_to(source)),
+                "bytes": p.stat().st_size,
+                "sha256": sha(p),
+            }
+        )
     if not rows:
         raise ValueError("No source assets matched")
     return {
