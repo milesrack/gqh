@@ -74,6 +74,18 @@ Inspect Git state, relevant code, dependencies and conventions. Define scope and
 
 Start from current default `main` on a new `feature/`, `bugfix/`, `hotfix/`, `refactor/`, `docs/` or `chore/` branch. No tool-specific prefixes, default-branch commits or reused merged branches. Use Conventional Commits with specific imperative summaries, normally under 72 characters; no AI attribution.
 
+## Experiment branches
+
+Use one `feature/experiment-<hypothesis>` branch per economic hypothesis. Keep infrastructure and documentation changes on separate branches. Start from current `main`; if an experiment requires unmerged infrastructure, declare that dependency and target its branch in the draft PR.
+
+Commit the hypothesis, data availability, executable rules, costs, parameter grid and evaluation splits before backtesting. Keep implementations, notebooks, trials and conclusions on the experiment branch. Record failed variants and reused validation. Freeze the specification before accessing the final holdout.
+
+No strategy-specific change enters `main` without Miles's explicit approval. If adopted, merge the hypothesis and evaluation specification first, then the implementation and results through a separate approved PR. A successful backtest or passing CI does not authorise a merge.
+
+Use a new branch for a different hypothesis; do not reuse rejected or merged experiment branches. Preserve rejected specifications and trial records before deleting a branch. Follow the post-merge branch-deletion rules below. Never rewrite shared history or delete unmerged branches without approval.
+
+## Pull requests
+
 Submit PRs using `.github/pull_request_template.md`. Push and open PRs when authorised. History rewrites, force-pushes and merges require authorisation; authorised rewrites use `--force-with-lease`.
 
 After merge, verify no subsequent branch work, remove the local branch and confirm automatic remote deletion. Preserve default, unmerged and dependent branches. Completion requires verified outcomes and disclosed limitations.
