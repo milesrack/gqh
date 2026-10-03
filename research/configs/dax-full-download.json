@@ -1,0 +1,116 @@
+{
+  "requests": [
+    {
+      "request": {
+        "dataset": "XEUR.EOBI",
+        "symbols": [
+          "FDAX SI 20250321 CS",
+          "FDXM SI 20250321 CS",
+          "FDXS SI 20250321 CS"
+        ],
+        "stype_in": "raw_symbol",
+        "start": "2025-03-10",
+        "end": "2025-03-14",
+        "schema": "mbp-1"
+      }
+    },
+    {
+      "request": {
+        "dataset": "XEUR.EOBI",
+        "symbols": [
+          "FDAX SI 20250620 CS",
+          "FDXM SI 20250620 CS",
+          "FDXS SI 20250620 CS"
+        ],
+        "stype_in": "raw_symbol",
+        "start": "2025-03-14",
+        "end": "2025-06-13",
+        "schema": "mbp-1"
+      }
+    },
+    {
+      "request": {
+        "dataset": "XEUR.EOBI",
+        "symbols": [
+          "FDAX SI 20250919 CS",
+          "FDXM SI 20250919 CS",
+          "FDXS SI 20250919 CS"
+        ],
+        "stype_in": "raw_symbol",
+        "start": "2025-06-13",
+        "end": "2025-09-12",
+        "schema": "mbp-1"
+      }
+    },
+    {
+      "request": {
+        "dataset": "XEUR.EOBI",
+        "symbols": [
+          "FDAX SI 20251219 CS",
+          "FDXM SI 20251219 CS",
+          "FDXS SI 20251219 CS"
+        ],
+        "stype_in": "raw_symbol",
+        "start": "2025-09-12",
+        "end": "2025-12-12",
+        "schema": "mbp-1"
+      }
+    },
+    {
+      "request": {
+        "dataset": "XEUR.EOBI",
+        "symbols": [
+          "FDAX SI 20260320 CS",
+          "FDXM SI 20260320 CS",
+          "FDXS SI 20260320 CS"
+        ],
+        "stype_in": "raw_symbol",
+        "start": "2025-12-12",
+        "end": "2026-03-13",
+        "schema": "mbp-1"
+      }
+    },
+    {
+      "request": {
+        "dataset": "XEUR.EOBI",
+        "symbols": [
+          "FDAX SI 20260619 CS",
+          "FDXM SI 20260619 CS",
+          "FDXS SI 20260619 CS"
+        ],
+        "stype_in": "raw_symbol",
+        "start": "2026-03-13",
+        "end": "2026-06-12",
+        "schema": "mbp-1"
+      }
+    },
+    {
+      "request": {
+        "dataset": "XEUR.EOBI",
+        "symbols": [
+          "FDAX SI 20260918 CS",
+          "FDXM SI 20260918 CS",
+          "FDXS SI 20260918 CS"
+        ],
+        "stype_in": "raw_symbol",
+        "start": "2026-06-12",
+        "end": "2026-09-11",
+        "schema": "mbp-1"
+      }
+    },
+    {
+      "request": {
+        "dataset": "XEUR.EOBI",
+        "symbols": [
+          "FDAX SI 20261218 CS",
+          "FDXM SI 20261218 CS",
+          "FDXS SI 20261218 CS"
+        ],
+        "stype_in": "raw_symbol",
+        "start": "2026-09-11",
+        "end": "2026-10-03",
+        "schema": "mbp-1"
+      }
+    }
+  ]
+}

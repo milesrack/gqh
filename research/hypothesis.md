@@ -41,3 +41,9 @@ Secondary work: disagreement z-scores fitted on training only, six directed pair
 Databento's June 2025 definitions report minimum increments FDAX 0.5, FDXM 0.1, FDXS 0.5, while the supplied/current outright table reports one index point. The first received book sample is integer-priced. This does not establish the historical exchange tick. Retain native definitions and report targets, buffers and slippage in index points until the discrepancy is resolved. FDXS EUR1 per index point converts execution P&L without assuming a tick grid. Do not claim equal historical ticks.
 
 Add the local stability grid L,H in {4,5,6} seconds to the supplied {1,2,5,10} grid. Report every cell, including failures; retain 5/5 as primary and never select a new primary from this heatmap. Fee, latency and buffer robustness remain declared scenarios. No final holdout is opened for these development diagnostics.
+
+## Budget-limited pilot, before outcome inspection
+
+Full history estimate: USD1,008.77; monthly authorisation: USD225 with no prior use. Acquire a fixed 10 March–29 August 2025 pilot, restricted to 09:04–17:26 Europe/Berlin. Estimated additional cost USD169.35; the June development week already cost an estimated USD9.51 and is reused. This period is selected for cost, not returns. Longer history remains a later extension requiring new authorisation; do not claim nineteen-month evidence.
+
+The deterministic weekday calendar has 125 dates: first 75 train, next 25 validation, last 25 locked. Empty exchange-closed dates retain their calendar slots; no data-dependent split adjustment. Validation begins 23 June; holdout begins 28 July. Development commands may process training and validation only. The smoke experiment remains 2–6 June, split three training days/two validation days and labelled a pipeline pilot, not the final study evaluation.

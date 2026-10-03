@@ -1,10 +1,14 @@
 {
   "dataset": "XEUR.EOBI",
-  "products": ["FDAX", "FDXM", "FDXS"],
+  "products": [
+    "FDAX",
+    "FDXM",
+    "FDXS"
+  ],
   "history_start": "2025-03-10",
-  "history_end_exclusive": "2026-10-03",
+  "history_end_exclusive": "2025-09-01",
   "development_start": "2025-06-02",
-  "development_end_exclusive": "2025-06-07",
+  "development_end_exclusive": "2025-07-28",
   "timezone": "Europe/Berlin",
   "session_open": "09:05",
   "session_close": "17:25",
@@ -14,12 +18,33 @@
   "grid_seconds": 1,
   "quote_age_seconds": 1,
   "latency_ms": 100,
-  "latency_sensitivity_ms": [0,10,50,100,250],
-  "buffer_ticks": [0,0.5,1,2],
-  "fee_scenarios_eur_per_side": [0.5,1,2],
-  "slippage_ticks_per_side": [0,0.5,1],
+  "latency_sensitivity_ms": [
+    0,
+    10,
+    50,
+    100,
+    250
+  ],
+  "buffer_ticks": [
+    0,
+    0.5,
+    1,
+    2
+  ],
+  "fee_scenarios_eur_per_side": [
+    0.5,
+    1,
+    2
+  ],
+  "slippage_ticks_per_side": [
+    0,
+    0.5,
+    1
+  ],
   "bootstrap_replicates": 2000,
   "bootstrap_block_days": 5,
   "seed": 20261003,
-  "final_holdout_authorised": false
+  "final_holdout_authorised": false,
+  "validation_start": "2025-06-23",
+  "holdout_start": "2025-07-28"
 }

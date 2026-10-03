@@ -1,0 +1,32 @@
+{
+  "requests": [
+    {
+      "request": {
+        "dataset": "XEUR.EOBI",
+        "symbols": [
+          "FDAX SI 20250620 CS",
+          "FDXM SI 20250620 CS",
+          "FDXS SI 20250620 CS"
+        ],
+        "stype_in": "raw_symbol",
+        "start": "2025-06-02",
+        "end": "2025-06-07",
+        "schema": "definition"
+      }
+    },
+    {
+      "request": {
+        "dataset": "XEUR.EOBI",
+        "symbols": [
+          "FDAX SI 20250620 CS",
+          "FDXM SI 20250620 CS",
+          "FDXS SI 20250620 CS"
+        ],
+        "stype_in": "raw_symbol",
+        "start": "2025-06-02",
+        "end": "2025-06-07",
+        "schema": "mbp-1"
+      }
+    }
+  ]
+}
