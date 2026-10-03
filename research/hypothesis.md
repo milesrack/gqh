@@ -35,3 +35,9 @@ Fees must be supplied explicitly. Until verified, 0.5,1,2 EUR per side are illus
 Log every attempted model, parameter and failed run. No final holdout evaluation in this implementation task. A separate approved freeze records coefficients, buffer, fees, latency, data hashes, split dates and code commit before one final evaluation. No strategy-specific merge to main without Miles's approval. If selected, submit the hypothesis commit separately before implementation; retain the original dated hypothesis and all subsequent amendments.
 
 Secondary work: disagreement z-scores fitted on training only, six directed pairs with Holm correction, L/H in {1,2,5,10}, day-shift placebos, delay/cost stress and regime breakdowns. Secondary variants never replace a failed primary result. New winning directions require fresh confirmation.
+
+## Amendment before outcome inspection
+
+Databento's June 2025 definitions report minimum increments FDAX 0.5, FDXM 0.1, FDXS 0.5, while the supplied/current outright table reports one index point. The first received book sample is integer-priced. This does not establish the historical exchange tick. Retain native definitions and report targets, buffers and slippage in index points until the discrepancy is resolved. FDXS EUR1 per index point converts execution P&L without assuming a tick grid. Do not claim equal historical ticks.
+
+Add the local stability grid L,H in {4,5,6} seconds to the supplied {1,2,5,10} grid. Report every cell, including failures; retain 5/5 as primary and never select a new primary from this heatmap. Fee, latency and buffer robustness remain declared scenarios. No final holdout is opened for these development diagnostics.
