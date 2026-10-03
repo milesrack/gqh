@@ -8,6 +8,21 @@
 .massive_cache/
 /data/raw/
 /data/cache/
+/data/interim/
+/data/processed/
+
+# Generated research outputs; retain directory scaffold
+/results/*
+!/results/.gitkeep
+
+# LaTeX build artefacts
+/report/*.aux
+/report/*.log
+/report/*.out
+/report/*.toc
+/report/*.fls
+/report/*.fdb_latexmk
+/report/*.synctex.gz
 
 # Local Python and notebook artefacts
 .venv/
