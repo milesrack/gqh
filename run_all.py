@@ -240,7 +240,7 @@ def main():
         with (ROOT / "research/experiments.csv").open() as stream:
             fields = next(csv.reader(stream))
         with (ROOT / "research/experiments.csv").open("a") as stream:
-            csv.DictWriter(stream, fieldnames=fields).writerow(row)
+            csv.DictWriter(stream, fieldnames=fields, lineterminator="\n").writerow(row)
         with (output / "trial.json").open("w") as stream:
             json.dump(row, stream, indent=2)
 

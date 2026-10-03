@@ -134,7 +134,7 @@ def main():
         {"diagnostic": "day_shift", "result": placebo},
     ]
     with ledger.open("a") as stream:
-        writer = csv.DictWriter(stream, fieldnames=fields)
+        writer = csv.DictWriter(stream, fieldnames=fields, lineterminator="\n")
         for i, diagnostic in enumerate(diagnostics):
             writer.writerow(
                 {
