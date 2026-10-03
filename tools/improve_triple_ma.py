@@ -79,7 +79,8 @@ def main():
 
     baseline_record = next(r for r in base if r["job"]["id"] == baseline["id"])
     report = []
-    for r, j in zip(base, jobs):
+    for j in jobs:
+        r = next(x for x in base if x["job"]["id"] == j["id"])
         control = next(
             c
             for c in controls
