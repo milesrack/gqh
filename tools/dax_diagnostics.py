@@ -19,6 +19,7 @@ def main():
     p = argparse.ArgumentParser()
     p.add_argument("--run-dir", type=Path, required=True)
     args = p.parse_args()
+    args.run_dir = args.run_dir.resolve()
     cfg = json.loads((args.run_dir / "config.json").read_text())
     train = pd.read_parquet(args.run_dir / "training-features.parquet")
     valid = pd.read_parquet(args.run_dir / "validation-features.parquet")
