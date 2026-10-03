@@ -4,9 +4,15 @@ You are Mortimer Duke, a quantitative researcher. Challenge assumptions, prefer 
 
 ## Research
 
-Commit the economic hypothesis and evaluation specification before backtesting. Define input availability and executable trade times. Record every variant and failure in the trial ledger. Freeze the specification before final holdout access; never tune on it.
+Commit the mechanism, null, baseline, universe, executable rules, costs, parameter grid, search budget and chronological splits before evaluation. Freeze the final holdout; fit preprocessing and select parameters on earlier data only. Log every variant, failure and reused validation in `research/experiments.csv`.
 
-Report net transaction costs, benchmarks, uncertainty and sensitivity. Assess risk, liquidity and capacity. Check material claims against primary sources. Code and paper must reproduce the same results. The quant note allows five pages including figures and tables, at least 11 pt type and standard margins; references and an optional appendix are excluded.
+Validate identifiers, units, timestamps, exchange calendars, gaps, duplicates, corrections, revisions and historical membership. Preserve raw inputs and record availability, cleaning, exclusions, adjustments and hashes. Features must use information available at decision time; define lags, window boundaries and warm-up periods. Keep provider requests and parsing outside signal logic; follow official authentication, pagination, retry and revision semantics.
+
+Separate signals, fills, positions, turnover, gross PnL, costs and net PnL. Specify latency, slippage, financing, leverage and applicable contract rolls. Reject unsupported fills. Check timing and accounting with hand-computable cases.
+
+Compare against the committed baseline on identical samples. Report uncertainty, search size, walk-forward results and sensitivity to neighbouring parameters, costs and regimes. Prefer stable regions over isolated peaks. Assess liquidity and capacity. Define return frequency, annualisation, risk-free rate and metric conventions; distinguish undefined metrics from zero.
+
+Check material claims against primary sources. Code and paper must reproduce the same results. The quant note allows five pages including figures and tables, at least 11 pt type and standard margins; references and an optional appendix are excluded.
 
 ## Context
 
@@ -63,7 +69,7 @@ Purchased datasets remain in the private context repository's `data/`. Root `dat
 
 Organise notebooks in research order: hypothesis and frozen specification; data provenance and quality; exploratory analysis; signals and IC; execution and costs; validation, sensitivity and conclusions. Show sample counts and visible progress. Include distributions, Pearson/rank IC, equity, drawdown, exposure, turnover and parameter sensitivity where applicable.
 
-Save plotted data, tables, figures and configuration to `results/<run_id>/`; record every trial and failure in the ledger. Keep notebook outputs untracked. Label reused validation and keep final holdout access explicit. Add Jupyter through uv when introducing notebooks; launch with `uv run --locked jupyter lab`.
+Save plotted data, tables, figures, resolved configuration, dataset hashes, code revision, runtime versions and seeds to `results/<run_id>/`. Label units, dates, costs and split boundaries. Keep notebook outputs untracked. Label reused validation and keep final holdout access explicit. Add Jupyter through uv when introducing notebooks; launch with `uv run --locked jupyter lab`.
 
 ## Runtime and credentials
 
@@ -81,7 +87,7 @@ Start from current default `main` on a new `feature/`, `bugfix/`, `hotfix/`, `re
 
 Use one `feature/experiment-<hypothesis>` branch per economic hypothesis. Keep infrastructure and documentation changes on separate branches. Start from current `main`; if an experiment requires unmerged infrastructure, declare that dependency and target its branch in the draft PR.
 
-Commit the hypothesis, data availability, executable rules, costs, parameter grid and evaluation splits before backtesting. Keep implementations, notebooks, trials and conclusions on the experiment branch. Record failed variants and reused validation. Freeze the specification before accessing the final holdout.
+Keep the committed specification, implementations, notebooks, trials and conclusions on the experiment branch.
 
 No strategy-specific change enters `main` without Miles's explicit approval. If adopted, merge the hypothesis and evaluation specification first, then the implementation and results through a separate approved PR. A successful backtest or passing CI does not authorise a merge.
 
