@@ -1,0 +1,86 @@
+{
+  "version": 1,
+  "config_path": "research/configs/futures-smoke.json",
+  "config_sha256": "751de976173cf0c35a658bfd8631e458c5fdba944b074e9ebdfe9c1d26e97727",
+  "config": {
+    "version": 1,
+    "batch_id": "futures-harness-smoke",
+    "dataset": "data/futures-daily-development",
+    "max_jobs": 512,
+    "windows": {
+      "training": [
+        "2020-01-01",
+        "2021-01-01"
+      ],
+      "validation": [
+        "2022-01-19",
+        "2024-05-27"
+      ],
+      "holdout_start": "2024-05-27"
+    },
+    "risk": {
+      "capital": 1000000,
+      "annual_target": 0.1,
+      "root_cap": 0.25
+    },
+    "costs": {
+      "commission": 2.5,
+      "ticks": 1
+    },
+    "selection": {
+      "min_sharpe": 0.25
+    },
+    "validation": {
+      "enabled": false
+    },
+    "strategies": [
+      {
+        "id": "trend",
+        "grid": {
+          "lookback": [
+            120
+          ]
+        },
+        "universes": [
+          [
+            "ES"
+          ]
+        ],
+        "frequencies": [
+          "monthly"
+        ]
+      }
+    ]
+  },
+  "source_sha256": {
+    "pyproject.toml": "9713ac2c3c5ef5d06b556f1bfc2bb25631aab56eb0180485ee45a9cd616d358f",
+    "uv.lock": "cf1ea5ecff687075c2bc2e820acf2a5b35788440cc679ba78fe657606bc317a2",
+    "src/batch_research.py": "f5384dca76f7f8597020e29ac902b76186c4681ea4acef2bd850c95431797065",
+    "src/strategies/__init__.py": "ca41056575dc69303f6a91745e73e90cab1e5d089898ccec7127ae0840214fd3",
+    "src/strategies/base.py": "af79681322ee03637a4b414d92756f1c946743d70783e76503a6afdf82a7f4f1",
+    "src/strategies/cross_sectional.py": "2a9929bed189110ab36ce044ee5ab209ace700e49f62cf8aed59131bd3b79cd7",
+    "src/strategies/futures.py": "97d9b806011b7ada0aff8213ccff63d9f44d2330386b470c99d1146736999793",
+    "src/strategies/learning.py": "9de09ec4e57fed97681808fcf9a2097cc9323c70a3f8e41d728eead712bc912f",
+    "src/strategies/registry.py": "c344fc051ca3728e50a2a937b32f0ea6f6472e2b78d8f295d0e7fb49f212680c",
+    "src/strategies/technical.py": "1f4650d56e848db1187e17bcbf0cf7e61281340679a06517b84da1083faaba77",
+    "src/futures_engine.py": "f39ccb1d0a86028579b57a7dd096e3520cb89af979c4120f968550f89e650abe",
+    "src/futures_data.py": "3ae6ff8cecba721be3d1bda5126a29ca956459ead44821371bdd73949151a034",
+    "src/batch_analysis.py": "d7aa535f2d1e0527781e4267d3d1f076f9a367664ffe76b72dcb4ee50480e00d"
+  },
+  "dataset_manifest_sha256": "d8953ab125a90ef1a487bfa0d793cd2176bfa145a5c0e033dfd08abc4ebb47ce",
+  "jobs": [
+    {
+      "id": "388027895a63be4fbc87",
+      "strategy": "trend",
+      "params": {
+        "lookback": 120
+      },
+      "universe": [
+        "ES"
+      ],
+      "frequency": "monthly"
+    }
+  ],
+  "job_count": 1,
+  "final_holdout_access": false
+}

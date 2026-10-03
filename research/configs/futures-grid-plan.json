@@ -1,0 +1,2746 @@
+{
+  "version": 1,
+  "config_path": "research/configs/futures-grid.json",
+  "config_sha256": "fa9ec67c334d923a7f8e24d8ed012018c1a8c8ae4b7c74a0dc1b9b31b89533cc",
+  "config": {
+    "version": 1,
+    "batch_id": "book151-futures-v1",
+    "dataset": "data/futures-daily-development",
+    "max_jobs": 512,
+    "windows": {
+      "training": [
+        "2016-04-01",
+        "2022-01-19"
+      ],
+      "validation": [
+        "2022-01-19",
+        "2024-05-27"
+      ],
+      "holdout_start": "2024-05-27"
+    },
+    "risk": {
+      "capital": 1000000,
+      "annual_target": 0.1,
+      "root_cap": 0.25
+    },
+    "costs": {
+      "commission": 2.5,
+      "ticks": 1
+    },
+    "selection": {
+      "min_sharpe": 0.25
+    },
+    "validation": {
+      "enabled": false
+    },
+    "strategies": [
+      {
+        "id": "trend",
+        "universes": [
+          [
+            "ES",
+            "NQ",
+            "ZN",
+            "CL",
+            "GC",
+            "6E"
+          ],
+          [
+            "ES"
+          ],
+          [
+            "NQ"
+          ],
+          [
+            "ZN"
+          ],
+          [
+            "CL"
+          ],
+          [
+            "GC"
+          ],
+          [
+            "6E"
+          ]
+        ],
+        "frequencies": [
+          "monthly"
+        ]
+      },
+      {
+        "id": "reversal",
+        "universes": [
+          [
+            "ES",
+            "NQ",
+            "ZN",
+            "CL",
+            "GC",
+            "6E"
+          ]
+        ],
+        "frequencies": [
+          "weekly"
+        ]
+      },
+      {
+        "id": "carry",
+        "universes": [
+          [
+            "CL",
+            "GC"
+          ]
+        ],
+        "frequencies": [
+          "monthly"
+        ],
+        "risk": {
+          "root_cap": 0.5
+        }
+      },
+      {
+        "id": "volume_reversal",
+        "universes": [
+          [
+            "ES",
+            "NQ",
+            "ZN",
+            "CL",
+            "GC",
+            "6E"
+          ]
+        ],
+        "frequencies": [
+          "weekly"
+        ]
+      },
+      {
+        "id": "single_ma",
+        "universes": [
+          [
+            "ES",
+            "NQ",
+            "ZN",
+            "CL",
+            "GC",
+            "6E"
+          ],
+          [
+            "ES"
+          ],
+          [
+            "NQ"
+          ],
+          [
+            "ZN"
+          ],
+          [
+            "CL"
+          ],
+          [
+            "GC"
+          ],
+          [
+            "6E"
+          ]
+        ],
+        "frequencies": [
+          "daily"
+        ]
+      },
+      {
+        "id": "double_ma",
+        "universes": [
+          [
+            "ES",
+            "NQ",
+            "ZN",
+            "CL",
+            "GC",
+            "6E"
+          ],
+          [
+            "ES"
+          ],
+          [
+            "NQ"
+          ],
+          [
+            "ZN"
+          ],
+          [
+            "CL"
+          ],
+          [
+            "GC"
+          ],
+          [
+            "6E"
+          ]
+        ],
+        "frequencies": [
+          "daily"
+        ]
+      },
+      {
+        "id": "triple_ma",
+        "universes": [
+          [
+            "ES",
+            "NQ",
+            "ZN",
+            "CL",
+            "GC",
+            "6E"
+          ],
+          [
+            "ES"
+          ],
+          [
+            "NQ"
+          ],
+          [
+            "ZN"
+          ],
+          [
+            "CL"
+          ],
+          [
+            "GC"
+          ],
+          [
+            "6E"
+          ]
+        ],
+        "frequencies": [
+          "daily"
+        ]
+      },
+      {
+        "id": "channel",
+        "universes": [
+          [
+            "ES",
+            "NQ",
+            "ZN",
+            "CL",
+            "GC",
+            "6E"
+          ],
+          [
+            "ES"
+          ],
+          [
+            "NQ"
+          ],
+          [
+            "ZN"
+          ],
+          [
+            "CL"
+          ],
+          [
+            "GC"
+          ],
+          [
+            "6E"
+          ]
+        ],
+        "frequencies": [
+          "daily"
+        ]
+      },
+      {
+        "id": "pivot",
+        "universes": [
+          [
+            "ES",
+            "NQ",
+            "ZN",
+            "CL",
+            "GC",
+            "6E"
+          ],
+          [
+            "ES"
+          ],
+          [
+            "NQ"
+          ],
+          [
+            "ZN"
+          ],
+          [
+            "CL"
+          ],
+          [
+            "GC"
+          ],
+          [
+            "6E"
+          ]
+        ],
+        "frequencies": [
+          "daily"
+        ]
+      },
+      {
+        "id": "ibs",
+        "universes": [
+          [
+            "ES",
+            "NQ",
+            "ZN",
+            "CL",
+            "GC",
+            "6E"
+          ]
+        ],
+        "frequencies": [
+          "daily"
+        ]
+      },
+      {
+        "id": "price_momentum",
+        "universes": [
+          [
+            "ES",
+            "NQ",
+            "ZN",
+            "CL",
+            "GC",
+            "6E"
+          ]
+        ],
+        "frequencies": [
+          "monthly"
+        ]
+      },
+      {
+        "id": "low_volatility",
+        "universes": [
+          [
+            "ES",
+            "NQ",
+            "ZN",
+            "CL",
+            "GC",
+            "6E"
+          ]
+        ],
+        "frequencies": [
+          "monthly"
+        ]
+      },
+      {
+        "id": "pair_reversal",
+        "universes": [
+          [
+            "ES",
+            "NQ"
+          ]
+        ],
+        "frequencies": [
+          "daily"
+        ]
+      },
+      {
+        "id": "rotation",
+        "universes": [
+          [
+            "ES",
+            "NQ",
+            "ZN",
+            "CL",
+            "GC",
+            "6E"
+          ]
+        ],
+        "frequencies": [
+          "monthly"
+        ]
+      },
+      {
+        "id": "rotation_ma",
+        "universes": [
+          [
+            "ES",
+            "NQ",
+            "ZN",
+            "CL",
+            "GC",
+            "6E"
+          ]
+        ],
+        "frequencies": [
+          "monthly"
+        ]
+      },
+      {
+        "id": "dual_rotation",
+        "universes": [
+          [
+            "ES",
+            "NQ",
+            "ZN",
+            "CL",
+            "GC",
+            "6E"
+          ]
+        ],
+        "frequencies": [
+          "monthly"
+        ]
+      },
+      {
+        "id": "skewness",
+        "universes": [
+          [
+            "CL",
+            "GC"
+          ]
+        ],
+        "frequencies": [
+          "monthly"
+        ],
+        "risk": {
+          "root_cap": 0.5
+        }
+      },
+      {
+        "id": "knn",
+        "universes": [
+          [
+            "ES",
+            "NQ",
+            "ZN",
+            "CL",
+            "GC",
+            "6E"
+          ],
+          [
+            "ES"
+          ],
+          [
+            "NQ"
+          ],
+          [
+            "ZN"
+          ],
+          [
+            "CL"
+          ],
+          [
+            "GC"
+          ],
+          [
+            "6E"
+          ]
+        ],
+        "frequencies": [
+          "daily"
+        ]
+      },
+      {
+        "id": "hp_ma",
+        "universes": [
+          [
+            "6E"
+          ]
+        ],
+        "frequencies": [
+          "daily"
+        ]
+      },
+      {
+        "id": "commodity_long",
+        "universes": [
+          [
+            "CL",
+            "GC"
+          ]
+        ],
+        "frequencies": [
+          "monthly"
+        ],
+        "risk": {
+          "root_cap": 0.5
+        }
+      }
+    ]
+  },
+  "source_sha256": {
+    "pyproject.toml": "9713ac2c3c5ef5d06b556f1bfc2bb25631aab56eb0180485ee45a9cd616d358f",
+    "uv.lock": "cf1ea5ecff687075c2bc2e820acf2a5b35788440cc679ba78fe657606bc317a2",
+    "src/batch_research.py": "f5384dca76f7f8597020e29ac902b76186c4681ea4acef2bd850c95431797065",
+    "src/strategies/__init__.py": "ca41056575dc69303f6a91745e73e90cab1e5d089898ccec7127ae0840214fd3",
+    "src/strategies/base.py": "af79681322ee03637a4b414d92756f1c946743d70783e76503a6afdf82a7f4f1",
+    "src/strategies/cross_sectional.py": "2a9929bed189110ab36ce044ee5ab209ace700e49f62cf8aed59131bd3b79cd7",
+    "src/strategies/futures.py": "97d9b806011b7ada0aff8213ccff63d9f44d2330386b470c99d1146736999793",
+    "src/strategies/learning.py": "9de09ec4e57fed97681808fcf9a2097cc9323c70a3f8e41d728eead712bc912f",
+    "src/strategies/registry.py": "c344fc051ca3728e50a2a937b32f0ea6f6472e2b78d8f295d0e7fb49f212680c",
+    "src/strategies/technical.py": "1f4650d56e848db1187e17bcbf0cf7e61281340679a06517b84da1083faaba77",
+    "src/futures_engine.py": "f39ccb1d0a86028579b57a7dd096e3520cb89af979c4120f968550f89e650abe",
+    "src/futures_data.py": "3ae6ff8cecba721be3d1bda5126a29ca956459ead44821371bdd73949151a034",
+    "src/batch_analysis.py": "d7aa535f2d1e0527781e4267d3d1f076f9a367664ffe76b72dcb4ee50480e00d"
+  },
+  "dataset_manifest_sha256": "d8953ab125a90ef1a487bfa0d793cd2176bfa145a5c0e033dfd08abc4ebb47ce",
+  "jobs": [
+    {
+      "id": "477940cf4994825e0844",
+      "strategy": "trend",
+      "params": {
+        "lookback": 60
+      },
+      "universe": [
+        "6E",
+        "CL",
+        "ES",
+        "GC",
+        "NQ",
+        "ZN"
+      ],
+      "frequency": "monthly"
+    },
+    {
+      "id": "65b2b3d9de8c4bb7fe96",
+      "strategy": "trend",
+      "params": {
+        "lookback": 60
+      },
+      "universe": [
+        "ES"
+      ],
+      "frequency": "monthly"
+    },
+    {
+      "id": "42af83a654aba25e241d",
+      "strategy": "trend",
+      "params": {
+        "lookback": 60
+      },
+      "universe": [
+        "NQ"
+      ],
+      "frequency": "monthly"
+    },
+    {
+      "id": "bd3fa6b217eceba5da85",
+      "strategy": "trend",
+      "params": {
+        "lookback": 60
+      },
+      "universe": [
+        "ZN"
+      ],
+      "frequency": "monthly"
+    },
+    {
+      "id": "f9f12d28fe9be3db4daf",
+      "strategy": "trend",
+      "params": {
+        "lookback": 60
+      },
+      "universe": [
+        "CL"
+      ],
+      "frequency": "monthly"
+    },
+    {
+      "id": "a8a61fb137a195d0aea9",
+      "strategy": "trend",
+      "params": {
+        "lookback": 60
+      },
+      "universe": [
+        "GC"
+      ],
+      "frequency": "monthly"
+    },
+    {
+      "id": "356cb41104a9bc708bb2",
+      "strategy": "trend",
+      "params": {
+        "lookback": 60
+      },
+      "universe": [
+        "6E"
+      ],
+      "frequency": "monthly"
+    },
+    {
+      "id": "e98b7b581207d6118d81",
+      "strategy": "trend",
+      "params": {
+        "lookback": 120
+      },
+      "universe": [
+        "6E",
+        "CL",
+        "ES",
+        "GC",
+        "NQ",
+        "ZN"
+      ],
+      "frequency": "monthly"
+    },
+    {
+      "id": "388027895a63be4fbc87",
+      "strategy": "trend",
+      "params": {
+        "lookback": 120
+      },
+      "universe": [
+        "ES"
+      ],
+      "frequency": "monthly"
+    },
+    {
+      "id": "fabf9f6f878032b9f626",
+      "strategy": "trend",
+      "params": {
+        "lookback": 120
+      },
+      "universe": [
+        "NQ"
+      ],
+      "frequency": "monthly"
+    },
+    {
+      "id": "1a2cd69721c200c301de",
+      "strategy": "trend",
+      "params": {
+        "lookback": 120
+      },
+      "universe": [
+        "ZN"
+      ],
+      "frequency": "monthly"
+    },
+    {
+      "id": "2e4638912264bc3b84e7",
+      "strategy": "trend",
+      "params": {
+        "lookback": 120
+      },
+      "universe": [
+        "CL"
+      ],
+      "frequency": "monthly"
+    },
+    {
+      "id": "6c7ab367a5d1526ddb52",
+      "strategy": "trend",
+      "params": {
+        "lookback": 120
+      },
+      "universe": [
+        "GC"
+      ],
+      "frequency": "monthly"
+    },
+    {
+      "id": "7b36c5ece4421d2af165",
+      "strategy": "trend",
+      "params": {
+        "lookback": 120
+      },
+      "universe": [
+        "6E"
+      ],
+      "frequency": "monthly"
+    },
+    {
+      "id": "5b9949b80152edee6865",
+      "strategy": "trend",
+      "params": {
+        "lookback": 240
+      },
+      "universe": [
+        "6E",
+        "CL",
+        "ES",
+        "GC",
+        "NQ",
+        "ZN"
+      ],
+      "frequency": "monthly"
+    },
+    {
+      "id": "9efe717d40f3905eaa0e",
+      "strategy": "trend",
+      "params": {
+        "lookback": 240
+      },
+      "universe": [
+        "ES"
+      ],
+      "frequency": "monthly"
+    },
+    {
+      "id": "57bf08ca7bb3fa429f4b",
+      "strategy": "trend",
+      "params": {
+        "lookback": 240
+      },
+      "universe": [
+        "NQ"
+      ],
+      "frequency": "monthly"
+    },
+    {
+      "id": "286ea40734e387ddf836",
+      "strategy": "trend",
+      "params": {
+        "lookback": 240
+      },
+      "universe": [
+        "ZN"
+      ],
+      "frequency": "monthly"
+    },
+    {
+      "id": "037dcb68a3fba3794c97",
+      "strategy": "trend",
+      "params": {
+        "lookback": 240
+      },
+      "universe": [
+        "CL"
+      ],
+      "frequency": "monthly"
+    },
+    {
+      "id": "42da60c9504295003476",
+      "strategy": "trend",
+      "params": {
+        "lookback": 240
+      },
+      "universe": [
+        "GC"
+      ],
+      "frequency": "monthly"
+    },
+    {
+      "id": "ffa8bd1e182f879aa4c6",
+      "strategy": "trend",
+      "params": {
+        "lookback": 240
+      },
+      "universe": [
+        "6E"
+      ],
+      "frequency": "monthly"
+    },
+    {
+      "id": "333b9f2d669ba8867701",
+      "strategy": "reversal",
+      "params": {
+        "lookback": 5
+      },
+      "universe": [
+        "6E",
+        "CL",
+        "ES",
+        "GC",
+        "NQ",
+        "ZN"
+      ],
+      "frequency": "weekly"
+    },
+    {
+      "id": "6a6f8af6b9d5b844204d",
+      "strategy": "reversal",
+      "params": {
+        "lookback": 10
+      },
+      "universe": [
+        "6E",
+        "CL",
+        "ES",
+        "GC",
+        "NQ",
+        "ZN"
+      ],
+      "frequency": "weekly"
+    },
+    {
+      "id": "1e3e5df2f888f6e676d8",
+      "strategy": "reversal",
+      "params": {
+        "lookback": 20
+      },
+      "universe": [
+        "6E",
+        "CL",
+        "ES",
+        "GC",
+        "NQ",
+        "ZN"
+      ],
+      "frequency": "weekly"
+    },
+    {
+      "id": "4cdc2fca640ea1db3ca3",
+      "strategy": "carry",
+      "params": {},
+      "universe": [
+        "CL",
+        "GC"
+      ],
+      "frequency": "monthly",
+      "risk": {
+        "root_cap": 0.5
+      }
+    },
+    {
+      "id": "927cac04c4d297b64be7",
+      "strategy": "volume_reversal",
+      "params": {
+        "cutoff": 1.0
+      },
+      "universe": [
+        "6E",
+        "CL",
+        "ES",
+        "GC",
+        "NQ",
+        "ZN"
+      ],
+      "frequency": "weekly"
+    },
+    {
+      "id": "4e3dad23527ab7d6ebf2",
+      "strategy": "volume_reversal",
+      "params": {
+        "cutoff": 1.5
+      },
+      "universe": [
+        "6E",
+        "CL",
+        "ES",
+        "GC",
+        "NQ",
+        "ZN"
+      ],
+      "frequency": "weekly"
+    },
+    {
+      "id": "b5bf2681cdf76ab79cdc",
+      "strategy": "volume_reversal",
+      "params": {
+        "cutoff": 2.0
+      },
+      "universe": [
+        "6E",
+        "CL",
+        "ES",
+        "GC",
+        "NQ",
+        "ZN"
+      ],
+      "frequency": "weekly"
+    },
+    {
+      "id": "e6152c1f07107eead52b",
+      "strategy": "single_ma",
+      "params": {
+        "lengths": [
+          20
+        ]
+      },
+      "universe": [
+        "6E",
+        "CL",
+        "ES",
+        "GC",
+        "NQ",
+        "ZN"
+      ],
+      "frequency": "daily"
+    },
+    {
+      "id": "5d833126cc467a1f3e6f",
+      "strategy": "single_ma",
+      "params": {
+        "lengths": [
+          20
+        ]
+      },
+      "universe": [
+        "ES"
+      ],
+      "frequency": "daily"
+    },
+    {
+      "id": "e9609ed9d4a376e02d97",
+      "strategy": "single_ma",
+      "params": {
+        "lengths": [
+          20
+        ]
+      },
+      "universe": [
+        "NQ"
+      ],
+      "frequency": "daily"
+    },
+    {
+      "id": "092ca6c4ca917b02b527",
+      "strategy": "single_ma",
+      "params": {
+        "lengths": [
+          20
+        ]
+      },
+      "universe": [
+        "ZN"
+      ],
+      "frequency": "daily"
+    },
+    {
+      "id": "d5e58d98ace396071174",
+      "strategy": "single_ma",
+      "params": {
+        "lengths": [
+          20
+        ]
+      },
+      "universe": [
+        "CL"
+      ],
+      "frequency": "daily"
+    },
+    {
+      "id": "112cd7ca912db35e0c27",
+      "strategy": "single_ma",
+      "params": {
+        "lengths": [
+          20
+        ]
+      },
+      "universe": [
+        "GC"
+      ],
+      "frequency": "daily"
+    },
+    {
+      "id": "a22646f9378cf44bc9e7",
+      "strategy": "single_ma",
+      "params": {
+        "lengths": [
+          20
+        ]
+      },
+      "universe": [
+        "6E"
+      ],
+      "frequency": "daily"
+    },
+    {
+      "id": "f998b0519b54f30bff53",
+      "strategy": "single_ma",
+      "params": {
+        "lengths": [
+          60
+        ]
+      },
+      "universe": [
+        "6E",
+        "CL",
+        "ES",
+        "GC",
+        "NQ",
+        "ZN"
+      ],
+      "frequency": "daily"
+    },
+    {
+      "id": "24688adb21f3cbbc6756",
+      "strategy": "single_ma",
+      "params": {
+        "lengths": [
+          60
+        ]
+      },
+      "universe": [
+        "ES"
+      ],
+      "frequency": "daily"
+    },
+    {
+      "id": "0b736fcb47f2fe06b570",
+      "strategy": "single_ma",
+      "params": {
+        "lengths": [
+          60
+        ]
+      },
+      "universe": [
+        "NQ"
+      ],
+      "frequency": "daily"
+    },
+    {
+      "id": "08acbc74e469c4c91d1c",
+      "strategy": "single_ma",
+      "params": {
+        "lengths": [
+          60
+        ]
+      },
+      "universe": [
+        "ZN"
+      ],
+      "frequency": "daily"
+    },
+    {
+      "id": "5d69c373a554e2815d23",
+      "strategy": "single_ma",
+      "params": {
+        "lengths": [
+          60
+        ]
+      },
+      "universe": [
+        "CL"
+      ],
+      "frequency": "daily"
+    },
+    {
+      "id": "cee91307da2bb7479e73",
+      "strategy": "single_ma",
+      "params": {
+        "lengths": [
+          60
+        ]
+      },
+      "universe": [
+        "GC"
+      ],
+      "frequency": "daily"
+    },
+    {
+      "id": "1705dcddd7a25545e847",
+      "strategy": "single_ma",
+      "params": {
+        "lengths": [
+          60
+        ]
+      },
+      "universe": [
+        "6E"
+      ],
+      "frequency": "daily"
+    },
+    {
+      "id": "5751a470e0b9111a5f5b",
+      "strategy": "single_ma",
+      "params": {
+        "lengths": [
+          120
+        ]
+      },
+      "universe": [
+        "6E",
+        "CL",
+        "ES",
+        "GC",
+        "NQ",
+        "ZN"
+      ],
+      "frequency": "daily"
+    },
+    {
+      "id": "12c28d9e2ae36a9a967d",
+      "strategy": "single_ma",
+      "params": {
+        "lengths": [
+          120
+        ]
+      },
+      "universe": [
+        "ES"
+      ],
+      "frequency": "daily"
+    },
+    {
+      "id": "7ce115d90368501ec8ea",
+      "strategy": "single_ma",
+      "params": {
+        "lengths": [
+          120
+        ]
+      },
+      "universe": [
+        "NQ"
+      ],
+      "frequency": "daily"
+    },
+    {
+      "id": "de764b17f02877053216",
+      "strategy": "single_ma",
+      "params": {
+        "lengths": [
+          120
+        ]
+      },
+      "universe": [
+        "ZN"
+      ],
+      "frequency": "daily"
+    },
+    {
+      "id": "7309a88792eebe6f288e",
+      "strategy": "single_ma",
+      "params": {
+        "lengths": [
+          120
+        ]
+      },
+      "universe": [
+        "CL"
+      ],
+      "frequency": "daily"
+    },
+    {
+      "id": "c9ed379e69b4d3dccd72",
+      "strategy": "single_ma",
+      "params": {
+        "lengths": [
+          120
+        ]
+      },
+      "universe": [
+        "GC"
+      ],
+      "frequency": "daily"
+    },
+    {
+      "id": "e6e86a933d9eabf1d5c5",
+      "strategy": "single_ma",
+      "params": {
+        "lengths": [
+          120
+        ]
+      },
+      "universe": [
+        "6E"
+      ],
+      "frequency": "daily"
+    },
+    {
+      "id": "992c07aa2e6565c1cdf6",
+      "strategy": "double_ma",
+      "params": {
+        "lengths": [
+          5,
+          20
+        ]
+      },
+      "universe": [
+        "6E",
+        "CL",
+        "ES",
+        "GC",
+        "NQ",
+        "ZN"
+      ],
+      "frequency": "daily"
+    },
+    {
+      "id": "7ceda276330af6b499ee",
+      "strategy": "double_ma",
+      "params": {
+        "lengths": [
+          5,
+          20
+        ]
+      },
+      "universe": [
+        "ES"
+      ],
+      "frequency": "daily"
+    },
+    {
+      "id": "0f623719676177863fa7",
+      "strategy": "double_ma",
+      "params": {
+        "lengths": [
+          5,
+          20
+        ]
+      },
+      "universe": [
+        "NQ"
+      ],
+      "frequency": "daily"
+    },
+    {
+      "id": "31b517de424c108a4cae",
+      "strategy": "double_ma",
+      "params": {
+        "lengths": [
+          5,
+          20
+        ]
+      },
+      "universe": [
+        "ZN"
+      ],
+      "frequency": "daily"
+    },
+    {
+      "id": "a27b9489e356397bc63c",
+      "strategy": "double_ma",
+      "params": {
+        "lengths": [
+          5,
+          20
+        ]
+      },
+      "universe": [
+        "CL"
+      ],
+      "frequency": "daily"
+    },
+    {
+      "id": "016ca740c94dff49b3b2",
+      "strategy": "double_ma",
+      "params": {
+        "lengths": [
+          5,
+          20
+        ]
+      },
+      "universe": [
+        "GC"
+      ],
+      "frequency": "daily"
+    },
+    {
+      "id": "03a97bafbb6088a35aa9",
+      "strategy": "double_ma",
+      "params": {
+        "lengths": [
+          5,
+          20
+        ]
+      },
+      "universe": [
+        "6E"
+      ],
+      "frequency": "daily"
+    },
+    {
+      "id": "3057ac82406c3f03edcf",
+      "strategy": "double_ma",
+      "params": {
+        "lengths": [
+          10,
+          40
+        ]
+      },
+      "universe": [
+        "6E",
+        "CL",
+        "ES",
+        "GC",
+        "NQ",
+        "ZN"
+      ],
+      "frequency": "daily"
+    },
+    {
+      "id": "5b1e1f5b454f2aca3445",
+      "strategy": "double_ma",
+      "params": {
+        "lengths": [
+          10,
+          40
+        ]
+      },
+      "universe": [
+        "ES"
+      ],
+      "frequency": "daily"
+    },
+    {
+      "id": "ea16f1f30d361b8ef108",
+      "strategy": "double_ma",
+      "params": {
+        "lengths": [
+          10,
+          40
+        ]
+      },
+      "universe": [
+        "NQ"
+      ],
+      "frequency": "daily"
+    },
+    {
+      "id": "c3167872c3d5696df64c",
+      "strategy": "double_ma",
+      "params": {
+        "lengths": [
+          10,
+          40
+        ]
+      },
+      "universe": [
+        "ZN"
+      ],
+      "frequency": "daily"
+    },
+    {
+      "id": "1b75f878170bdada51ed",
+      "strategy": "double_ma",
+      "params": {
+        "lengths": [
+          10,
+          40
+        ]
+      },
+      "universe": [
+        "CL"
+      ],
+      "frequency": "daily"
+    },
+    {
+      "id": "cb4f0fd8bdd425379fc9",
+      "strategy": "double_ma",
+      "params": {
+        "lengths": [
+          10,
+          40
+        ]
+      },
+      "universe": [
+        "GC"
+      ],
+      "frequency": "daily"
+    },
+    {
+      "id": "0d8f1a1cb79f6d364d98",
+      "strategy": "double_ma",
+      "params": {
+        "lengths": [
+          10,
+          40
+        ]
+      },
+      "universe": [
+        "6E"
+      ],
+      "frequency": "daily"
+    },
+    {
+      "id": "9d9b55537e2fb2d34125",
+      "strategy": "double_ma",
+      "params": {
+        "lengths": [
+          20,
+          80
+        ]
+      },
+      "universe": [
+        "6E",
+        "CL",
+        "ES",
+        "GC",
+        "NQ",
+        "ZN"
+      ],
+      "frequency": "daily"
+    },
+    {
+      "id": "45a810e17b2f5aee7486",
+      "strategy": "double_ma",
+      "params": {
+        "lengths": [
+          20,
+          80
+        ]
+      },
+      "universe": [
+        "ES"
+      ],
+      "frequency": "daily"
+    },
+    {
+      "id": "fa63b677d28284a061cf",
+      "strategy": "double_ma",
+      "params": {
+        "lengths": [
+          20,
+          80
+        ]
+      },
+      "universe": [
+        "NQ"
+      ],
+      "frequency": "daily"
+    },
+    {
+      "id": "a56827ede8c916ca9fdf",
+      "strategy": "double_ma",
+      "params": {
+        "lengths": [
+          20,
+          80
+        ]
+      },
+      "universe": [
+        "ZN"
+      ],
+      "frequency": "daily"
+    },
+    {
+      "id": "afe462767ca55edae375",
+      "strategy": "double_ma",
+      "params": {
+        "lengths": [
+          20,
+          80
+        ]
+      },
+      "universe": [
+        "CL"
+      ],
+      "frequency": "daily"
+    },
+    {
+      "id": "1d720d9bdb314ff45e58",
+      "strategy": "double_ma",
+      "params": {
+        "lengths": [
+          20,
+          80
+        ]
+      },
+      "universe": [
+        "GC"
+      ],
+      "frequency": "daily"
+    },
+    {
+      "id": "1e040cf530817ad4777b",
+      "strategy": "double_ma",
+      "params": {
+        "lengths": [
+          20,
+          80
+        ]
+      },
+      "universe": [
+        "6E"
+      ],
+      "frequency": "daily"
+    },
+    {
+      "id": "5936fc0e4721cbf343db",
+      "strategy": "triple_ma",
+      "params": {
+        "lengths": [
+          3,
+          10,
+          21
+        ]
+      },
+      "universe": [
+        "6E",
+        "CL",
+        "ES",
+        "GC",
+        "NQ",
+        "ZN"
+      ],
+      "frequency": "daily"
+    },
+    {
+      "id": "e09b7a1d420a7fc132b2",
+      "strategy": "triple_ma",
+      "params": {
+        "lengths": [
+          3,
+          10,
+          21
+        ]
+      },
+      "universe": [
+        "ES"
+      ],
+      "frequency": "daily"
+    },
+    {
+      "id": "053934ed8e6321a5e86d",
+      "strategy": "triple_ma",
+      "params": {
+        "lengths": [
+          3,
+          10,
+          21
+        ]
+      },
+      "universe": [
+        "NQ"
+      ],
+      "frequency": "daily"
+    },
+    {
+      "id": "c10e6c1b32c0cbcb2353",
+      "strategy": "triple_ma",
+      "params": {
+        "lengths": [
+          3,
+          10,
+          21
+        ]
+      },
+      "universe": [
+        "ZN"
+      ],
+      "frequency": "daily"
+    },
+    {
+      "id": "609f216801ab571fd84c",
+      "strategy": "triple_ma",
+      "params": {
+        "lengths": [
+          3,
+          10,
+          21
+        ]
+      },
+      "universe": [
+        "CL"
+      ],
+      "frequency": "daily"
+    },
+    {
+      "id": "520beaa3156cccb98c53",
+      "strategy": "triple_ma",
+      "params": {
+        "lengths": [
+          3,
+          10,
+          21
+        ]
+      },
+      "universe": [
+        "GC"
+      ],
+      "frequency": "daily"
+    },
+    {
+      "id": "5f8422a31b4874f57173",
+      "strategy": "triple_ma",
+      "params": {
+        "lengths": [
+          3,
+          10,
+          21
+        ]
+      },
+      "universe": [
+        "6E"
+      ],
+      "frequency": "daily"
+    },
+    {
+      "id": "3bc23c929ebe4e8a1a24",
+      "strategy": "triple_ma",
+      "params": {
+        "lengths": [
+          5,
+          20,
+          60
+        ]
+      },
+      "universe": [
+        "6E",
+        "CL",
+        "ES",
+        "GC",
+        "NQ",
+        "ZN"
+      ],
+      "frequency": "daily"
+    },
+    {
+      "id": "900b77b4d1714c8b7119",
+      "strategy": "triple_ma",
+      "params": {
+        "lengths": [
+          5,
+          20,
+          60
+        ]
+      },
+      "universe": [
+        "ES"
+      ],
+      "frequency": "daily"
+    },
+    {
+      "id": "e4ff2ad47586b3140dcb",
+      "strategy": "triple_ma",
+      "params": {
+        "lengths": [
+          5,
+          20,
+          60
+        ]
+      },
+      "universe": [
+        "NQ"
+      ],
+      "frequency": "daily"
+    },
+    {
+      "id": "cd9665bd037c48d55d56",
+      "strategy": "triple_ma",
+      "params": {
+        "lengths": [
+          5,
+          20,
+          60
+        ]
+      },
+      "universe": [
+        "ZN"
+      ],
+      "frequency": "daily"
+    },
+    {
+      "id": "95f3a8e1e7bbc6f90924",
+      "strategy": "triple_ma",
+      "params": {
+        "lengths": [
+          5,
+          20,
+          60
+        ]
+      },
+      "universe": [
+        "CL"
+      ],
+      "frequency": "daily"
+    },
+    {
+      "id": "1788bd05bbd53bd2bb60",
+      "strategy": "triple_ma",
+      "params": {
+        "lengths": [
+          5,
+          20,
+          60
+        ]
+      },
+      "universe": [
+        "GC"
+      ],
+      "frequency": "daily"
+    },
+    {
+      "id": "77890ea25f44a2fcf937",
+      "strategy": "triple_ma",
+      "params": {
+        "lengths": [
+          5,
+          20,
+          60
+        ]
+      },
+      "universe": [
+        "6E"
+      ],
+      "frequency": "daily"
+    },
+    {
+      "id": "644146886fbe4f983d2a",
+      "strategy": "triple_ma",
+      "params": {
+        "lengths": [
+          10,
+          40,
+          120
+        ]
+      },
+      "universe": [
+        "6E",
+        "CL",
+        "ES",
+        "GC",
+        "NQ",
+        "ZN"
+      ],
+      "frequency": "daily"
+    },
+    {
+      "id": "90be6c612e3b9310b98e",
+      "strategy": "triple_ma",
+      "params": {
+        "lengths": [
+          10,
+          40,
+          120
+        ]
+      },
+      "universe": [
+        "ES"
+      ],
+      "frequency": "daily"
+    },
+    {
+      "id": "8698450976355b57ac59",
+      "strategy": "triple_ma",
+      "params": {
+        "lengths": [
+          10,
+          40,
+          120
+        ]
+      },
+      "universe": [
+        "NQ"
+      ],
+      "frequency": "daily"
+    },
+    {
+      "id": "2725d0e2d0f1b1509e57",
+      "strategy": "triple_ma",
+      "params": {
+        "lengths": [
+          10,
+          40,
+          120
+        ]
+      },
+      "universe": [
+        "ZN"
+      ],
+      "frequency": "daily"
+    },
+    {
+      "id": "e4cde03c937849b6ce1c",
+      "strategy": "triple_ma",
+      "params": {
+        "lengths": [
+          10,
+          40,
+          120
+        ]
+      },
+      "universe": [
+        "CL"
+      ],
+      "frequency": "daily"
+    },
+    {
+      "id": "f43c0161f56f84c147ac",
+      "strategy": "triple_ma",
+      "params": {
+        "lengths": [
+          10,
+          40,
+          120
+        ]
+      },
+      "universe": [
+        "GC"
+      ],
+      "frequency": "daily"
+    },
+    {
+      "id": "7fa2b91f9d0176d25ed1",
+      "strategy": "triple_ma",
+      "params": {
+        "lengths": [
+          10,
+          40,
+          120
+        ]
+      },
+      "universe": [
+        "6E"
+      ],
+      "frequency": "daily"
+    },
+    {
+      "id": "b382469098e3456c6b81",
+      "strategy": "channel",
+      "params": {
+        "lookback": 10
+      },
+      "universe": [
+        "6E",
+        "CL",
+        "ES",
+        "GC",
+        "NQ",
+        "ZN"
+      ],
+      "frequency": "daily"
+    },
+    {
+      "id": "56e1026c0286ebf5f084",
+      "strategy": "channel",
+      "params": {
+        "lookback": 10
+      },
+      "universe": [
+        "ES"
+      ],
+      "frequency": "daily"
+    },
+    {
+      "id": "5b25c9c99796ca278c15",
+      "strategy": "channel",
+      "params": {
+        "lookback": 10
+      },
+      "universe": [
+        "NQ"
+      ],
+      "frequency": "daily"
+    },
+    {
+      "id": "8843cfddaf1d465b5f57",
+      "strategy": "channel",
+      "params": {
+        "lookback": 10
+      },
+      "universe": [
+        "ZN"
+      ],
+      "frequency": "daily"
+    },
+    {
+      "id": "7753b2ad8de0640d4674",
+      "strategy": "channel",
+      "params": {
+        "lookback": 10
+      },
+      "universe": [
+        "CL"
+      ],
+      "frequency": "daily"
+    },
+    {
+      "id": "52c8bc7e1e703d49279d",
+      "strategy": "channel",
+      "params": {
+        "lookback": 10
+      },
+      "universe": [
+        "GC"
+      ],
+      "frequency": "daily"
+    },
+    {
+      "id": "66ca04b386c71b70028c",
+      "strategy": "channel",
+      "params": {
+        "lookback": 10
+      },
+      "universe": [
+        "6E"
+      ],
+      "frequency": "daily"
+    },
+    {
+      "id": "594b89d88f8300c7eafd",
+      "strategy": "channel",
+      "params": {
+        "lookback": 20
+      },
+      "universe": [
+        "6E",
+        "CL",
+        "ES",
+        "GC",
+        "NQ",
+        "ZN"
+      ],
+      "frequency": "daily"
+    },
+    {
+      "id": "fe69c98f605196b68b56",
+      "strategy": "channel",
+      "params": {
+        "lookback": 20
+      },
+      "universe": [
+        "ES"
+      ],
+      "frequency": "daily"
+    },
+    {
+      "id": "42a74cf0b530f04bace8",
+      "strategy": "channel",
+      "params": {
+        "lookback": 20
+      },
+      "universe": [
+        "NQ"
+      ],
+      "frequency": "daily"
+    },
+    {
+      "id": "d511ad183589f8c01f19",
+      "strategy": "channel",
+      "params": {
+        "lookback": 20
+      },
+      "universe": [
+        "ZN"
+      ],
+      "frequency": "daily"
+    },
+    {
+      "id": "b6036358a2f1aa57dbf0",
+      "strategy": "channel",
+      "params": {
+        "lookback": 20
+      },
+      "universe": [
+        "CL"
+      ],
+      "frequency": "daily"
+    },
+    {
+      "id": "cd465352c32952c788b5",
+      "strategy": "channel",
+      "params": {
+        "lookback": 20
+      },
+      "universe": [
+        "GC"
+      ],
+      "frequency": "daily"
+    },
+    {
+      "id": "34040fd01de0f8373fd1",
+      "strategy": "channel",
+      "params": {
+        "lookback": 20
+      },
+      "universe": [
+        "6E"
+      ],
+      "frequency": "daily"
+    },
+    {
+      "id": "65c2b8ed6881ec78e83b",
+      "strategy": "channel",
+      "params": {
+        "lookback": 60
+      },
+      "universe": [
+        "6E",
+        "CL",
+        "ES",
+        "GC",
+        "NQ",
+        "ZN"
+      ],
+      "frequency": "daily"
+    },
+    {
+      "id": "b2aa711921f717003688",
+      "strategy": "channel",
+      "params": {
+        "lookback": 60
+      },
+      "universe": [
+        "ES"
+      ],
+      "frequency": "daily"
+    },
+    {
+      "id": "d74fbd3733de451b3f81",
+      "strategy": "channel",
+      "params": {
+        "lookback": 60
+      },
+      "universe": [
+        "NQ"
+      ],
+      "frequency": "daily"
+    },
+    {
+      "id": "09e72266fe29ef7728ce",
+      "strategy": "channel",
+      "params": {
+        "lookback": 60
+      },
+      "universe": [
+        "ZN"
+      ],
+      "frequency": "daily"
+    },
+    {
+      "id": "27452b2606037ae78ac8",
+      "strategy": "channel",
+      "params": {
+        "lookback": 60
+      },
+      "universe": [
+        "CL"
+      ],
+      "frequency": "daily"
+    },
+    {
+      "id": "a85de5ef4da417cb997a",
+      "strategy": "channel",
+      "params": {
+        "lookback": 60
+      },
+      "universe": [
+        "GC"
+      ],
+      "frequency": "daily"
+    },
+    {
+      "id": "ed9e19636ab267e5be30",
+      "strategy": "channel",
+      "params": {
+        "lookback": 60
+      },
+      "universe": [
+        "6E"
+      ],
+      "frequency": "daily"
+    },
+    {
+      "id": "bd5f53dca903034978b5",
+      "strategy": "pivot",
+      "params": {},
+      "universe": [
+        "6E",
+        "CL",
+        "ES",
+        "GC",
+        "NQ",
+        "ZN"
+      ],
+      "frequency": "daily"
+    },
+    {
+      "id": "a65ac47ae3099452ad40",
+      "strategy": "pivot",
+      "params": {},
+      "universe": [
+        "ES"
+      ],
+      "frequency": "daily"
+    },
+    {
+      "id": "e19ffb21292a6f69d902",
+      "strategy": "pivot",
+      "params": {},
+      "universe": [
+        "NQ"
+      ],
+      "frequency": "daily"
+    },
+    {
+      "id": "0cf3bbc2add43cfd66f3",
+      "strategy": "pivot",
+      "params": {},
+      "universe": [
+        "ZN"
+      ],
+      "frequency": "daily"
+    },
+    {
+      "id": "dab8fd6940eb8f8af887",
+      "strategy": "pivot",
+      "params": {},
+      "universe": [
+        "CL"
+      ],
+      "frequency": "daily"
+    },
+    {
+      "id": "b23b0e37d40b045142bc",
+      "strategy": "pivot",
+      "params": {},
+      "universe": [
+        "GC"
+      ],
+      "frequency": "daily"
+    },
+    {
+      "id": "911f19f430b9373d4bfc",
+      "strategy": "pivot",
+      "params": {},
+      "universe": [
+        "6E"
+      ],
+      "frequency": "daily"
+    },
+    {
+      "id": "c36247c5a93f8f9e571c",
+      "strategy": "ibs",
+      "params": {},
+      "universe": [
+        "6E",
+        "CL",
+        "ES",
+        "GC",
+        "NQ",
+        "ZN"
+      ],
+      "frequency": "daily"
+    },
+    {
+      "id": "710f7694f20ee65ea5d0",
+      "strategy": "price_momentum",
+      "params": {
+        "lookback": 63,
+        "skip": 21
+      },
+      "universe": [
+        "6E",
+        "CL",
+        "ES",
+        "GC",
+        "NQ",
+        "ZN"
+      ],
+      "frequency": "monthly"
+    },
+    {
+      "id": "218243f196af68f69b5b",
+      "strategy": "price_momentum",
+      "params": {
+        "lookback": 126,
+        "skip": 21
+      },
+      "universe": [
+        "6E",
+        "CL",
+        "ES",
+        "GC",
+        "NQ",
+        "ZN"
+      ],
+      "frequency": "monthly"
+    },
+    {
+      "id": "1371a12bc8e491a2ccf3",
+      "strategy": "price_momentum",
+      "params": {
+        "lookback": 252,
+        "skip": 21
+      },
+      "universe": [
+        "6E",
+        "CL",
+        "ES",
+        "GC",
+        "NQ",
+        "ZN"
+      ],
+      "frequency": "monthly"
+    },
+    {
+      "id": "e22f9d5eab52111fa8fa",
+      "strategy": "low_volatility",
+      "params": {
+        "lookback": 63
+      },
+      "universe": [
+        "6E",
+        "CL",
+        "ES",
+        "GC",
+        "NQ",
+        "ZN"
+      ],
+      "frequency": "monthly"
+    },
+    {
+      "id": "61cfcaf4abe7a98e8af0",
+      "strategy": "low_volatility",
+      "params": {
+        "lookback": 126
+      },
+      "universe": [
+        "6E",
+        "CL",
+        "ES",
+        "GC",
+        "NQ",
+        "ZN"
+      ],
+      "frequency": "monthly"
+    },
+    {
+      "id": "f926106ce3f997ff1acc",
+      "strategy": "low_volatility",
+      "params": {
+        "lookback": 252
+      },
+      "universe": [
+        "6E",
+        "CL",
+        "ES",
+        "GC",
+        "NQ",
+        "ZN"
+      ],
+      "frequency": "monthly"
+    },
+    {
+      "id": "4488e24135b92aac4936",
+      "strategy": "pair_reversal",
+      "params": {
+        "lookback": 1,
+        "pair": [
+          "ES",
+          "NQ"
+        ]
+      },
+      "universe": [
+        "ES",
+        "NQ"
+      ],
+      "frequency": "daily"
+    },
+    {
+      "id": "d8affec8ed2395b4defc",
+      "strategy": "pair_reversal",
+      "params": {
+        "lookback": 5,
+        "pair": [
+          "ES",
+          "NQ"
+        ]
+      },
+      "universe": [
+        "ES",
+        "NQ"
+      ],
+      "frequency": "daily"
+    },
+    {
+      "id": "122e1558fbf556d583f4",
+      "strategy": "pair_reversal",
+      "params": {
+        "lookback": 10,
+        "pair": [
+          "ES",
+          "NQ"
+        ]
+      },
+      "universe": [
+        "ES",
+        "NQ"
+      ],
+      "frequency": "daily"
+    },
+    {
+      "id": "6695504cb9043f3f0b97",
+      "strategy": "rotation",
+      "params": {
+        "filter": "none",
+        "lookback": 63
+      },
+      "universe": [
+        "6E",
+        "CL",
+        "ES",
+        "GC",
+        "NQ",
+        "ZN"
+      ],
+      "frequency": "monthly"
+    },
+    {
+      "id": "6528e78a5ee591204c95",
+      "strategy": "rotation",
+      "params": {
+        "filter": "none",
+        "lookback": 126
+      },
+      "universe": [
+        "6E",
+        "CL",
+        "ES",
+        "GC",
+        "NQ",
+        "ZN"
+      ],
+      "frequency": "monthly"
+    },
+    {
+      "id": "74837a9bf34c64b4e9ff",
+      "strategy": "rotation",
+      "params": {
+        "filter": "none",
+        "lookback": 252
+      },
+      "universe": [
+        "6E",
+        "CL",
+        "ES",
+        "GC",
+        "NQ",
+        "ZN"
+      ],
+      "frequency": "monthly"
+    },
+    {
+      "id": "cd08f790681ac3a4d969",
+      "strategy": "rotation_ma",
+      "params": {
+        "filter": "own_ma",
+        "lookback": 63,
+        "ma": 120
+      },
+      "universe": [
+        "6E",
+        "CL",
+        "ES",
+        "GC",
+        "NQ",
+        "ZN"
+      ],
+      "frequency": "monthly"
+    },
+    {
+      "id": "34b569aee977098ea596",
+      "strategy": "rotation_ma",
+      "params": {
+        "filter": "own_ma",
+        "lookback": 126,
+        "ma": 120
+      },
+      "universe": [
+        "6E",
+        "CL",
+        "ES",
+        "GC",
+        "NQ",
+        "ZN"
+      ],
+      "frequency": "monthly"
+    },
+    {
+      "id": "9dd027fe1a4218213c7a",
+      "strategy": "rotation_ma",
+      "params": {
+        "filter": "own_ma",
+        "lookback": 252,
+        "ma": 120
+      },
+      "universe": [
+        "6E",
+        "CL",
+        "ES",
+        "GC",
+        "NQ",
+        "ZN"
+      ],
+      "frequency": "monthly"
+    },
+    {
+      "id": "399863b228f5b8b40a2f",
+      "strategy": "dual_rotation",
+      "params": {
+        "filter": "broad_ma",
+        "lookback": 63,
+        "ma": 120
+      },
+      "universe": [
+        "6E",
+        "CL",
+        "ES",
+        "GC",
+        "NQ",
+        "ZN"
+      ],
+      "frequency": "monthly"
+    },
+    {
+      "id": "17895c97f056980bd755",
+      "strategy": "dual_rotation",
+      "params": {
+        "filter": "broad_ma",
+        "lookback": 126,
+        "ma": 120
+      },
+      "universe": [
+        "6E",
+        "CL",
+        "ES",
+        "GC",
+        "NQ",
+        "ZN"
+      ],
+      "frequency": "monthly"
+    },
+    {
+      "id": "16d286f39829bab62956",
+      "strategy": "dual_rotation",
+      "params": {
+        "filter": "broad_ma",
+        "lookback": 252,
+        "ma": 120
+      },
+      "universe": [
+        "6E",
+        "CL",
+        "ES",
+        "GC",
+        "NQ",
+        "ZN"
+      ],
+      "frequency": "monthly"
+    },
+    {
+      "id": "8eb2fca6484cbd1da6fc",
+      "strategy": "skewness",
+      "params": {
+        "lookback": 63
+      },
+      "universe": [
+        "CL",
+        "GC"
+      ],
+      "frequency": "monthly",
+      "risk": {
+        "root_cap": 0.5
+      }
+    },
+    {
+      "id": "2fe272c675aa1dab1a47",
+      "strategy": "skewness",
+      "params": {
+        "lookback": 126
+      },
+      "universe": [
+        "CL",
+        "GC"
+      ],
+      "frequency": "monthly",
+      "risk": {
+        "root_cap": 0.5
+      }
+    },
+    {
+      "id": "774a3e6db45792f06b80",
+      "strategy": "skewness",
+      "params": {
+        "lookback": 252
+      },
+      "universe": [
+        "CL",
+        "GC"
+      ],
+      "frequency": "monthly",
+      "risk": {
+        "root_cap": 0.5
+      }
+    },
+    {
+      "id": "e801cfb08a40ff587214",
+      "strategy": "knn",
+      "params": {
+        "neighbours": 5
+      },
+      "universe": [
+        "6E",
+        "CL",
+        "ES",
+        "GC",
+        "NQ",
+        "ZN"
+      ],
+      "frequency": "daily"
+    },
+    {
+      "id": "44674009a782b062b30e",
+      "strategy": "knn",
+      "params": {
+        "neighbours": 5
+      },
+      "universe": [
+        "ES"
+      ],
+      "frequency": "daily"
+    },
+    {
+      "id": "80602c5ecdc9cacef841",
+      "strategy": "knn",
+      "params": {
+        "neighbours": 5
+      },
+      "universe": [
+        "NQ"
+      ],
+      "frequency": "daily"
+    },
+    {
+      "id": "52b93f53ca3827797c1a",
+      "strategy": "knn",
+      "params": {
+        "neighbours": 5
+      },
+      "universe": [
+        "ZN"
+      ],
+      "frequency": "daily"
+    },
+    {
+      "id": "c782176f6f8a038504af",
+      "strategy": "knn",
+      "params": {
+        "neighbours": 5
+      },
+      "universe": [
+        "CL"
+      ],
+      "frequency": "daily"
+    },
+    {
+      "id": "f534200946ffe4d9af67",
+      "strategy": "knn",
+      "params": {
+        "neighbours": 5
+      },
+      "universe": [
+        "GC"
+      ],
+      "frequency": "daily"
+    },
+    {
+      "id": "96f678652d630b232de5",
+      "strategy": "knn",
+      "params": {
+        "neighbours": 5
+      },
+      "universe": [
+        "6E"
+      ],
+      "frequency": "daily"
+    },
+    {
+      "id": "51c92da21527d44fcb88",
+      "strategy": "knn",
+      "params": {
+        "neighbours": 10
+      },
+      "universe": [
+        "6E",
+        "CL",
+        "ES",
+        "GC",
+        "NQ",
+        "ZN"
+      ],
+      "frequency": "daily"
+    },
+    {
+      "id": "2d1d34e83286dc40a422",
+      "strategy": "knn",
+      "params": {
+        "neighbours": 10
+      },
+      "universe": [
+        "ES"
+      ],
+      "frequency": "daily"
+    },
+    {
+      "id": "9415901133286e3d1d88",
+      "strategy": "knn",
+      "params": {
+        "neighbours": 10
+      },
+      "universe": [
+        "NQ"
+      ],
+      "frequency": "daily"
+    },
+    {
+      "id": "e2b124477c7737cbbf51",
+      "strategy": "knn",
+      "params": {
+        "neighbours": 10
+      },
+      "universe": [
+        "ZN"
+      ],
+      "frequency": "daily"
+    },
+    {
+      "id": "18c447889175ec57981b",
+      "strategy": "knn",
+      "params": {
+        "neighbours": 10
+      },
+      "universe": [
+        "CL"
+      ],
+      "frequency": "daily"
+    },
+    {
+      "id": "b2744fb070dfe140d2e2",
+      "strategy": "knn",
+      "params": {
+        "neighbours": 10
+      },
+      "universe": [
+        "GC"
+      ],
+      "frequency": "daily"
+    },
+    {
+      "id": "02e0c6109c248e7f8579",
+      "strategy": "knn",
+      "params": {
+        "neighbours": 10
+      },
+      "universe": [
+        "6E"
+      ],
+      "frequency": "daily"
+    },
+    {
+      "id": "0613d6bbde405321c52c",
+      "strategy": "knn",
+      "params": {
+        "neighbours": 20
+      },
+      "universe": [
+        "6E",
+        "CL",
+        "ES",
+        "GC",
+        "NQ",
+        "ZN"
+      ],
+      "frequency": "daily"
+    },
+    {
+      "id": "0721cc079f10679d7105",
+      "strategy": "knn",
+      "params": {
+        "neighbours": 20
+      },
+      "universe": [
+        "ES"
+      ],
+      "frequency": "daily"
+    },
+    {
+      "id": "9379176586b48b744841",
+      "strategy": "knn",
+      "params": {
+        "neighbours": 20
+      },
+      "universe": [
+        "NQ"
+      ],
+      "frequency": "daily"
+    },
+    {
+      "id": "74e3e391cfbb1a5645c6",
+      "strategy": "knn",
+      "params": {
+        "neighbours": 20
+      },
+      "universe": [
+        "ZN"
+      ],
+      "frequency": "daily"
+    },
+    {
+      "id": "8781be5f8645dc440e4d",
+      "strategy": "knn",
+      "params": {
+        "neighbours": 20
+      },
+      "universe": [
+        "CL"
+      ],
+      "frequency": "daily"
+    },
+    {
+      "id": "7b5fb43bf26dfc6cd68e",
+      "strategy": "knn",
+      "params": {
+        "neighbours": 20
+      },
+      "universe": [
+        "GC"
+      ],
+      "frequency": "daily"
+    },
+    {
+      "id": "d1af48064a2439e36c71",
+      "strategy": "knn",
+      "params": {
+        "neighbours": 20
+      },
+      "universe": [
+        "6E"
+      ],
+      "frequency": "daily"
+    },
+    {
+      "id": "8b617c9eba4d4a9b0781",
+      "strategy": "hp_ma",
+      "params": {
+        "smoothing": 1600.0
+      },
+      "universe": [
+        "6E"
+      ],
+      "frequency": "daily"
+    },
+    {
+      "id": "91e44f8725ecec9ba851",
+      "strategy": "hp_ma",
+      "params": {
+        "smoothing": 6400.0
+      },
+      "universe": [
+        "6E"
+      ],
+      "frequency": "daily"
+    },
+    {
+      "id": "f912a8dbe0c26e80ba95",
+      "strategy": "hp_ma",
+      "params": {
+        "smoothing": 25600.0
+      },
+      "universe": [
+        "6E"
+      ],
+      "frequency": "daily"
+    },
+    {
+      "id": "82e8347ed71a566c90bf",
+      "strategy": "commodity_long",
+      "params": {},
+      "universe": [
+        "CL",
+        "GC"
+      ],
+      "frequency": "monthly",
+      "risk": {
+        "root_cap": 0.5
+      }
+    }
+  ],
+  "job_count": 166,
+  "final_holdout_access": false
+}
