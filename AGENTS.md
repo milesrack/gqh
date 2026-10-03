@@ -92,3 +92,11 @@ Use a new branch for a different hypothesis; do not reuse rejected or merged exp
 Submit PRs using `.github/pull_request_template.md`. Push and open PRs when authorised. History rewrites, force-pushes and merges require authorisation; authorised rewrites use `--force-with-lease`.
 
 After merge, verify no subsequent branch work, remove the local branch and confirm automatic remote deletion. Preserve default, unmerged and dependent branches. Completion requires verified outcomes and disclosed limitations.
+
+## Shared storage and compute
+
+Use Snowflake for shared source assets, market tables and cited context retrieval; use Vultr for notebook compute. Follow `deployment/snowflake/README.md`. Keep manifests and research code in Git. Use individual credentials in ignored `.env`; never share administrator keys.
+
+Develop experiments as research notebooks, record every trial and write reproducible results. Script the selected strategy after approval. Use substantial compute when the experiment requires it; estimate cloud spend, memory and runtime first. Save checkpoints and progress logs.
+
+During migration, retain the context repository and tools until complete uploads, fresh downloads with matching hashes, cited search and teammate retrieval are verified.

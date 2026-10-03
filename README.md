@@ -35,3 +35,5 @@ Copy `.env.example` to `.env` and supply the required provider credentials. Load
 ## References
 
 [Private research context](https://github.com/milesrack/gqh-systematic-track-context)
+
+Shared data and context: [Snowflake setup](deployment/snowflake/README.md). Notebook compute: Vultr through an SSH tunnel.
