@@ -18,6 +18,8 @@ Research for the [Gator Quant Hacks Systematic Trading competition](https://www.
 uv sync --locked
 ```
 
+Copy `.env.example` to `.env` and supply the required provider credentials. Load them with `uv run --env-file .env --locked`.
+
 ## Repository
 
 | Path | Contents |
