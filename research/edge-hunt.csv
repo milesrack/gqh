@@ -10,5 +10,6 @@ failed-stop-cascade,abc170c,6,6,False,rejected-training,,relative-value/failed_t
 execution-contract,18d4148,24,0,False,rejected-training,,information/venue/train/metrics.json
 fixed-sign-reversal,d72a284,24,12,False,rejected-training,,relative-value/reversal_training_results.json
 large-print-reversal,f0276e6,12,2,True,rejected-validation,-67,information/reverse/validation/metrics.json
-passive-liquidity-premium,25a3d67,4,4,False,running,,liquidity/passive
-passive-absorption,25a3d67,12,2,False,running,,information/absorption
+passive-liquidity-premium,25a3d67,4,4,False,rejected-training,,liquidity/passive
+passive-absorption,25a3d67,12,2,False,rejected-no-signals,,information/absorption
+mini-passive-absorption,588ff81,12,2,False,rejected-no-signals,,information/absorption
