@@ -4,16 +4,19 @@ import csv
 import fcntl
 import importlib.metadata
 import subprocess
+import sys
 from pathlib import Path
 
 import matplotlib.pyplot as plt
 import numpy as np
 import pandas as pd
 
+ROOT = Path(__file__).resolve().parents[1]
+sys.path.insert(0, str(ROOT))
+
 from src.batch_research import canonical, digest, file_hash, write_json
 from src.sr3_macro.model import trade
 
-ROOT = Path(__file__).resolve().parents[1]
 DATA = ROOT / ".agent-work/shared/data/sr3-macro-revisions"
 ORIGINAL = ROOT / "results/sr3-macro-revisions-v1"
 
