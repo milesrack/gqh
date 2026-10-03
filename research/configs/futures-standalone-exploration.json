@@ -1,0 +1,70 @@
+{
+  "batch_id": "book151-triple-ma-standalone-exploration",
+  "jobs": [
+    {
+      "id": "cd9665bd037c48d55d56",
+      "strategy": "triple_ma",
+      "params": {
+        "lengths": [
+          5,
+          20,
+          60
+        ]
+      },
+      "universe": [
+        "ZN"
+      ],
+      "frequency": "daily"
+    },
+    {
+      "id": "95f3a8e1e7bbc6f90924",
+      "strategy": "triple_ma",
+      "params": {
+        "lengths": [
+          5,
+          20,
+          60
+        ]
+      },
+      "universe": [
+        "CL"
+      ],
+      "frequency": "daily"
+    },
+    {
+      "id": "1788bd05bbd53bd2bb60",
+      "strategy": "triple_ma",
+      "params": {
+        "lengths": [
+          5,
+          20,
+          60
+        ]
+      },
+      "universe": [
+        "GC"
+      ],
+      "frequency": "daily"
+    },
+    {
+      "id": "77890ea25f44a2fcf937",
+      "strategy": "triple_ma",
+      "params": {
+        "lengths": [
+          5,
+          20,
+          60
+        ]
+      },
+      "universe": [
+        "6E"
+      ],
+      "frequency": "daily"
+    }
+  ],
+  "window": [
+    "2022-01-19",
+    "2024-05-27"
+  ],
+  "interpretation": "Exploratory follow-up after observing six-market validation; no new independent validation claim. Same execution, costs and risk as original plan. Final holdout locked."
+}
