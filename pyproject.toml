@@ -5,7 +5,17 @@ description = "Systematic trading research for Gator Quant Hacks 2026"
 requires-python = ">=3.12,<3.13"
 dependencies = [
     "cryptography>=50.0.2",
+    "curl-cffi>=0.16.3",
+    "exchange-calendars>=4.13.2",
+    "matplotlib>=3.11.2",
+    "numpy>=2.5.3",
+    "pandas>=3.0.6",
+    "pyarrow>=25.0.1",
+    "requests>=2.34.2",
+    "scikit-learn>=1.9.1",
+    "scipy>=1.18.1",
     "snowflake-connector-python>=4.8.0",
+    "yfinance>=1.7.0",
 ]
 
 [tool.uv]

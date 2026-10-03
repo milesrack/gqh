@@ -33,7 +33,7 @@ Commit the specification before inspecting results or running a backtest. Record
 - Commissions, spread, slippage, financing, and capacity assumptions.
 - Parameter grid, search budget, selection rule, and chronological splits.
 
-Reserve the shorter of the latest 20% of actual history or the latest two years, and keep this holdout closed until the specification is frozen. Evaluate it once, retaining the result and access record. Document prior access and reused validation with actual commit dates and evaluation timestamps.
+Reserve the shorter of the latest 20% of actual history or the latest two years, and keep this holdout closed until the specification is frozen. Evaluate it once, retaining the result and access record. Describe the data split as training, validation, and held-out out-of-sample (OOS) test; document any deviations from this protocol with commit dates and evaluation timestamps.
 
 ## Implement and evaluate
 
@@ -45,7 +45,7 @@ uv run --env-file .env --locked jupyter lab
 
 Lag close-derived signals and separate signals, fills, positions, gross returns, turnover, costs, and net returns. Verify timing and accounting with hand-computable cases, fitting preprocessing and selecting parameters only on development data.
 
-Append every candidate, failure, and rejection to `research/experiments.csv`, retaining dataset hashes, resolved configuration, code revision, runtime versions, and seeds. Report net IS and OOS evidence separately, including doubled costs, uncertainty, regimes, factor exposure, and quantified liquidity/capacity; identify unavailable evidence directly.
+Append every candidate, failure, and rejection to `research/experiments.csv`, retaining dataset hashes, resolved configuration, code revision, runtime versions, and seeds. Report net in-sample (IS) and out-of-sample (OOS) evidence separately, including doubled costs, uncertainty, regimes, factor exposure, and quantified liquidity/capacity; identify unavailable evidence directly.
 
 Keep licensed inputs and notebook outputs untracked, store generated evidence in `results/<run_id>/`, and derive the paper's numbers from the recorded code and configuration.
 
@@ -60,8 +60,8 @@ Keep essential claims within the five-page note body, including figures and tabl
 ## Check and submit
 
 ```sh
-uv run --locked ruff check tools
-uv run --locked ruff format --check tools
+uv run --locked ruff check tools src tests
+uv run --locked ruff format --check tools src tests
 uv run --locked python -m compileall -q tools src
 ```
 
