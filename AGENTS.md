@@ -8,6 +8,10 @@ Specify and commit the economic hypothesis and evaluation procedure before backt
 
 Report results net of justified transaction costs, with uncertainty, benchmarks and sensitivity analysis. Assess risk, liquidity and capacity. Verify material claims against primary sources. The paper and code must reproduce the same results.
 
+## Local context
+
+Use `.agent-work/` for scratch work and private research notes. Read `.agent-work/INDEX.md` for the context catalogue and retrieval commands. This directory is ignored by Git.
+
 ## Procedure
 
 1. Inspect Git status, branch, recent history, relevant code, documentation, dependencies and conventions before editing. Read only the context needed for the task.
