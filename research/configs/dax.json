@@ -46,5 +46,8 @@
   "seed": 20261003,
   "final_holdout_authorised": false,
   "validation_start": "2025-06-23",
-  "holdout_start": "2025-07-28"
+  "holdout_start": "2025-07-28",
+  "reporting_capital_eur": 10000,
+  "daily_loss_limit_eur": 100,
+  "position_stop_index_points": 10
 }

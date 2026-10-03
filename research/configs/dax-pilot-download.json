@@ -6,6 +6,26 @@
         "symbols": [
           "FDAX SI 20250321 CS",
           "FDXM SI 20250321 CS",
+          "FDXS SI 20250321 CS",
+          "FDAX SI 20250620 CS",
+          "FDXM SI 20250620 CS",
+          "FDXS SI 20250620 CS",
+          "FDAX SI 20250919 CS",
+          "FDXM SI 20250919 CS",
+          "FDXS SI 20250919 CS"
+        ],
+        "stype_in": "raw_symbol",
+        "start": "2025-03-10",
+        "end": "2025-08-30",
+        "schema": "definition"
+      }
+    },
+    {
+      "request": {
+        "dataset": "XEUR.EOBI",
+        "symbols": [
+          "FDAX SI 20250321 CS",
+          "FDXM SI 20250321 CS",
           "FDXS SI 20250321 CS"
         ],
         "stype_in": "raw_symbol",
