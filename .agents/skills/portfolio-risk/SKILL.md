@@ -5,4 +5,6 @@ description: Compute and explain portfolio return, risk, trading, and exposure m
 
 # Portfolio risk
 
-Report cumulative return, annualized return, annualized volatility, Sharpe, Sortino, maximum drawdown, turnover, trade count, exposure, and hit rate when applicable. State return type, sampling frequency, annualization factor, risk-free and downside targets, volatility convention, treatment of zero denominators, fee inclusion, and drawdown start. Define whether turnover is total or average and whether hit rate is per interval or closed trade. Do not annualize irregular data without a defensible time basis. Show sample counts and distinguish undefined metrics from zero.
+Report cumulative and annualised return, annualised volatility, Sharpe, Sortino, maximum drawdown, turnover, trade count, exposure and applicable hit rates.
+
+State return type, frequency, annualisation factor, risk-free rate, downside target, volatility convention, zero-denominator handling, fee inclusion and drawdown start. Define turnover as total or average; define hit rate per interval or closed trade. Annualise irregular observations only with a defensible time basis. Report sample counts and distinguish undefined metrics from zero.

@@ -5,6 +5,6 @@ description: Inspect and validate unfamiliar market datasets before feature engi
 
 # Financial data
 
-Use pandas, NumPy or PyArrow when required by the actual format and schema. Declare dependencies with `uv add` and run readers through `uv run --locked`; preserve nulls and source dtypes.
+Choose pandas, NumPy or PyArrow to match the format and schema. Declare dependencies with `uv add`; run readers with `uv run --locked`. Preserve source dtypes and nulls.
 
-Inventory files, fields, units, instrument identifiers, ordering, and provenance before choosing a schema. Establish timestamp timezone, exchange calendar, interval meaning, and when each value became available. For OHLCV, check price/volume validity and bar construction; for trades, event ordering and corrections; for order books, side, depth, update semantics, and sequence gaps, as applicable. Profile missing values, duplicates, outliers, and relevant corporate actions or universe changes. Document resampling boundaries and whether returns are simple or log, adjusted or raw. Never silently forward-fill: describe and test every imputation or exclusion. Preserve raw inputs and a reproducible cleaning record.
+Inventory files, fields, units, instrument identifiers, ordering and provenance. Establish timezone, exchange calendar, interval meaning and value availability. Check OHLCV price/volume validity and bar construction; trade ordering and corrections; book sides, depth, updates and sequence gaps. Profile missing values, duplicates, outliers, corporate actions and universe changes. Document resampling boundaries and return conventions: simple/log and adjusted/raw. Specify and test every imputation or exclusion, including forward-fills. Preserve raw inputs and the reproducible cleaning record.

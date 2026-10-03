@@ -5,6 +5,6 @@ description: Independently validate a trading result for out-of-sample robustnes
 
 # Strategy validation
 
-Use SciPy, statsmodels or scikit-learn for checks and train-only preprocessing when required. Declare dependencies with `uv add` and run through `uv run --locked`. Respect chronological splits when using estimator or cross-validation helpers.
+Use SciPy, statsmodels or scikit-learn where required. Declare dependencies with `uv add`; run with `uv run --locked`. Keep estimator and cross-validation splits chronological.
 
-Keep train, validation, and final test boundaries explicit and chronological. Fit preprocessing and tune parameters only on permitted earlier data; never optimize using the final holdout. Use walk-forward evaluation when the sample permits. Probe parameter neighborhoods, cost and slippage sensitivity, regime performance, sample size, and uncertainty. Audit feature availability, labels, universe membership, revisions, and split boundaries for leakage. Compare with the prespecified baseline and report failures as plainly as successes. The Validator and Critic should reach conclusions independently of strategy development.
+Fit preprocessing and tune parameters on permitted earlier data only. Preserve explicit training, validation and final test boundaries; never optimise on the final holdout. Use walk-forward evaluation when sample length permits. Check neighbouring parameters, costs, slippage, regimes, sample size and uncertainty. Audit feature availability, labels, universe membership, revisions and split boundaries for leakage. Compare with the prespecified baseline and report failures. Reach validation conclusions independently of strategy development.

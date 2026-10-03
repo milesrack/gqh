@@ -1,0 +1,10 @@
+{
+  "name": "gqh-context-search",
+  "private": true,
+  "dependencies": {
+    "@tobilu/qmd": "2.8.3"
+  },
+  "engines": {
+    "node": ">=22"
+  }
+}
