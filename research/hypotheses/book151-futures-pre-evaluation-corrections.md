@@ -1,0 +1,13 @@
+# Pre-evaluation corrections to the frozen book futures batch
+
+The original preregistration is preserved unchanged at commit b7672c9. No price outcomes, strategy metrics, training selection or validation results have been evaluated. These source and causal implementation corrections must be committed before running the screen.
+
+1. **Historical Euro FX tick.** The original 6E constant of 0.00005 is valid only from 11 January 2016. CME's *2016 Product Updates*, PDF p49, records the standard Euro FX outright tick reduction from USD12.50 to USD6.25 effective that date. Multiplier remains USD125,000 per EUR. Charge one native tick per side using 0.00010 before 2016-01-11 and 0.00005 thereafter, and double that historical tick in cost sensitivity. Require dated definitions to agree with the verified schedule after interpreting native price/display units. Any disagreement remains a data-audit failure. No root or original training date is removed.
+
+2. **Decision and fill separation.** At execution bar d, target contract quantities, covariance, eligibility, volume participation and exposure caps use only information fully available through d-2 and equity known at the latest earlier mark. Current-bar open prices are used exclusively to mark previously held contracts and fill the precomputed quantities, never to choose or size them. The 100%/25%/35% caps constrain forecast notional using d-2 closes; a fill gap may cause realised notional to exceed those values, so report any such breaches and de-risk at the next eligible precomputed decision. Never invent an exact gap-proof cap. Daily realised loss/drawdown triggers apply to the next executable bar, after the loss is observed.
+
+3. **Metadata coverage.** An additional sparse definitions request for all 464 actual dated outright symbols present in the authorised parent-price archive costs USD0.374409679323; aggregate estimate USD6.930519722402. Parent authorised it under the existing USD20 allowance. Retain original four-rank request and all three immutable archives. This expands metadata coverage, not price dates/universe/strategy variants. Metadata is never applied before its received/event availability time; a later snapshot cannot retrospectively define an earlier tradable contract. No backfilling or guessed expiry.
+
+All eight finite candidate choices, costs apart from verified historical native tick, economic hypotheses, observation dates, training selection and validation/final boundaries remain frozen. No final holdout requested.
+
+Primary source: https://www.cmegroup.com/globex/resources/files/product-updates-hk-2016.pdf
