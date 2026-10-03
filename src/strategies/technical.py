@@ -99,3 +99,25 @@ def ibs(view, params):
         # One winner/loser is the finite six-root top/bottom-decile adaptation.
         result[values.idxmin()], result[values.idxmax()] = 1.0, -1.0
     return scores(result, view.roots)
+
+
+def separated_triple_ma(view, params):
+    """Require fast/medium separation in units of 20-day price-change volatility."""
+    result = moving_average(view, {"lengths": params["lengths"]})
+    fast, medium, _ = params["lengths"]
+    for root in view.roots:
+        close = view.bars(root).close
+        if len(close) < max(medium, 21):
+            result[root] = 0.0
+            continue
+        vol = close.diff().tail(20).std(ddof=1)
+        separation = abs(close.tail(fast).mean() - close.tail(medium).mean())
+        held = np.sign(view.positions.get(root, 0))
+        if (
+            not np.isfinite(vol)
+            or vol <= 0
+            or result[root] != held
+            and separation < params["cutoff"] * vol
+        ):
+            result[root] = 0.0
+    return scores(result, view.roots)

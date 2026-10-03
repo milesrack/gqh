@@ -139,7 +139,12 @@ class StrategySpec:
                 ):
                     raise ValueError(f"{key} must be finite and positive")
             elif key == "lengths":
-                expected = {"single_ma": 1, "double_ma": 2, "triple_ma": 3}[self.id]
+                expected = {
+                    "single_ma": 1,
+                    "double_ma": 2,
+                    "triple_ma": 3,
+                    "separated_triple_ma": 3,
+                }[self.id]
                 if len(value) != expected or any(
                     isinstance(x, bool) or not isinstance(x, Integral) or x <= 0
                     for x in value

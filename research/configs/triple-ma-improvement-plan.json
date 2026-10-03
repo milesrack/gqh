@@ -1,0 +1,996 @@
+{
+  "version": 1,
+  "config_path": "research/configs/triple-ma-improvement.json",
+  "config_sha256": "86fade50c1f2ff9761d6f510903c2d407ef1b9d5afa82947b5fbe81a9be1882e",
+  "config": {
+    "version": 1,
+    "batch_id": "triple-ma-improvement-v1",
+    "dataset": "data/futures-daily-development",
+    "max_jobs": 64,
+    "windows": {
+      "training": [
+        "2016-04-01",
+        "2022-01-19"
+      ],
+      "validation": [
+        "2022-01-19",
+        "2024-05-27"
+      ],
+      "holdout_start": "2024-05-27"
+    },
+    "risk": {
+      "capital": 1000000,
+      "annual_target": 0.1,
+      "root_cap": 0.25
+    },
+    "costs": {
+      "commission": 2.5,
+      "ticks": 1
+    },
+    "selection": {
+      "min_sharpe": 0.25
+    },
+    "validation": {
+      "enabled": false
+    },
+    "strategies": [
+      {
+        "id": "triple_ma",
+        "grid": {
+          "lengths": [
+            [
+              4,
+              16,
+              48
+            ],
+            [
+              4,
+              16,
+              60
+            ],
+            [
+              4,
+              16,
+              72
+            ],
+            [
+              4,
+              20,
+              48
+            ],
+            [
+              4,
+              20,
+              60
+            ],
+            [
+              4,
+              20,
+              72
+            ],
+            [
+              4,
+              24,
+              48
+            ],
+            [
+              4,
+              24,
+              60
+            ],
+            [
+              4,
+              24,
+              72
+            ],
+            [
+              5,
+              16,
+              48
+            ],
+            [
+              5,
+              16,
+              60
+            ],
+            [
+              5,
+              16,
+              72
+            ],
+            [
+              5,
+              20,
+              48
+            ],
+            [
+              5,
+              20,
+              60
+            ],
+            [
+              5,
+              20,
+              72
+            ],
+            [
+              5,
+              24,
+              48
+            ],
+            [
+              5,
+              24,
+              60
+            ],
+            [
+              5,
+              24,
+              72
+            ],
+            [
+              6,
+              16,
+              48
+            ],
+            [
+              6,
+              16,
+              60
+            ],
+            [
+              6,
+              16,
+              72
+            ],
+            [
+              6,
+              20,
+              48
+            ],
+            [
+              6,
+              20,
+              60
+            ],
+            [
+              6,
+              20,
+              72
+            ],
+            [
+              6,
+              24,
+              48
+            ],
+            [
+              6,
+              24,
+              60
+            ],
+            [
+              6,
+              24,
+              72
+            ]
+          ]
+        },
+        "universes": [
+          [
+            "ES",
+            "NQ",
+            "ZN",
+            "CL",
+            "GC",
+            "6E"
+          ]
+        ],
+        "frequencies": [
+          "daily"
+        ]
+      },
+      {
+        "id": "separated_triple_ma",
+        "universes": [
+          [
+            "ES",
+            "NQ",
+            "ZN",
+            "CL",
+            "GC",
+            "6E"
+          ]
+        ],
+        "frequencies": [
+          "daily"
+        ]
+      },
+      {
+        "id": "triple_ma",
+        "grid": {
+          "lengths": [
+            [
+              5,
+              20,
+              60
+            ]
+          ]
+        },
+        "universes": [
+          [
+            "ES",
+            "NQ",
+            "ZN",
+            "CL",
+            "GC",
+            "6E"
+          ]
+        ],
+        "frequencies": [
+          "daily"
+        ],
+        "risk": {
+          "capital": 5000000
+        }
+      },
+      {
+        "id": "triple_ma",
+        "grid": {
+          "lengths": [
+            [
+              5,
+              20,
+              60
+            ]
+          ]
+        },
+        "universes": [
+          [
+            "ES",
+            "NQ",
+            "ZN",
+            "CL",
+            "GC",
+            "6E"
+          ]
+        ],
+        "frequencies": [
+          "daily"
+        ],
+        "risk": {
+          "root_cap": 0.5,
+          "gross_cap": 2.0,
+          "equity_cap": 0.7
+        }
+      },
+      {
+        "id": "triple_ma",
+        "grid": {
+          "lengths": [
+            [
+              5,
+              20,
+              60
+            ]
+          ]
+        },
+        "universes": [
+          [
+            "ES",
+            "NQ",
+            "ZN",
+            "CL",
+            "GC",
+            "6E"
+          ]
+        ],
+        "frequencies": [
+          "daily"
+        ],
+        "risk": {
+          "capital": 5000000,
+          "root_cap": 0.5,
+          "gross_cap": 2.0,
+          "equity_cap": 0.7
+        }
+      }
+    ]
+  },
+  "source_sha256": {
+    "pyproject.toml": "9713ac2c3c5ef5d06b556f1bfc2bb25631aab56eb0180485ee45a9cd616d358f",
+    "uv.lock": "cf1ea5ecff687075c2bc2e820acf2a5b35788440cc679ba78fe657606bc317a2",
+    "src/batch_research.py": "f5384dca76f7f8597020e29ac902b76186c4681ea4acef2bd850c95431797065",
+    "src/strategies/__init__.py": "ca41056575dc69303f6a91745e73e90cab1e5d089898ccec7127ae0840214fd3",
+    "src/strategies/base.py": "c129becbe439f0cf511ee4657bc1cd22b87e3ff93d1ef0ad436938dd2630ebac",
+    "src/strategies/cross_sectional.py": "2a9929bed189110ab36ce044ee5ab209ace700e49f62cf8aed59131bd3b79cd7",
+    "src/strategies/futures.py": "97d9b806011b7ada0aff8213ccff63d9f44d2330386b470c99d1146736999793",
+    "src/strategies/learning.py": "9de09ec4e57fed97681808fcf9a2097cc9323c70a3f8e41d728eead712bc912f",
+    "src/strategies/registry.py": "f2d34d4bd2aa5fbd6292e1960ca2bb5630503196f2618413d68721f57521460c",
+    "src/strategies/technical.py": "b2c4ebde428062e316ff95890c032872e4e935faea2c0ac606e84f454e5fb491",
+    "src/futures_engine.py": "a992932362bf1bccb964f1962cdadec7c6083b92268fb9c1d95f76bb091eb186",
+    "src/futures_data.py": "3ae6ff8cecba721be3d1bda5126a29ca956459ead44821371bdd73949151a034",
+    "src/batch_analysis.py": "d7aa535f2d1e0527781e4267d3d1f076f9a367664ffe76b72dcb4ee50480e00d"
+  },
+  "dataset_manifest_sha256": "d8953ab125a90ef1a487bfa0d793cd2176bfa145a5c0e033dfd08abc4ebb47ce",
+  "jobs": [
+    {
+      "id": "d94b858caef77123554e",
+      "strategy": "triple_ma",
+      "params": {
+        "lengths": [
+          4,
+          16,
+          48
+        ]
+      },
+      "universe": [
+        "6E",
+        "CL",
+        "ES",
+        "GC",
+        "NQ",
+        "ZN"
+      ],
+      "frequency": "daily"
+    },
+    {
+      "id": "73b3e2dd56aa7b468f0d",
+      "strategy": "triple_ma",
+      "params": {
+        "lengths": [
+          4,
+          16,
+          60
+        ]
+      },
+      "universe": [
+        "6E",
+        "CL",
+        "ES",
+        "GC",
+        "NQ",
+        "ZN"
+      ],
+      "frequency": "daily"
+    },
+    {
+      "id": "e4779065614063e45961",
+      "strategy": "triple_ma",
+      "params": {
+        "lengths": [
+          4,
+          16,
+          72
+        ]
+      },
+      "universe": [
+        "6E",
+        "CL",
+        "ES",
+        "GC",
+        "NQ",
+        "ZN"
+      ],
+      "frequency": "daily"
+    },
+    {
+      "id": "99c09c14b373f8ea6b87",
+      "strategy": "triple_ma",
+      "params": {
+        "lengths": [
+          4,
+          20,
+          48
+        ]
+      },
+      "universe": [
+        "6E",
+        "CL",
+        "ES",
+        "GC",
+        "NQ",
+        "ZN"
+      ],
+      "frequency": "daily"
+    },
+    {
+      "id": "0d0525a0783f04b34eaf",
+      "strategy": "triple_ma",
+      "params": {
+        "lengths": [
+          4,
+          20,
+          60
+        ]
+      },
+      "universe": [
+        "6E",
+        "CL",
+        "ES",
+        "GC",
+        "NQ",
+        "ZN"
+      ],
+      "frequency": "daily"
+    },
+    {
+      "id": "404d4de2dd125c80e565",
+      "strategy": "triple_ma",
+      "params": {
+        "lengths": [
+          4,
+          20,
+          72
+        ]
+      },
+      "universe": [
+        "6E",
+        "CL",
+        "ES",
+        "GC",
+        "NQ",
+        "ZN"
+      ],
+      "frequency": "daily"
+    },
+    {
+      "id": "df770f5cb7a5b7bc4fdf",
+      "strategy": "triple_ma",
+      "params": {
+        "lengths": [
+          4,
+          24,
+          48
+        ]
+      },
+      "universe": [
+        "6E",
+        "CL",
+        "ES",
+        "GC",
+        "NQ",
+        "ZN"
+      ],
+      "frequency": "daily"
+    },
+    {
+      "id": "012cb516a491776239e4",
+      "strategy": "triple_ma",
+      "params": {
+        "lengths": [
+          4,
+          24,
+          60
+        ]
+      },
+      "universe": [
+        "6E",
+        "CL",
+        "ES",
+        "GC",
+        "NQ",
+        "ZN"
+      ],
+      "frequency": "daily"
+    },
+    {
+      "id": "3c6d6bcd8683f7cb288b",
+      "strategy": "triple_ma",
+      "params": {
+        "lengths": [
+          4,
+          24,
+          72
+        ]
+      },
+      "universe": [
+        "6E",
+        "CL",
+        "ES",
+        "GC",
+        "NQ",
+        "ZN"
+      ],
+      "frequency": "daily"
+    },
+    {
+      "id": "e260ff3201c936bb2e86",
+      "strategy": "triple_ma",
+      "params": {
+        "lengths": [
+          5,
+          16,
+          48
+        ]
+      },
+      "universe": [
+        "6E",
+        "CL",
+        "ES",
+        "GC",
+        "NQ",
+        "ZN"
+      ],
+      "frequency": "daily"
+    },
+    {
+      "id": "53850402e986387d1565",
+      "strategy": "triple_ma",
+      "params": {
+        "lengths": [
+          5,
+          16,
+          60
+        ]
+      },
+      "universe": [
+        "6E",
+        "CL",
+        "ES",
+        "GC",
+        "NQ",
+        "ZN"
+      ],
+      "frequency": "daily"
+    },
+    {
+      "id": "1ac6f18766ad3d6666d5",
+      "strategy": "triple_ma",
+      "params": {
+        "lengths": [
+          5,
+          16,
+          72
+        ]
+      },
+      "universe": [
+        "6E",
+        "CL",
+        "ES",
+        "GC",
+        "NQ",
+        "ZN"
+      ],
+      "frequency": "daily"
+    },
+    {
+      "id": "94edf7d570b8735af7c1",
+      "strategy": "triple_ma",
+      "params": {
+        "lengths": [
+          5,
+          20,
+          48
+        ]
+      },
+      "universe": [
+        "6E",
+        "CL",
+        "ES",
+        "GC",
+        "NQ",
+        "ZN"
+      ],
+      "frequency": "daily"
+    },
+    {
+      "id": "3bc23c929ebe4e8a1a24",
+      "strategy": "triple_ma",
+      "params": {
+        "lengths": [
+          5,
+          20,
+          60
+        ]
+      },
+      "universe": [
+        "6E",
+        "CL",
+        "ES",
+        "GC",
+        "NQ",
+        "ZN"
+      ],
+      "frequency": "daily"
+    },
+    {
+      "id": "ce3a6b8b2a252b80e25a",
+      "strategy": "triple_ma",
+      "params": {
+        "lengths": [
+          5,
+          20,
+          72
+        ]
+      },
+      "universe": [
+        "6E",
+        "CL",
+        "ES",
+        "GC",
+        "NQ",
+        "ZN"
+      ],
+      "frequency": "daily"
+    },
+    {
+      "id": "995692b7dc1396d99f5b",
+      "strategy": "triple_ma",
+      "params": {
+        "lengths": [
+          5,
+          24,
+          48
+        ]
+      },
+      "universe": [
+        "6E",
+        "CL",
+        "ES",
+        "GC",
+        "NQ",
+        "ZN"
+      ],
+      "frequency": "daily"
+    },
+    {
+      "id": "7d377f59c4cc9a13615d",
+      "strategy": "triple_ma",
+      "params": {
+        "lengths": [
+          5,
+          24,
+          60
+        ]
+      },
+      "universe": [
+        "6E",
+        "CL",
+        "ES",
+        "GC",
+        "NQ",
+        "ZN"
+      ],
+      "frequency": "daily"
+    },
+    {
+      "id": "e2b702052751fd9d7fac",
+      "strategy": "triple_ma",
+      "params": {
+        "lengths": [
+          5,
+          24,
+          72
+        ]
+      },
+      "universe": [
+        "6E",
+        "CL",
+        "ES",
+        "GC",
+        "NQ",
+        "ZN"
+      ],
+      "frequency": "daily"
+    },
+    {
+      "id": "cabcd474db1b962873f4",
+      "strategy": "triple_ma",
+      "params": {
+        "lengths": [
+          6,
+          16,
+          48
+        ]
+      },
+      "universe": [
+        "6E",
+        "CL",
+        "ES",
+        "GC",
+        "NQ",
+        "ZN"
+      ],
+      "frequency": "daily"
+    },
+    {
+      "id": "bc2d52b8113f72ed7a6a",
+      "strategy": "triple_ma",
+      "params": {
+        "lengths": [
+          6,
+          16,
+          60
+        ]
+      },
+      "universe": [
+        "6E",
+        "CL",
+        "ES",
+        "GC",
+        "NQ",
+        "ZN"
+      ],
+      "frequency": "daily"
+    },
+    {
+      "id": "005538a64eda6df5a63f",
+      "strategy": "triple_ma",
+      "params": {
+        "lengths": [
+          6,
+          16,
+          72
+        ]
+      },
+      "universe": [
+        "6E",
+        "CL",
+        "ES",
+        "GC",
+        "NQ",
+        "ZN"
+      ],
+      "frequency": "daily"
+    },
+    {
+      "id": "f45d9be62db6887a7b7a",
+      "strategy": "triple_ma",
+      "params": {
+        "lengths": [
+          6,
+          20,
+          48
+        ]
+      },
+      "universe": [
+        "6E",
+        "CL",
+        "ES",
+        "GC",
+        "NQ",
+        "ZN"
+      ],
+      "frequency": "daily"
+    },
+    {
+      "id": "68adb124a82dc5856233",
+      "strategy": "triple_ma",
+      "params": {
+        "lengths": [
+          6,
+          20,
+          60
+        ]
+      },
+      "universe": [
+        "6E",
+        "CL",
+        "ES",
+        "GC",
+        "NQ",
+        "ZN"
+      ],
+      "frequency": "daily"
+    },
+    {
+      "id": "ab267c20ddedeecf9c92",
+      "strategy": "triple_ma",
+      "params": {
+        "lengths": [
+          6,
+          20,
+          72
+        ]
+      },
+      "universe": [
+        "6E",
+        "CL",
+        "ES",
+        "GC",
+        "NQ",
+        "ZN"
+      ],
+      "frequency": "daily"
+    },
+    {
+      "id": "2b778892bbd1c2752134",
+      "strategy": "triple_ma",
+      "params": {
+        "lengths": [
+          6,
+          24,
+          48
+        ]
+      },
+      "universe": [
+        "6E",
+        "CL",
+        "ES",
+        "GC",
+        "NQ",
+        "ZN"
+      ],
+      "frequency": "daily"
+    },
+    {
+      "id": "3fc976cd39a892649087",
+      "strategy": "triple_ma",
+      "params": {
+        "lengths": [
+          6,
+          24,
+          60
+        ]
+      },
+      "universe": [
+        "6E",
+        "CL",
+        "ES",
+        "GC",
+        "NQ",
+        "ZN"
+      ],
+      "frequency": "daily"
+    },
+    {
+      "id": "16e5f0d465affacd5158",
+      "strategy": "triple_ma",
+      "params": {
+        "lengths": [
+          6,
+          24,
+          72
+        ]
+      },
+      "universe": [
+        "6E",
+        "CL",
+        "ES",
+        "GC",
+        "NQ",
+        "ZN"
+      ],
+      "frequency": "daily"
+    },
+    {
+      "id": "6507cbdd1ec518df8ce3",
+      "strategy": "separated_triple_ma",
+      "params": {
+        "cutoff": 0.25,
+        "lengths": [
+          5,
+          20,
+          60
+        ]
+      },
+      "universe": [
+        "6E",
+        "CL",
+        "ES",
+        "GC",
+        "NQ",
+        "ZN"
+      ],
+      "frequency": "daily"
+    },
+    {
+      "id": "ad071524bf940c262f01",
+      "strategy": "separated_triple_ma",
+      "params": {
+        "cutoff": 0.5,
+        "lengths": [
+          5,
+          20,
+          60
+        ]
+      },
+      "universe": [
+        "6E",
+        "CL",
+        "ES",
+        "GC",
+        "NQ",
+        "ZN"
+      ],
+      "frequency": "daily"
+    },
+    {
+      "id": "fc32548af578eb043527",
+      "strategy": "separated_triple_ma",
+      "params": {
+        "cutoff": 1.0,
+        "lengths": [
+          5,
+          20,
+          60
+        ]
+      },
+      "universe": [
+        "6E",
+        "CL",
+        "ES",
+        "GC",
+        "NQ",
+        "ZN"
+      ],
+      "frequency": "daily"
+    },
+    {
+      "id": "2bd8053b46f13305cac5",
+      "strategy": "triple_ma",
+      "params": {
+        "lengths": [
+          5,
+          20,
+          60
+        ]
+      },
+      "universe": [
+        "6E",
+        "CL",
+        "ES",
+        "GC",
+        "NQ",
+        "ZN"
+      ],
+      "frequency": "daily",
+      "risk": {
+        "capital": 5000000
+      }
+    },
+    {
+      "id": "5461e9fbd786a1d0db0a",
+      "strategy": "triple_ma",
+      "params": {
+        "lengths": [
+          5,
+          20,
+          60
+        ]
+      },
+      "universe": [
+        "6E",
+        "CL",
+        "ES",
+        "GC",
+        "NQ",
+        "ZN"
+      ],
+      "frequency": "daily",
+      "risk": {
+        "root_cap": 0.5,
+        "gross_cap": 2.0,
+        "equity_cap": 0.7
+      }
+    },
+    {
+      "id": "fca07ed6d1fa2b610ec8",
+      "strategy": "triple_ma",
+      "params": {
+        "lengths": [
+          5,
+          20,
+          60
+        ]
+      },
+      "universe": [
+        "6E",
+        "CL",
+        "ES",
+        "GC",
+        "NQ",
+        "ZN"
+      ],
+      "frequency": "daily",
+      "risk": {
+        "capital": 5000000,
+        "root_cap": 0.5,
+        "gross_cap": 2.0,
+        "equity_cap": 0.7
+      }
+    }
+  ],
+  "job_count": 33,
+  "final_holdout_access": false
+}

@@ -5,6 +5,7 @@ from . import futures, learning, technical
 from .base import ROOTS, StrategySpec
 
 CONTROLS = {
+    "separated_triple_ma": "same-universe unfiltered 5/20/60 triple-MA baseline",
     "trend": "equal-risk long portfolio and fixed 120-bar trend",
     "reversal": "equal-risk long portfolio and zero-return cash",
     "carry": "equal-risk CL/GC long portfolio",
@@ -68,6 +69,16 @@ def spec(
 
 
 _ITEMS = [
+    spec(
+        "separated_triple_ma",
+        ["3.13"],
+        [51],
+        "Persistent demand may produce trend separation exceeding ordinary daily noise.",
+        ["ohlc", "positions"],
+        [{"lengths": (5, 20, 60), "cutoff": x} for x in (0.25, 0.5, 1.0)],
+        technical.separated_triple_ma,
+        "Research extension: new entries require fast/medium separation exceeding cutoff times trailing 20-day point-change volatility; existing exit rule unchanged.",
+    ),
     spec(
         "trend",
         ["10.4"],

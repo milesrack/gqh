@@ -36,13 +36,15 @@ def covariance_targets(signals, dollar_changes, equity, annual_target=0.10):
     return raw * equity * annual_target / (np.sqrt(252) * risk) if risk else raw * 0
 
 
-def cap_and_round(quantity, prices, roots, equity, root_cap=0.25):
+def cap_and_round(
+    quantity, prices, roots, equity, root_cap=0.25, gross_cap=1.0, equity_cap=0.35
+):
     q = np.asarray(quantity, dtype=float)
     n = abs(q) * abs(np.asarray(prices)) * [SPECS[r].multiplier for r in roots]
-    ratios = [1.0, equity / max(float(n.sum()), 1.0)]
+    ratios = [1.0, gross_cap * equity / max(float(n.sum()), 1.0)]
     ratios.extend(root_cap * equity / max(float(v), 1.0) for v in n)
     ix = [i for i, r in enumerate(roots) if r in ("ES", "NQ")]
-    ratios.append(0.35 * equity / max(float(n[ix].sum()), 1.0))
+    ratios.append(equity_cap * equity / max(float(n[ix].sum()), 1.0))
     return np.trunc(q * min(ratios)).astype(int)
 
 
@@ -213,12 +215,16 @@ def evaluate(
         "capital": 1_000_000.0,
         "annual_target": 0.10,
         "root_cap": 0.25,
+        "gross_cap": 1.0,
+        "equity_cap": 0.35,
         **(risk or {}),
     }
     if set(costs) != {"commission", "ticks", "multiple"} or set(risk) != {
         "capital",
         "annual_target",
         "root_cap",
+        "gross_cap",
+        "equity_cap",
     }:
         raise ValueError("Unknown execution/risk setting")
     if not all(np.isfinite(v) and v >= 0 for v in costs.values()) or not all(
@@ -282,7 +288,15 @@ def evaluate(
                 if rebal
                 else [held.get(r, {}).get("quantity", 0) for r in roots]
             )
-            target = cap_and_round(raw, forecast, roots, equity, risk["root_cap"])
+            target = cap_and_round(
+                raw,
+                forecast,
+                roots,
+                equity,
+                risk["root_cap"],
+                risk["gross_cap"],
+                risk["equity_cap"],
+            )
         contributions = {r: 0.0 for r in roots}
         cost = 0.0
         gross = 0.0
@@ -412,9 +426,9 @@ def evaluate(
         )
         ix = [j for j, r in enumerate(roots) if r in ("ES", "NQ")]
         gap = bool(
-            notionals.sum() / equity > 1 + 1e-12
+            notionals.sum() / equity > risk["gross_cap"] + 1e-12
             or (notionals / equity > risk["root_cap"] + 1e-12).any()
-            or notionals[ix].sum() / equity > 0.35 + 1e-12
+            or notionals[ix].sum() / equity > risk["equity_cap"] + 1e-12
         )
         gap_derisk = gap
         if force_gap_exit and not pause:
