@@ -120,3 +120,28 @@ def test_end_to_end_features_use_only_available_flow():
     assert audit["eligible_rows"] > 0
     assert frame.OF_FDXS.iloc[0] == -1
     assert frame.Y.iloc[0] == 1
+
+
+def test_trade_features_do_not_require_future_label():
+    from src.signals import features
+
+    e = events()
+    e["ts_recv"] = pd.date_range(
+        "2025-06-02 07:05:00", periods=len(e), freq="s", tz="UTC"
+    )
+    full = pd.concat(
+        [e.assign(product=p) for p in ["FDAX", "FDXM", "FDXS"]], ignore_index=True
+    )
+    cfg = {
+        "products": ["FDAX", "FDXM", "FDXS"],
+        "timezone": "Europe/Berlin",
+        "session_open": "09:05",
+        "session_close": "09:05:07",
+        "lookback_seconds": 1,
+        "horizon_seconds": 1,
+        "grid_seconds": 1,
+        "quote_age_seconds": 0.5,
+    }
+    frame, _, _ = features(full, cfg, "2025-06-02")
+    assert frame.Y.isna().any()
+    assert frame.OF_FDXS.notna().all()

@@ -65,8 +65,8 @@ def run(args, cfg, output):
         )
         frames[day], books[day], audits[day] = frame, book, audit
 
-    train = pd.concat([frames[d] for d in train_days])
-    validation = pd.concat([frames[d] for d in valid_days])
+    train = pd.concat([frames[d] for d in train_days]).dropna(subset=["Y"])
+    validation = pd.concat([frames[d] for d in valid_days]).dropna(subset=["Y"])
     if train.empty or validation.empty:
         raise ValueError("No eligible training or validation observations")
     m0, m1 = fit(train, BASE), fit(train, CROSS)

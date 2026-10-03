@@ -100,10 +100,11 @@ def features(events, cfg, day):
     )
     frame["Y"] = future.mid.to_numpy() - frame.mid_FDXS
     frame["day"] = day
-    eligible = frame.dropna(subset=CROSS + ["Y"])
+    eligible = frame.dropna(subset=CROSS)
     audit = {
         "grid_rows": len(frame),
         "eligible_rows": len(eligible),
+        "forecast_rows": int(eligible.Y.notna().sum()),
         "unknown_side_trades": int(
             ((events.action == "T") & ~events.side.isin(["B", "A"])).sum()
         ),

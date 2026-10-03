@@ -15,6 +15,21 @@ def simulate(
     slippage=0,
     spread_multiplier=1,
 ):
+    if frame.empty:
+        return pd.DataFrame(
+            columns=[
+                "decision",
+                "entry",
+                "exit",
+                "side",
+                "forecast_ticks",
+                "entry_price",
+                "exit_price",
+                "gross_eur",
+                "net_eur",
+                "exit_delay_ms",
+            ]
+        )
     latency = pd.Timedelta(
         milliseconds=cfg["latency_ms"] if latency_ms is None else latency_ms
     )
