@@ -1,0 +1,294 @@
+{
+  "version": 1,
+  "batch_id": "triple-ma-improvement-v1",
+  "dataset": "data/futures-daily-development",
+  "max_jobs": 64,
+  "windows": {
+    "training": [
+      "2016-04-01",
+      "2022-01-19"
+    ],
+    "validation": [
+      "2022-01-19",
+      "2024-05-27"
+    ],
+    "holdout_start": "2024-05-27"
+  },
+  "risk": {
+    "capital": 1000000,
+    "annual_target": 0.1,
+    "root_cap": 0.25
+  },
+  "costs": {
+    "commission": 2.5,
+    "ticks": 1
+  },
+  "selection": {
+    "min_sharpe": 0.25
+  },
+  "validation": {
+    "enabled": false
+  },
+  "strategies": [
+    {
+      "id": "triple_ma",
+      "grid": {
+        "lengths": [
+          [
+            4,
+            16,
+            48
+          ],
+          [
+            4,
+            16,
+            60
+          ],
+          [
+            4,
+            16,
+            72
+          ],
+          [
+            4,
+            20,
+            48
+          ],
+          [
+            4,
+            20,
+            60
+          ],
+          [
+            4,
+            20,
+            72
+          ],
+          [
+            4,
+            24,
+            48
+          ],
+          [
+            4,
+            24,
+            60
+          ],
+          [
+            4,
+            24,
+            72
+          ],
+          [
+            5,
+            16,
+            48
+          ],
+          [
+            5,
+            16,
+            60
+          ],
+          [
+            5,
+            16,
+            72
+          ],
+          [
+            5,
+            20,
+            48
+          ],
+          [
+            5,
+            20,
+            60
+          ],
+          [
+            5,
+            20,
+            72
+          ],
+          [
+            5,
+            24,
+            48
+          ],
+          [
+            5,
+            24,
+            60
+          ],
+          [
+            5,
+            24,
+            72
+          ],
+          [
+            6,
+            16,
+            48
+          ],
+          [
+            6,
+            16,
+            60
+          ],
+          [
+            6,
+            16,
+            72
+          ],
+          [
+            6,
+            20,
+            48
+          ],
+          [
+            6,
+            20,
+            60
+          ],
+          [
+            6,
+            20,
+            72
+          ],
+          [
+            6,
+            24,
+            48
+          ],
+          [
+            6,
+            24,
+            60
+          ],
+          [
+            6,
+            24,
+            72
+          ]
+        ]
+      },
+      "universes": [
+        [
+          "ES",
+          "NQ",
+          "ZN",
+          "CL",
+          "GC",
+          "6E"
+        ]
+      ],
+      "frequencies": [
+        "daily"
+      ]
+    },
+    {
+      "id": "separated_triple_ma",
+      "universes": [
+        [
+          "ES",
+          "NQ",
+          "ZN",
+          "CL",
+          "GC",
+          "6E"
+        ]
+      ],
+      "frequencies": [
+        "daily"
+      ]
+    },
+    {
+      "id": "triple_ma",
+      "grid": {
+        "lengths": [
+          [
+            5,
+            20,
+            60
+          ]
+        ]
+      },
+      "universes": [
+        [
+          "ES",
+          "NQ",
+          "ZN",
+          "CL",
+          "GC",
+          "6E"
+        ]
+      ],
+      "frequencies": [
+        "daily"
+      ],
+      "risk": {
+        "capital": 5000000
+      }
+    },
+    {
+      "id": "triple_ma",
+      "grid": {
+        "lengths": [
+          [
+            5,
+            20,
+            60
+          ]
+        ]
+      },
+      "universes": [
+        [
+          "ES",
+          "NQ",
+          "ZN",
+          "CL",
+          "GC",
+          "6E"
+        ]
+      ],
+      "frequencies": [
+        "daily"
+      ],
+      "risk": {
+        "root_cap": 0.5,
+        "gross_cap": 2.0,
+        "equity_cap": 0.7
+      }
+    },
+    {
+      "id": "triple_ma",
+      "grid": {
+        "lengths": [
+          [
+            5,
+            20,
+            60
+          ]
+        ]
+      },
+      "universes": [
+        [
+          "ES",
+          "NQ",
+          "ZN",
+          "CL",
+          "GC",
+          "6E"
+        ]
+      ],
+      "frequencies": [
+        "daily"
+      ],
+      "risk": {
+        "capital": 5000000,
+        "root_cap": 0.5,
+        "gross_cap": 2.0,
+        "equity_cap": 0.7
+      }
+    }
+  ]
+}
