@@ -1,0 +1,7 @@
+# Opposite large-print execution
+
+A large aggressive print can mark execution urgency or exhaustion rather than durable information. The failed continuation rules motivate testing the opposite position. This mechanism is selected after seeing continuation validation and is exploratory. Quote costs are paid in both directions; never negate reported net P&L.
+
+Freeze the exact twelve large-print signal conditions and training size thresholds (>95% quantile and >99% quantile), holding periods300/900/1800 seconds and unrestricted/opposing Micro states. Reverse only the entered direction. Signal eligibility and optional Micro disagreement are measured relative to the original print, not the reversed position. Execute a genuinely reversed one-FDXS position at opposite executable sides, 100ms latency, independently triggered30-point stop and EUR100 daily loss cap. No overlap or overnight; EUR1/side fees, existing split and final holdout lock unchanged.
+
+Evaluate all twelve on training only first. Require >=100 trades and positive mean daily net before choosing the highest mean. Save selection before validation. If none qualifies, reject without reopening validation. If a candidate qualifies, compare the fixed reversed choice against actual original continuation and reversed price-only/own-contract controls, all fixed neighbours, 250ms, doubled spreads/fees and EUR2/side. Report95% and current-family-adjusted daily five-session bootstrap intervals. Record all trials and failures; no new thresholds, horizons or validation-selected rule.
