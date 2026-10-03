@@ -27,6 +27,28 @@ COLUMNS = [
 ]
 
 
+def validate_matched_expiry(events, day, cfg):
+    symbols = events["symbol"].drop_duplicates()
+    pieces = symbols.str.split()
+    expiries = pd.to_datetime(pieces.str[2], format="%Y%m%d")
+    if expiries.nunique() != 1 or set(pieces.str[0]) != set(cfg["products"]):
+        raise ValueError("Session does not contain three matched outright contracts")
+    date = pd.Timestamp(day)
+    expiry = expiries.iloc[0]
+    if (expiry - date).days <= cfg["roll_days"]:
+        raise ValueError("Session uses a contract inside the declared roll window")
+    # The next eligible quarterly third Friday is fixed by the calendar.
+    candidates = []
+    for year in [date.year, date.year + 1]:
+        for month in [3, 6, 9, 12]:
+            first = pd.Timestamp(year=year, month=month, day=1)
+            third_friday = first + pd.Timedelta(days=(4 - first.weekday()) % 7 + 14)
+            if (third_friday - date).days > cfg["roll_days"]:
+                candidates.append(third_friday)
+    if expiry != min(candidates):
+        raise ValueError("Session does not use the nearest eligible quarterly expiry")
+
+
 def prepare(directory, cfg, smoke=False):
     directory = Path(directory)
     manifest = [

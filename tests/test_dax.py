@@ -226,3 +226,16 @@ def test_mixed_holdout_file_is_rejected_before_opening(tmp_path):
     (tmp_path / "manifest.jsonl").write_text(json.dumps(manifest))
     with pytest.raises(ValueError, match="locked holdout"):
         prepare(tmp_path, {"holdout_start": "2025-07-28"})
+
+
+def test_quarterly_roll_matches_all_three_contracts():
+    from src.market_data import validate_matched_expiry
+
+    cfg = {"products": ["FDAX", "FDXM", "FDXS"], "roll_days": 7}
+    frame = pd.DataFrame({"symbol": [f"{p} SI 20250620 CS" for p in cfg["products"]]})
+    validate_matched_expiry(frame, "2025-03-14", cfg)
+    with pytest.raises(ValueError, match="nearest eligible"):
+        validate_matched_expiry(frame, "2025-03-10", cfg)
+    frame.loc[0, "symbol"] = "FDAX SI 20250321 CS"
+    with pytest.raises(ValueError, match="three matched"):
+        validate_matched_expiry(frame, "2025-03-14", cfg)

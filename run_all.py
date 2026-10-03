@@ -15,7 +15,7 @@ import pandas as pd
 
 from src.analysis import block_interval, forecast_metrics
 from src.backtest import metrics, simulate
-from src.market_data import prepare
+from src.market_data import prepare, validate_matched_expiry
 from src.signals import BASE, CROSS, features, fit, predict
 
 ROOT = Path(__file__).resolve().parent
@@ -60,9 +60,9 @@ def run(args, cfg, output):
 
     for day in days:
         path = paths_by_day[day]
-        frame, book, audit = features(
-            pd.read_parquet(path).sort_values("ts_recv", kind="stable"), cfg, day
-        )
+        events = pd.read_parquet(path).sort_values("ts_recv", kind="stable")
+        validate_matched_expiry(events, day, cfg)
+        frame, book, audit = features(events, cfg, day)
         frames[day], audits[day] = frame, audit
         if not args.forecast_only and day in valid_days and "FDXS" in book:
             books[day] = {"FDXS": book["FDXS"]}
