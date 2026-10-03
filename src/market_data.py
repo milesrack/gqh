@@ -96,8 +96,21 @@ def prepare(directory, cfg, smoke=False):
     writers = {}
     try:
         for path in paths:
-            for chunk in db.DBNStore.from_file(path).to_df(count=250000):
+            store = db.DBNStore.from_file(path)
+            mapping = {}
+            for symbol, intervals in store.mappings.items():
+                for interval in intervals:
+                    instrument = int(interval["symbol"])
+                    if instrument in mapping and mapping[instrument] != symbol:
+                        raise ValueError(
+                            "Instrument id reused within raw file; dated mapping required"
+                        )
+                    mapping[instrument] = symbol
+            for chunk in store.to_df(count=250000, map_symbols=False):
                 chunk = chunk.reset_index()
+                chunk["symbol"] = chunk.instrument_id.map(mapping)
+                if chunk.symbol.isna().any():
+                    raise ValueError("Unmapped instrument id")
                 e = chunk[COLUMNS].rename(
                     columns={
                         "bid_px_00": "bid",
@@ -106,12 +119,14 @@ def prepare(directory, cfg, smoke=False):
                         "ask_sz_00": "ask_size",
                     }
                 )
-                e["product"] = e.symbol.str.split().str[0]
+                e["product"] = e.symbol.map({s: s.split()[0] for s in mapping.values()})
                 e = e[e.symbol.isin(outright.raw_symbol)]
                 e["day"] = e.ts_recv.dt.tz_convert(cfg["timezone"]).dt.strftime(
                     "%Y-%m-%d"
                 )
                 for day, group in e.groupby("day"):
+                    day = day.strftime("%Y-%m-%d")
+                    group = group.assign(day=day)
                     if day >= cfg["holdout_start"]:
                         raise ValueError("Refuse to normalise final holdout")
                     table = pa.Table.from_pandas(group, preserve_index=False)

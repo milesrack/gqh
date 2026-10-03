@@ -4,7 +4,17 @@ import numpy as np
 import pandas as pd
 
 
-def simulate(frame, predictions, books, cfg, fee, buffer, latency_ms=None, slippage=0):
+def simulate(
+    frame,
+    predictions,
+    books,
+    cfg,
+    fee,
+    buffer,
+    latency_ms=None,
+    slippage=0,
+    spread_multiplier=1,
+):
     latency = pd.Timedelta(
         milliseconds=cfg["latency_ms"] if latency_ms is None else latency_ms
     )
@@ -17,7 +27,11 @@ def simulate(frame, predictions, books, cfg, fee, buffer, latency_ms=None, slipp
             break
         if t <= free_after:
             continue
-        threshold = frame.at[t, "spread_FDXS"] + 2 * (fee + slippage) + buffer
+        threshold = (
+            spread_multiplier * frame.at[t, "spread_FDXS"]
+            + 2 * (fee + slippage)
+            + buffer
+        )
         side = 1 if forecast > threshold else -1 if forecast < -threshold else 0
         if side == 0:
             continue
@@ -66,6 +80,12 @@ def simulate(frame, predictions, books, cfg, fee, buffer, latency_ms=None, slipp
         entry_px = entry.ask if side == 1 else entry.bid
         exit_px = exit_quote.bid if side == 1 else exit_quote.ask
         gross = side * (exit_px - entry_px)
+        extra_spread = (
+            (spread_multiplier - 1)
+            * ((entry.ask - entry.bid) + (exit_quote.ask - exit_quote.bid))
+            / 2
+        )
+        net = gross - 2 * (fee + slippage) - extra_spread
         trades.append(
             {
                 "decision": t,
@@ -76,13 +96,13 @@ def simulate(frame, predictions, books, cfg, fee, buffer, latency_ms=None, slipp
                 "entry_price": entry_px,
                 "exit_price": exit_px,
                 "gross_eur": gross,
-                "net_eur": gross - 2 * (fee + slippage),
+                "net_eur": net,
                 "stop_triggered": stop_triggered,
                 "exit_delay_ms": (q.index[exit_idx] - exit_arrival).total_seconds()
                 * 1000,
             }
         )
-        realised += gross - 2 * (fee + slippage)
+        realised += net
         free_after = q.index[exit_idx]
     return pd.DataFrame(trades)
 

@@ -15,7 +15,7 @@ def quotes(events):
     q = q.sort_values("ts_recv", kind="stable").drop_duplicates("ts_recv", keep="last")
     valid = ((q["flags"] & 12) == 0) & (q.bid > 0) & (q.ask >= q.bid)
     valid &= (q.bid < 1e8) & (q.ask < 1e8) & (q.bid_size > 0) & (q.ask_size > 0)
-    q["valid"] = valid
+    q["valid"] = valid.fillna(False)
     q["mid"] = ((q.bid + q.ask) / 2).where(valid)
     q["bi"] = ((q.bid_size - q.ask_size) / (q.bid_size + q.ask_size)).where(valid)
     return q.set_index("ts_recv")

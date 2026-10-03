@@ -40,7 +40,9 @@ def run(args, cfg, output):
     days = [
         p.stem
         for p in paths
-        if cfg["development_start"] <= p.stem < cfg["development_end_exclusive"]
+        if (cfg["development_start"] if args.stage == "smoke" else cfg["history_start"])
+        <= p.stem
+        < cfg["development_end_exclusive"]
     ]
     if len(days) < 4:
         raise ValueError("At least four development sessions required")
@@ -54,11 +56,15 @@ def run(args, cfg, output):
         ]
 
     frames, books, audits = {}, {}, {}
-    for path in paths:
-        if path.stem not in days:
-            continue
-        frame, book, audit = features(pd.read_parquet(path), cfg, path.stem)
-        frames[path.stem], books[path.stem], audits[path.stem] = frame, book, audit
+    paths_by_day = {p.stem: p for p in paths}
+
+    for day in days:
+        path = paths_by_day[day]
+        frame, book, audit = features(
+            pd.read_parquet(path).sort_values("ts_recv", kind="stable"), cfg, day
+        )
+        frames[day], books[day], audits[day] = frame, book, audit
+
     train = pd.concat([frames[d] for d in train_days])
     validation = pd.concat([frames[d] for d in valid_days])
     if train.empty or validation.empty:
@@ -105,6 +111,39 @@ def run(args, cfg, output):
                 stem = f"{name}-fee{fee}-buffer{buffer}"
                 trades.to_csv(output / f"{stem}-trades.csv", index=False)
                 daily.to_csv(output / f"{stem}-daily.csv")
+    stress = []
+    # Fixed five/five model, zero buffer; scenarios do not choose a winner.
+    for latency in cfg["latency_sensitivity_ms"]:
+        for slippage in cfg["slippage_ticks_per_side"]:
+            for multiplier in [1, 2]:
+                trades = pd.concat(
+                    [
+                        simulate(
+                            frames[d],
+                            predict(m1, frames[d], CROSS),
+                            books[d],
+                            cfg,
+                            fee=1 * multiplier,
+                            buffer=0,
+                            latency_ms=latency,
+                            slippage=slippage * multiplier,
+                            spread_multiplier=multiplier,
+                        )
+                        for d in valid_days
+                    ],
+                    ignore_index=True,
+                )
+                summary, daily = metrics(
+                    trades, valid_days, cfg["reporting_capital_eur"]
+                )
+                summary.update(
+                    latency_ms=latency,
+                    slippage_index_points_per_side=slippage,
+                    cost_multiplier=multiplier,
+                    illustrative_fee=True,
+                )
+                stress.append(summary)
+    pd.DataFrame(stress).to_csv(output / "execution-stress.csv", index=False)
     result = {
         "stage": args.stage,
         "holdout_access": False,
@@ -114,8 +153,9 @@ def run(args, cfg, output):
         "forecast": score,
         "models": models,
         "execution": execution,
+        "execution_stress": stress,
         "data_audit": audits,
-        "capital_metrics_status": "pending declared capital and verified margin/fees",
+        "capital_metrics_status": "EUR10000 scenario; broker margin and fees unverified",
         "deployment_status": "unvalidated; development evidence only",
     }
     losses.to_csv(output / "daily-forecast-loss.csv")
