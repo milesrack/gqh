@@ -1,0 +1,29 @@
+name: Checks
+on:
+  pull_request:
+  push:
+    branches: [main]
+permissions:
+  contents: read
+jobs:
+  check:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@v7.0.1
+      - uses: astral-sh/setup-uv@v10.2.0
+        with:
+          version: '0.11.9'
+          enable-cache: true
+      - run: uv sync --locked
+      - run: uv run --locked ruff check tools
+      - run: uv run --locked ruff format --check tools
+      - run: uv run --locked python -m compileall -q tools src
+      - name: Validate notebooks
+        run: |
+          uv run --locked python - <<'PY'
+          from pathlib import Path
+          import nbformat
+          for path in Path('notebooks').rglob('*.ipynb'):
+              nbformat.validate(nbformat.read(path, as_version=4))
+          PY

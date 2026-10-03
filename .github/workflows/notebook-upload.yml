@@ -1,0 +1,36 @@
+name: Upload notebooks
+on:
+  workflow_dispatch:
+    inputs:
+      ref:
+        description: Branch or commit to upload
+        required: true
+        default: main
+permissions:
+  contents: read
+jobs:
+  upload:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    env:
+      DEPLOY_HOST: ${{ vars.GQH_NOTEBOOK_HOST }}
+      DEPLOY_USER: ${{ vars.GQH_DEPLOY_USER }}
+      HOST_KEY: ${{ vars.GQH_NOTEBOOK_HOST_KEY }}
+      SSH_KEY: ${{ secrets.GQH_DEPLOY_SSH_KEY }}
+    steps:
+      - uses: actions/checkout@v7.0.1
+        with:
+          ref: ${{ inputs.ref }}
+          persist-credentials: false
+      - name: Upload immutable source snapshot
+        shell: bash
+        run: |
+          set -euo pipefail
+          test -n "$DEPLOY_HOST" && test -n "$DEPLOY_USER" && test -n "$HOST_KEY" && test -n "$SSH_KEY"
+          mkdir -p ~/.ssh
+          printf '%s\n' "$SSH_KEY" > ~/.ssh/deploy
+          chmod 600 ~/.ssh/deploy
+          printf '%s\n' "$HOST_KEY" > ~/.ssh/known_hosts
+          revision=$(git rev-parse HEAD)
+          git archive HEAD | ssh -i ~/.ssh/deploy -o BatchMode=yes -o StrictHostKeyChecking=yes "$DEPLOY_USER@$DEPLOY_HOST" "mkdir -p /srv/gqh/deployments/$revision && tar -xf - -C /srv/gqh/deployments/$revision"
+          printf 'Uploaded revision %s\n' "$revision" >> "$GITHUB_STEP_SUMMARY"

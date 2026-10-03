@@ -27,13 +27,11 @@ Copy `.env.example` to `.env` and supply the required provider credentials. Load
 | `notebooks/` | Research experiments on hypothesis branches |
 | `src/` | Reusable code and the selected strategy |
 | `tools/` | Acquisition and experiment commands |
-| `data/` | Ignored local caches; paid datasets remain in private context |
+| `data/` | Ignored local caches; shared datasets reside in Snowflake |
 | `research/` | Economic hypothesis, evaluation plan and experiment ledger |
 | `results/` | Generated run outputs, ignored |
 | `report/` | LaTeX quant note and selected figures and tables |
 
 ## References
 
-[Private research context](https://github.com/milesrack/gqh-systematic-track-context)
-
-Shared data and context: [Snowflake setup](deployment/snowflake/README.md). Notebook compute: Vultr through an SSH tunnel.
+Shared data and context: [asset access](docs/shared-assets.md). Notebook compute uses SSH tunnels.
