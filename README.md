@@ -22,6 +22,8 @@ Development: 0.0108% relative forecast-error reduction, interval includes zero; 
 
 ## Reproduction
 
+[Futures parameter grids and batch jobs](research/batch-runner.md).
+
 ```sh
 uv sync --locked
 uv run --locked python run_all.py --stage development --run-id dax-development-reproduction
