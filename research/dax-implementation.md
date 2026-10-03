@@ -10,6 +10,7 @@ uv run --env-file .env --locked python data/download.py download --plan research
 uv run --locked python run_all.py --stage smoke --run-id dax-smoke-001
 uv run --locked python run_all.py --stage development --run-id dax-development-001
 uv run --locked python tools/dax_sensitivity.py --run-prefix dax-stability
+uv run --locked python -m tools.dax_diagnostics --run-dir results/dax-stability-L5-H5
 ```
 
 Downloads are explicit and cost-capped; existing requests are not charged again. Data resides in the private context checkout. Development never reads the locked price events. Definitions, source hashes and rejected-row counts accompany results. Model targets and buffers are in index points pending historical tick reconciliation.

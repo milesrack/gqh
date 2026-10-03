@@ -159,6 +159,7 @@ def test_unsigned_book_sizes_preserve_negative_imbalance():
 def test_acquisition_recovers_existing_file_without_download(tmp_path, monkeypatch):
     import hashlib
     import json
+
     from data import download
 
     request = {"dataset": "XEUR.EOBI", "schema": "mbp-1", "start": "2025-03-10"}
@@ -201,6 +202,7 @@ def test_daily_loss_limit_stops_new_entries():
 
 def test_holdout_files_are_excluded_before_opening(tmp_path):
     import json
+
     from src.market_data import prepare
 
     manifest = {
@@ -214,6 +216,7 @@ def test_holdout_files_are_excluded_before_opening(tmp_path):
 
 def test_mixed_holdout_file_is_rejected_before_opening(tmp_path):
     import json
+
     from src.market_data import prepare
 
     manifest = {

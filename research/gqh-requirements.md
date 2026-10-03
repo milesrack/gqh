@@ -15,9 +15,9 @@ Source: [Systematic Trading track](https://www.gqhacks.com/tracks/systematic-tra
 | Doubled costs | Required stress comparison; fees/slippage/spread components must be explicit |
 | Parameter stability | Primary 5/5, supplied 16-cell horizon grid plus adjacent 4/5/6 grid; no winner replaces primary |
 | Benchmarks | Nested own-state/price-only baseline; beta, momentum and factor diagnostics pending |
-| Risk | One FDXS contract, no overlap, invalid-book abstention. Margin, capital, position-loss and daily de-risking specification pending |
+| Risk | One FDXS contract, no overlap, invalid-book abstention. 10-point position stop and EUR100 daily loss limit; EUR10,000 reporting capital. Broker margin remains unverified |
 | Capacity | Displayed-size checks; participation, impact and dollar-capacity curve pending |
-| Required metrics | Separate IS/OOS annual return, volatility, Sharpe, drawdown, turnover and equity curve; capital-dependent metrics pending declared capital |
+| Required metrics | Separate IS/OOS annual return, volatility, Sharpe, drawdown, turnover and equity curve; capital-dependent metrics use the declared EUR10,000 scenario; final OOS and equity plots pending |
 | Regime evidence | Month, volatility, time-of-day and roll-cycle breakdowns; six-month pilot cannot establish multi-year resilience |
 | Reproducibility | uv lock; run_all.py; data acquisition separate; source/config/code/runtime hashes |
 | Quant note | Existing 11pt template, standard margins; <=5 main pages. Write results only after strategy selection and approved freeze |
