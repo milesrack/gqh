@@ -1,0 +1,14 @@
+family,specification_commit,candidate_count,prespecified_control_count,validation_accessed,status,selected_validation_net_eur,evidence_relative_path
+book-dislocation,cc65fb8,12,0,False,rejected-training,,relative-value/trial-ledger.json
+shock-resiliency,cc65fb8,5,0,False,rejected-training,,liquidity/experiments.csv
+persistent-information,cc65fb8,12,0,False,rejected-training,,information/train/metrics.json
+programme-completion,7431365,3,3,False,rejected-training,,liquidity/completion/training.json
+round-stop-cascade,be243b8,6,6,False,rejected-training,,relative-value/cascade_training_results.json
+large-trade-surprise,be243b8,12,2,True,rejected-validation,-1774,information/large/validation/metrics.json
+adverse-selection,abc170c,1,0,False,rejected-training,,liquidity/adverse-selection/training.json
+failed-stop-cascade,abc170c,6,6,False,rejected-training,,relative-value/failed_training_results.json
+execution-contract,18d4148,24,0,False,rejected-training,,information/venue/train/metrics.json
+fixed-sign-reversal,d72a284,24,12,False,rejected-training,,relative-value/reversal_training_results.json
+large-print-reversal,f0276e6,12,2,True,rejected-validation,-67,information/reverse/validation/metrics.json
+passive-liquidity-premium,25a3d67,4,4,False,running,,liquidity/passive
+passive-absorption,25a3d67,12,2,False,running,,information/absorption
