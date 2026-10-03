@@ -1,0 +1,92 @@
+{
+  "batch_id": "dax-ranked-membership-v1",
+  "start": "2025-03-10",
+  "end": "2025-07-28",
+  "equity_history_start": "2024-01-01",
+  "universe": [
+    "ADS.DE",
+    "AIR.DE",
+    "ALV.DE",
+    "BAS.DE",
+    "BAYN.DE",
+    "BEI.DE",
+    "BMW.DE",
+    "BNR.DE",
+    "CBK.DE",
+    "CON.DE",
+    "DB1.DE",
+    "DBK.DE",
+    "DHL.DE",
+    "DTE.DE",
+    "DTG.DE",
+    "ENR.DE",
+    "EOAN.DE",
+    "FME.DE",
+    "FRE.DE",
+    "HEI.DE",
+    "HEN3.DE",
+    "HNR1.DE",
+    "IFX.DE",
+    "MBG.DE",
+    "MRK.DE",
+    "MTX.DE",
+    "MUV2.DE",
+    "P911.DE",
+    "PAH3.DE",
+    "QIA.DE",
+    "RHM.DE",
+    "RWE.DE",
+    "SAP.DE",
+    "SHL.DE",
+    "SIE.DE",
+    "SRT3.DE",
+    "SY1.DE",
+    "VNA.DE",
+    "VOW3.DE",
+    "ZAL.DE"
+  ],
+  "feature_files": [
+    "results/dax-development-stability-L5-H1/training-features.parquet",
+    "results/dax-development-stability-L5-H1/validation-features.parquet"
+  ],
+  "lookbacks": [
+    1,
+    3,
+    5,
+    10,
+    20,
+    60
+  ],
+  "quantiles": [
+    0.1,
+    0.2,
+    0.3
+  ],
+  "families": [
+    "momentum",
+    "residual",
+    "vol_normalised"
+  ],
+  "directions": [
+    1,
+    -1
+  ],
+  "rebalance_days": [
+    1,
+    3,
+    5
+  ],
+  "cost_multiples": [
+    1,
+    2
+  ],
+  "capital_eur": 1000000,
+  "equity_side_bps": 10,
+  "annual_short_borrow": 0.05,
+  "futures_side_fee_eur": 2,
+  "futures_slippage_points": 1,
+  "minimum_equities": 40,
+  "development_split_fraction": 0.8,
+  "membership_file": "research/configs/dax-membership-2025-pilot.csv",
+  "membership_sha256": "68b14c7cd31af042a87b733dcecdd41354ce4216a7102979c5b52f5159e47048"
+}
