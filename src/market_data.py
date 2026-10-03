@@ -38,7 +38,8 @@ def prepare(directory, cfg, smoke=False):
         r = item["request"]
         day = r["start"][:10]
         if r["schema"] == "definition":
-            allowed.append(item)
+            if not smoke or cfg["development_start"] <= day < "2025-06-07":
+                allowed.append(item)
         elif smoke:
             if cfg["development_start"] <= day < "2025-06-07":
                 allowed.append(item)
@@ -121,9 +122,7 @@ def prepare(directory, cfg, smoke=False):
                 )
                 e["product"] = e.symbol.map({s: s.split()[0] for s in mapping.values()})
                 e = e[e.symbol.isin(outright.raw_symbol)]
-                e["day"] = e.ts_recv.dt.tz_convert(cfg["timezone"]).dt.strftime(
-                    "%Y-%m-%d"
-                )
+                e["day"] = e.ts_recv.dt.tz_convert(cfg["timezone"]).dt.floor("D")
                 for day, group in e.groupby("day"):
                     day = day.strftime("%Y-%m-%d")
                     group = group.assign(day=day)

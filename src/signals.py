@@ -70,7 +70,7 @@ def features(events, cfg, day):
     frame = pd.DataFrame(index=grid)
     books = {}
     for product in cfg["products"]:
-        e = events[events.product == product]
+        e = events[events["product"] == product]
         if e.empty:
             return frame.iloc[:0], books, {"missing_product": product}
         q = quotes(e)

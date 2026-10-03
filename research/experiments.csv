@@ -1,1 +1,2 @@
 trial_id,timestamp_utc,hypothesis_commit,code_commit,data_sha256,config_sha256,sample,parameters,cost_model,result_path,status,conclusion,holdout_access
+dax-smoke-001,2026-10-03T05:44:00.208691+00:00,f2246e5b979886c3abe37445d74bff29b3324836,108a46b5e84b8d29317b011c0763c1dc8dfea2f4,,e3f993b9a096cf7deff2d3646bd973b947af5bd5ed4e4eb1486148c68dee7656,smoke,research/configs/dax.json,illustrative fee scenarios; observed spread,results/dax-smoke-001,failed,KeyError: False,false
