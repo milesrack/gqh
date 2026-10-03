@@ -24,8 +24,10 @@ Copy `.env.example` to `.env` and supply the required provider credentials. Load
 
 | Path | Contents |
 | --- | --- |
-| `src/` | Signals, portfolio construction, backtesting and analysis |
-| `data/` | Acquisition code; datasets and manifests in the context repository |
+| `notebooks/` | Research experiments on hypothesis branches |
+| `src/` | Reusable code and the selected strategy |
+| `tools/` | Acquisition and experiment commands |
+| `data/` | Ignored local caches; paid datasets remain in private context |
 | `research/` | Economic hypothesis, evaluation plan and experiment ledger |
 | `results/` | Generated run outputs, ignored |
 | `report/` | LaTeX quant note and selected figures and tables |

@@ -48,17 +48,22 @@ Keep one canonical context copy. Preserve originals, hashes, edition, timestamps
 
 | Path | Responsibility |
 | --- | --- |
-| `src/signals.py` | Forecasts and trading signals |
-| `src/backtest.py` | Portfolio, risk, execution and costs |
-| `src/analysis.py` | Benchmarks, metrics, robustness and report outputs |
-| `data/download.py` | Acquisition code; datasets reside in context `data/` |
-| `research/hypothesis.md` | Economic hypothesis and evaluation specification |
-| `research/experiments.csv` | All trials, failures and holdout access |
-| `results/<run_id>/` | Configuration, data hashes, trades, returns and metrics |
+| `notebooks/` | Experiment notebooks on hypothesis branches |
+| `src/` | Reusable research code and the selected strategy |
+| `tools/` | Acquisition and experiment commands |
+| `research/` | Hypothesis specifications, configuration and trial ledger |
+| `results/<run_id>/` | Generated tables, figures, trades, returns and metrics |
 | `report/quant-note.tex` | Submission paper and selected evidence |
-| `run_all.py` | Reproduce headline results |
 
-Create implementation files once behaviour is defined. Track configuration and dependencies. Separate acquisition from evaluation; no implicit downloads, retuning or holdout access. Data manifests retain availability timestamps, adjustments and hashes. Routine run outputs are ignored; commit redistributable report evidence.
+Create modules when needed; do not prescribe filenames for an unselected strategy. Script the adopted strategy and provide a single reproduction command after approval.
+
+Purchased datasets remain in the private context repository's `data/`. Root `data/` is reserved for ignored local caches; do not duplicate paid datasets there. Keep acquisition separate from evaluation. Record dataset locations, availability timestamps, adjustments and hashes in manifests. A future shared store must preserve these manifests and dataset versions.
+
+## Experiment notebooks
+
+Organise notebooks in research order: hypothesis and frozen specification; data provenance and quality; exploratory analysis; signals and IC; execution and costs; validation, sensitivity and conclusions. Show sample counts and visible progress. Include distributions, Pearson/rank IC, equity, drawdown, exposure, turnover and parameter sensitivity where applicable.
+
+Save plotted data, tables, figures and configuration to `results/<run_id>/`; record every trial and failure in the ledger. Keep notebook outputs untracked. Label reused validation and keep final holdout access explicit. Add Jupyter through uv when introducing notebooks; launch with `uv run --locked jupyter lab`.
 
 ## Runtime and credentials
 
