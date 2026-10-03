@@ -1,7 +1,11 @@
 """Secondary directed tests and training-only standardised disagreement."""
 
 import argparse
+import csv
+import hashlib
 import json
+import subprocess
+from datetime import UTC, datetime
 from pathlib import Path
 
 import pandas as pd
@@ -95,14 +99,61 @@ def main():
             result[field] = lookup[name].reindex(keys).to_numpy()
         return result
 
-    ts, vs = shifted(train).dropna(), shifted(valid).dropna()
     cols = controls + ["OF_FDAX", "OF_FDXM"]
+    ts = shifted(train).dropna(subset=cols + ["Y"])
+    vs = shifted(valid).dropna(subset=cols + ["Y"])
     pm = fit(ts, cols)
     bm = fit(ts, controls)
     placebo, _ = forecast_metrics(
         vs, predict(bm, vs, controls).to_numpy(), predict(pm, vs, cols).to_numpy(), cfg
     )
-    (args.run_dir / "day-shift-placebo.json").write_text(json.dumps(placebo, indent=2))
+    real_train, real_valid = train.loc[ts.index], valid.loc[vs.index]
+    real_m = fit(real_train, cols)
+    real_b = fit(real_train, controls)
+    matched_real, _ = forecast_metrics(
+        real_valid,
+        predict(real_b, real_valid, controls).to_numpy(),
+        predict(real_m, real_valid, cols).to_numpy(),
+        cfg,
+    )
+    (args.run_dir / "day-shift-placebo.json").write_text(
+        json.dumps({"shifted": placebo, "unshifted_same_rows": matched_real}, indent=2)
+    )
+    root = Path(__file__).resolve().parents[1]
+    provenance = json.loads((args.run_dir / "provenance.json").read_text())
+    metadata = json.loads((args.run_dir / "metrics.json").read_text())
+    ledger = root / "research/experiments.csv"
+    with ledger.open() as stream:
+        fields = next(csv.reader(stream))
+    code = subprocess.check_output(
+        ["git", "rev-parse", "HEAD"], cwd=root, text=True
+    ).strip()
+    diagnostics = rows + [
+        {"diagnostic": "disagreement", "result": result},
+        {"diagnostic": "day_shift", "result": placebo},
+    ]
+    with ledger.open("a") as stream:
+        writer = csv.DictWriter(stream, fieldnames=fields)
+        for i, diagnostic in enumerate(diagnostics):
+            writer.writerow(
+                {
+                    "trial_id": f"{args.run_dir.name}-secondary-{i}",
+                    "timestamp_utc": datetime.now(UTC).isoformat(),
+                    "hypothesis_commit": provenance["hypothesis_commit"],
+                    "code_commit": code,
+                    "config_sha256": hashlib.sha256(
+                        (args.run_dir / "config.json").read_bytes()
+                    ).hexdigest(),
+                    "sample": metadata["stage"],
+                    "parameters": json.dumps(diagnostic, default=float),
+                    "cost_model": "forecast diagnostic only",
+                    "result_path": str(args.run_dir.relative_to(root)),
+                    "holdout_access": "false",
+                    "status": "completed",
+                    "data_sha256": metadata["data_identity"],
+                    "conclusion": "secondary; primary unchanged",
+                }
+            )
     print(pd.DataFrame(rows).to_string(index=False))
 
 
