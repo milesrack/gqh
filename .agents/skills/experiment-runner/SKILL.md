@@ -5,6 +5,6 @@ description: Make systematic trading experiments reproducible and comparable thr
 
 # Experiment runner
 
-Use `uv sync --locked` to restore the Python 3.12 environment from `pyproject.toml` and `uv.lock`; run experiments with `uv run --locked`. Add required packages through `uv add`, and commit the project metadata and lockfile together. Record Python and direct package versions with each completed experiment.
+Restore Python 3.12 with `uv sync --locked`; run experiments with `uv run --locked`. Add packages with `uv add`; commit `pyproject.toml` and `uv.lock` together. Record Python and direct dependency versions for each completed experiment.
 
-Use a saved config for data version, split boundaries, hypothesis/baseline ID, parameters, execution assumptions, costs, slippage, and random seed where applicable. Record code version, run timestamp, status, and metric conventions. Write run artefacts to `results/<run_id>/` and record each trial in `research/experiments.csv`; retain failed runs and explicit missing-value reasons. Build comparable experiment tables using the same sample and metric definitions. Never substitute synthetic test fixtures for empirical evidence or alter the final test split after seeing results.
+Save configuration for data version, split boundaries, hypothesis and baseline IDs, parameters, execution, costs, slippage and applicable random seeds. Record code version, timestamp, status and metric conventions. Write artefacts to `results/<run_id>/`; log every trial in `research/experiments.csv`, including failures and missing-value reasons. Compare runs on identical samples and metric definitions. Keep synthetic fixtures separate from empirical evidence. Freeze the final test split before viewing results.

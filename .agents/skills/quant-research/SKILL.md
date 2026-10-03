@@ -5,4 +5,6 @@ description: Frame a systematic trading idea as a falsifiable research plan befo
 
 # Quant research
 
-Write a hypothesis with an economic or statistical mechanism, a prediction that could fail, and a null/baseline comparison. Define the signal, eligible universe, observation and decision times, expected holding period, portfolio rule, required data, and assumptions. Specify evaluation metrics and a train/validation/test plan before inspecting outcomes. Establish a simple baseline before adding features or complexity. Treat candidate ideas as unproven; do not assert alpha from a profitable backtest. If challenge details are unavailable, leave dependent choices open rather than inventing them.
+Specify the economic or statistical mechanism, falsifiable prediction and null or baseline. Define signal, universe, observation and decision times, holding period, portfolio rule, data and assumptions.
+
+Freeze evaluation metrics and chronological training, validation and test design before inspecting outcomes. Start with a simple baseline. Treat candidates as unproven; a profitable backtest does not establish alpha. Leave choices dependent on unavailable competition rules open.

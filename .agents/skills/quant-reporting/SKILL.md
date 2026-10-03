@@ -5,4 +5,6 @@ description: Write concise, judge-ready systematic trading methodology and resul
 
 # Quant reporting
 
-State the hypothesis, baseline, data and sample, assumptions, signal and portfolio rules, execution timing, validation design, results, limitations, and reproduction steps. Use the prespecified metrics and conventions in `research/hypothesis.md` and the recorded run configuration; identify train, validation and untouched test results separately. Explain costs, slippage, uncertainty, and failed robustness checks. Keep claims proportional to evidence and disclose selection/search scope. Check official submission rules when released; do not invent them or present synthetic unit-test outputs as competition results.
+Report the hypothesis, baseline, data, sample, assumptions, signal and portfolio rules, execution timing, validation, results, limitations and reproduction steps. Use prespecified metrics and conventions from `research/hypothesis.md` and the recorded run configuration. Separate training, validation and untouched final test results.
+
+Explain costs, slippage, uncertainty and failed robustness checks. Match claims to evidence; disclose selection and search scope. Check current official submission rules. Keep synthetic test outputs separate from competition results.

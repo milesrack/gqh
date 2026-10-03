@@ -3,8 +3,8 @@ name: quant-visualization
 description: Create transparent diagnostic charts for trading experiments and validation reports.
 ---
 
-# Quant visualization
+# Quant visualisation
 
-Use Matplotlib for diagnostic figures and pandas or NumPy to prepare series when required. Declare dependencies with `uv add` and run through `uv run --locked`. Preserve the underlying values and axis conventions alongside each figure.
+Use Matplotlib for diagnostic figures; prepare series with pandas or NumPy as required. Declare dependencies with `uv add`; run with `uv run --locked`. Save plotted values, axis conventions and figure configuration.
 
-Plot equity curves with split boundaries and a baseline, drawdowns, rolling volatility, and rolling Sharpe when sample length supports it. Show turnover, exposure, parameter sensitivity, and regime performance where relevant. Label units, frequency, costs, dates, and sample size; distinguish gross from net results. Avoid truncated axes or smoothing that hides losses. Annotate unavailable or undefined metrics rather than fabricating curves. Save figure inputs and the config that produced them.
+Plot equity curves with split boundaries and benchmarks, drawdowns, rolling volatility and rolling Sharpe when sample length permits. Show applicable turnover, exposure, parameter sensitivity and regime results. Label units, frequency, costs, dates and sample size. Distinguish gross and net results. Avoid axes or smoothing that conceal losses. Mark unavailable or undefined metrics; do not fabricate curves.
