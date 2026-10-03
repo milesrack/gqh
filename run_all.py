@@ -63,7 +63,9 @@ def run(args, cfg, output):
         frame, book, audit = features(
             pd.read_parquet(path).sort_values("ts_recv", kind="stable"), cfg, day
         )
-        frames[day], books[day], audits[day] = frame, book, audit
+        frames[day], audits[day] = frame, audit
+        if day in valid_days and "FDXS" in book:
+            books[day] = {"FDXS": book["FDXS"]}
 
     train = pd.concat([frames[d] for d in train_days]).dropna(subset=["Y"])
     validation = pd.concat([frames[d] for d in valid_days]).dropna(subset=["Y"])
@@ -90,7 +92,7 @@ def run(args, cfg, output):
                         simulate(
                             frames[d],
                             predict(model, frames[d], cols),
-                            books[d],
+                            books.get(d, {}),
                             cfg,
                             fee,
                             buffer,
@@ -123,7 +125,7 @@ def run(args, cfg, output):
                         simulate(
                             frames[d],
                             predict(m1, frames[d], CROSS),
-                            books[d],
+                            books.get(d, {}),
                             cfg,
                             fee=1 * multiplier,
                             buffer=0,
