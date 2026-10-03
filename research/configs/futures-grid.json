@@ -1,0 +1,468 @@
+{
+  "version": 1,
+  "batch_id": "book151-futures-v1",
+  "dataset": "data/futures-daily-development",
+  "max_jobs": 512,
+  "windows": {
+    "training": [
+      "2016-04-01",
+      "2022-01-19"
+    ],
+    "validation": [
+      "2022-01-19",
+      "2024-05-27"
+    ],
+    "holdout_start": "2024-05-27"
+  },
+  "risk": {
+    "capital": 1000000,
+    "annual_target": 0.1,
+    "root_cap": 0.25
+  },
+  "costs": {
+    "commission": 2.5,
+    "ticks": 1
+  },
+  "selection": {
+    "min_sharpe": 0.25
+  },
+  "validation": {
+    "enabled": false
+  },
+  "strategies": [
+    {
+      "id": "trend",
+      "universes": [
+        [
+          "ES",
+          "NQ",
+          "ZN",
+          "CL",
+          "GC",
+          "6E"
+        ],
+        [
+          "ES"
+        ],
+        [
+          "NQ"
+        ],
+        [
+          "ZN"
+        ],
+        [
+          "CL"
+        ],
+        [
+          "GC"
+        ],
+        [
+          "6E"
+        ]
+      ],
+      "frequencies": [
+        "monthly"
+      ]
+    },
+    {
+      "id": "reversal",
+      "universes": [
+        [
+          "ES",
+          "NQ",
+          "ZN",
+          "CL",
+          "GC",
+          "6E"
+        ]
+      ],
+      "frequencies": [
+        "weekly"
+      ]
+    },
+    {
+      "id": "carry",
+      "universes": [
+        [
+          "CL",
+          "GC"
+        ]
+      ],
+      "frequencies": [
+        "monthly"
+      ],
+      "risk": {
+        "root_cap": 0.5
+      }
+    },
+    {
+      "id": "volume_reversal",
+      "universes": [
+        [
+          "ES",
+          "NQ",
+          "ZN",
+          "CL",
+          "GC",
+          "6E"
+        ]
+      ],
+      "frequencies": [
+        "weekly"
+      ]
+    },
+    {
+      "id": "single_ma",
+      "universes": [
+        [
+          "ES",
+          "NQ",
+          "ZN",
+          "CL",
+          "GC",
+          "6E"
+        ],
+        [
+          "ES"
+        ],
+        [
+          "NQ"
+        ],
+        [
+          "ZN"
+        ],
+        [
+          "CL"
+        ],
+        [
+          "GC"
+        ],
+        [
+          "6E"
+        ]
+      ],
+      "frequencies": [
+        "daily"
+      ]
+    },
+    {
+      "id": "double_ma",
+      "universes": [
+        [
+          "ES",
+          "NQ",
+          "ZN",
+          "CL",
+          "GC",
+          "6E"
+        ],
+        [
+          "ES"
+        ],
+        [
+          "NQ"
+        ],
+        [
+          "ZN"
+        ],
+        [
+          "CL"
+        ],
+        [
+          "GC"
+        ],
+        [
+          "6E"
+        ]
+      ],
+      "frequencies": [
+        "daily"
+      ]
+    },
+    {
+      "id": "triple_ma",
+      "universes": [
+        [
+          "ES",
+          "NQ",
+          "ZN",
+          "CL",
+          "GC",
+          "6E"
+        ],
+        [
+          "ES"
+        ],
+        [
+          "NQ"
+        ],
+        [
+          "ZN"
+        ],
+        [
+          "CL"
+        ],
+        [
+          "GC"
+        ],
+        [
+          "6E"
+        ]
+      ],
+      "frequencies": [
+        "daily"
+      ]
+    },
+    {
+      "id": "channel",
+      "universes": [
+        [
+          "ES",
+          "NQ",
+          "ZN",
+          "CL",
+          "GC",
+          "6E"
+        ],
+        [
+          "ES"
+        ],
+        [
+          "NQ"
+        ],
+        [
+          "ZN"
+        ],
+        [
+          "CL"
+        ],
+        [
+          "GC"
+        ],
+        [
+          "6E"
+        ]
+      ],
+      "frequencies": [
+        "daily"
+      ]
+    },
+    {
+      "id": "pivot",
+      "universes": [
+        [
+          "ES",
+          "NQ",
+          "ZN",
+          "CL",
+          "GC",
+          "6E"
+        ],
+        [
+          "ES"
+        ],
+        [
+          "NQ"
+        ],
+        [
+          "ZN"
+        ],
+        [
+          "CL"
+        ],
+        [
+          "GC"
+        ],
+        [
+          "6E"
+        ]
+      ],
+      "frequencies": [
+        "daily"
+      ]
+    },
+    {
+      "id": "ibs",
+      "universes": [
+        [
+          "ES",
+          "NQ",
+          "ZN",
+          "CL",
+          "GC",
+          "6E"
+        ]
+      ],
+      "frequencies": [
+        "daily"
+      ]
+    },
+    {
+      "id": "price_momentum",
+      "universes": [
+        [
+          "ES",
+          "NQ",
+          "ZN",
+          "CL",
+          "GC",
+          "6E"
+        ]
+      ],
+      "frequencies": [
+        "monthly"
+      ]
+    },
+    {
+      "id": "low_volatility",
+      "universes": [
+        [
+          "ES",
+          "NQ",
+          "ZN",
+          "CL",
+          "GC",
+          "6E"
+        ]
+      ],
+      "frequencies": [
+        "monthly"
+      ]
+    },
+    {
+      "id": "pair_reversal",
+      "universes": [
+        [
+          "ES",
+          "NQ"
+        ]
+      ],
+      "frequencies": [
+        "daily"
+      ]
+    },
+    {
+      "id": "rotation",
+      "universes": [
+        [
+          "ES",
+          "NQ",
+          "ZN",
+          "CL",
+          "GC",
+          "6E"
+        ]
+      ],
+      "frequencies": [
+        "monthly"
+      ]
+    },
+    {
+      "id": "rotation_ma",
+      "universes": [
+        [
+          "ES",
+          "NQ",
+          "ZN",
+          "CL",
+          "GC",
+          "6E"
+        ]
+      ],
+      "frequencies": [
+        "monthly"
+      ]
+    },
+    {
+      "id": "dual_rotation",
+      "universes": [
+        [
+          "ES",
+          "NQ",
+          "ZN",
+          "CL",
+          "GC",
+          "6E"
+        ]
+      ],
+      "frequencies": [
+        "monthly"
+      ]
+    },
+    {
+      "id": "skewness",
+      "universes": [
+        [
+          "CL",
+          "GC"
+        ]
+      ],
+      "frequencies": [
+        "monthly"
+      ],
+      "risk": {
+        "root_cap": 0.5
+      }
+    },
+    {
+      "id": "knn",
+      "universes": [
+        [
+          "ES",
+          "NQ",
+          "ZN",
+          "CL",
+          "GC",
+          "6E"
+        ],
+        [
+          "ES"
+        ],
+        [
+          "NQ"
+        ],
+        [
+          "ZN"
+        ],
+        [
+          "CL"
+        ],
+        [
+          "GC"
+        ],
+        [
+          "6E"
+        ]
+      ],
+      "frequencies": [
+        "daily"
+      ]
+    },
+    {
+      "id": "hp_ma",
+      "universes": [
+        [
+          "6E"
+        ]
+      ],
+      "frequencies": [
+        "daily"
+      ]
+    },
+    {
+      "id": "commodity_long",
+      "universes": [
+        [
+          "CL",
+          "GC"
+        ]
+      ],
+      "frequencies": [
+        "monthly"
+      ],
+      "risk": {
+        "root_cap": 0.5
+      }
+    }
+  ]
+}

@@ -1,0 +1,50 @@
+{
+  "version": 1,
+  "batch_id": "futures-harness-smoke",
+  "dataset": "data/futures-daily-development",
+  "max_jobs": 512,
+  "windows": {
+    "training": [
+      "2020-01-01",
+      "2021-01-01"
+    ],
+    "validation": [
+      "2022-01-19",
+      "2024-05-27"
+    ],
+    "holdout_start": "2024-05-27"
+  },
+  "risk": {
+    "capital": 1000000,
+    "annual_target": 0.1,
+    "root_cap": 0.25
+  },
+  "costs": {
+    "commission": 2.5,
+    "ticks": 1
+  },
+  "selection": {
+    "min_sharpe": 0.25
+  },
+  "validation": {
+    "enabled": false
+  },
+  "strategies": [
+    {
+      "id": "trend",
+      "grid": {
+        "lookback": [
+          120
+        ]
+      },
+      "universes": [
+        [
+          "ES"
+        ]
+      ],
+      "frequencies": [
+        "monthly"
+      ]
+    }
+  ]
+}
