@@ -25,9 +25,11 @@ Copy `.env.example` to `.env` and supply the required provider credentials. Load
 | Path | Contents |
 | --- | --- |
 | `src/` | Signals, portfolio construction, backtesting and analysis |
-| `data/` | Download code and data provenance; market data ignored |
+| `data/` | Acquisition code; datasets and manifests in the context repository |
 | `research/` | Economic hypothesis, evaluation plan and experiment ledger |
 | `results/` | Generated run outputs, ignored |
 | `report/` | LaTeX quant note and selected figures and tables |
 
 ## References
+
+[Private research context](https://github.com/milesrack/gqh-systematic-track-context)

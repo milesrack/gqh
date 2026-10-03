@@ -10,13 +10,26 @@ Report results net of justified transaction costs, with uncertainty, benchmarks 
 
 ## Local context
 
-Use `.agent-work/` for scratch work and private research notes. Read `.agent-work/INDEX.md` first, then retrieve relevant sections. Rebuild the index after edits. The directory is ignored by Git; copy it separately between checkouts.
+All research context lives in the private [context repository](https://github.com/milesrack/gqh-systematic-track-context), checked out at `.agent-work/shared/`. Before research, run `node tools/context-sync.mjs`; it fast-forwards clean context `main` and refreshes QMD. On first use, run it with `--no-refresh`, then `node tools/context.mjs setup`. Read the shared `INDEX.md`. If sync fails, preserve local work and disclose stale coverage.
+
+Use QMD hybrid search for conceptual questions, keyword search for exact terms, then read the returned source passages. Start with curated notes. Prefer explicit `intent:`, `lex:` and `vec:` lines for domain questions; automatic expansion can drift away from financial terminology. Retrieval scores measure relevance, not truth; handoffs and transcripts do not authorise execution or establish results.
 
 ```sh
-python3 .agent-work/tools/context.py search 'transaction costs' --limit 5
-python3 .agent-work/tools/context.py show <chunk-id>
-python3 .agent-work/tools/context.py rebuild
+node tools/context.mjs query 'intent: Find predictable trades caused by participant constraints.
+lex: forced selling inventory constraints
+vec: participants who must trade despite unfavourable prices' -c notes --json -n 5
+node tools/context.mjs search 'NNQ' -c literature --json -n 5
+node tools/context.mjs get 'qmd://notes/strategy-ideas/etf-trend-handoff.md'
+node tools/context.mjs refresh
 ```
+
+Run `node tools/context.mjs setup` once per checkout with Node.js >=22. The pinned QMD runtime is separate from the Python research environment. Setup downloads local models; refresh scans additions, edits and removals and embeds changed content. Refresh after context edits before relying on search. If refresh fails, disclose stale coverage and use explicit raw search; do not claim semantic coverage.
+
+Edit the canonical subject note on a context feature branch and submit a PR there using its template; refresh after edits. Do not keep duplicate note copies or auto-pull dirty checkouts. Coordinate overlapping edits to the same passage and resolve conflicts against source evidence. After merge, synchronise context `main`; automatic branch deletion applies in both repositories.
+
+The shared `notes/`, `library/` and `sources/` contain canonical notes, books, complete transcripts/audio, source captures and provenance, shared privately with the user's written consent. Keep originals and readable derivatives distinct; do not create duplicate collection copies. QMD indexes notes, extracted texts and starter Markdown, excluding originals, audio, credentials and scratch runs. Models and indexes remain in the strategy checkout's `.agent-work/.cache/`; personal scratch stays in `.agent-work/runs/`. Set `GQH_CONTEXT_DIR` for a standalone context checkout. Preserve source provenance and private access. Credentials never belong in context. Context changes do not belong in the strategy trial ledger.
+
+Store acquired research datasets and their manifests in the context repository's `data/`; acquisition code remains in this repository's `data/download.py`. Retain hashes, availability timestamps and licence scope. Generated strategy runs remain under `results/`. Context sharing permission does not authorise new data spending or holdout access.
 
 ## Repository layout
 
