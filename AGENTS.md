@@ -136,6 +136,12 @@ Keep notebook-only research self-contained: acquisition, transformations, strate
 
 Purchased datasets reside in Snowflake. Root `data/` and `.agent-work/assets/` are ignored caches. Keep acquisition separate from evaluation; retain availability timestamps, adjustments, hashes and immutable asset versions.
 
+## README and visual review
+
+Keep the README's first heading `Gator Quant Hacks: Systematic Trading Track`. Preserve its main-branch section skeleton and fill the sections with concise experiment-specific content. Keep commands under Reproduction; move detailed setup and research exposition to their relevant documents.
+
+Inspect every exported visual at its intended display size and within the final document. Check readable labels and legends, units, tick spacing, font sizes, contrast, positioning, alignment and centring. Fix clipping, overlaps and crowded panels before delivery. Record the visual review; exporting a file does not establish readability.
+
 ## Experiment notebooks
 
 Organise notebooks in research order: hypothesis and frozen specification; data provenance and quality; exploratory analysis; signals and IC; execution and costs; validation, sensitivity and conclusions. Show sample counts and visible progress. Include distributions, Pearson/rank IC, equity, drawdown, exposure, turnover and parameter sensitivity where applicable.
