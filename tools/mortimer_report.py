@@ -191,26 +191,30 @@ def main():
     chosen_ci = bootstrap.loc[
         (bootstrap["sample"] == "validation") & (bootstrap.block_sessions == 20)
     ].iloc[0]
+    write(
+        "bootstrap-interval.tex",
+        f"{100 * chosen_ci.lower_95:.2f}, {100 * chosen_ci.upper_95:.2f}",
+    )
     ic = pd.read_csv(OUT / "forecast-ic.csv")
     validation_ic = ic.loc[ic["sample"] == "validation"].iloc[0]
     write(
         "result-discussion.tex",
-        "The volatility overlay has its clearest effect in validation. Relative to unscaled ERC, "
-        + f"annualised volatility falls from {100 * bv.volatility:.2f}\\% to {100 * ev.volatility:.2f}\\%, "
-        + "and maximum drawdown from "
-        + f"{100 * bv.max_drawdown:.2f}\\% to {100 * ev.max_drawdown:.2f}\\%; "
-        + f"annualised return is lower by {10000 * (bv.cagr - ev.cagr):.0f} basis points. "
-        + "At ten basis points per trade, validation CAGR and Sharpe are "
-        + f"{100 * es.cagr:.2f}\\% and {es.sharpe:.3f}. A paired 20-session block bootstrap "
-        + "estimates a 95\\% interval of ["
+        "Validation provides the clearest evidence on the overlay’s risk mechanism. "
+        + f"Against unscaled ERC, annualised volatility falls from {100 * bv.volatility:.2f}\\% to {100 * ev.volatility:.2f}\\%, "
+        + "and maximum drawdown narrows from "
+        + f"{100 * abs(bv.max_drawdown):.2f}\\% to {100 * abs(ev.max_drawdown):.2f}\\%. "
+        + f"Annualised return is {10000 * (bv.cagr - ev.cagr):.0f} basis points lower. "
+        + "Under the ten-basis-point cost assumption, validation CAGR and Sharpe are "
+        + f"{100 * es.cagr:.2f}\\% and {es.sharpe:.3f}, respectively. "
+        + "A paired 20-session block bootstrap places the validation return difference within a 95\\% interval of ["
         + f"{100 * chosen_ci.lower_95:.2f}, {100 * chosen_ci.upper_95:.2f}"
-        + "] percentage points for the validation return difference. "
-        + "In the held-out OOS test, volatility and maximum drawdown are lower by "
-        + f"{100 * (1 - ef.volatility / bf.volatility):.1f}\\% and "
-        + f"{100 * (1 - ef.max_drawdown / bf.max_drawdown):.1f}\\%, respectively; "
-        + f"the Sharpe ratio is {ef.sharpe:.3f}, compared with {bf.sharpe:.3f} for unscaled ERC. "
-        + "The forecast’s validation Pearson and rank information coefficients are "
-        + f"{validation_ic.pearson_ic:.3f} and {validation_ic.rank_ic:.3f} against following-window realised volatility.",
+        + "] percentage points. The interval includes zero, consistent with the modest return difference.\\par\n"
+        + "Over the held-out out-of-sample test, annualised volatility and maximum drawdown are lower than unscaled ERC by "
+        + f"{100 * (1 - ef.volatility / bf.volatility):.1f}\\% and {100 * (1 - abs(ef.max_drawdown) / abs(bf.max_drawdown)):.1f}\\%, respectively. "
+        + f"The Sharpe ratio is {ef.sharpe:.3f}, compared with {bf.sharpe:.3f} for the benchmark. "
+        + "This pattern is consistent with the intended reduction in risky exposure, while the validation forecast’s Pearson and rank information coefficients of "
+        + f"{validation_ic.pearson_ic:.3f} and {validation_ic.rank_ic:.3f} indicate that the volatility signal also orders subsequent realised volatility. "
+        + "Taken together, the results support risk moderation; they do not show improved risk-adjusted performance over unscaled ERC.",
     )
 
     capacity = pd.read_csv(OUT / "capacity.csv")
@@ -227,8 +231,11 @@ def main():
     table.append(r"\bottomrule\end{tabular}\end{center}")
     bound = 1e6 * 0.01 / capacity.iloc[0].max_participation
     table.append(
-        r"\par\medskip\noindent At $Y=0.5$, a 1\% participation limit is reached at initial AUM of "
-        + f"\\${bound / 1e6:.2f} million. The higher AUM rows exceed 100\\% participation and show the impact formula extrapolated beyond that level."
+        r"\par\medskip\noindent At $Y=0.5$, maximum participation rises from "
+        + f"{100 * capacity.iloc[0].max_participation:.2f}\\% at \\${capacity.iloc[0].aum / 1e6:.0f} million to "
+        + f"{100 * capacity.iloc[1].max_participation:.2f}\\% at \\${capacity.iloc[1].aum / 1e6:.0f} million. "
+        + f"A 1\\% participation limit is reached at initial AUM of \\${bound / 1e6:.2f} million. "
+        + "Peak rebalance orders relative to recent volume therefore determine modelled capacity; rows above 100\\% participation extrapolate the impact formula beyond full daily volume."
     )
     write("capacity.tex", "\n".join(table))
 
