@@ -138,7 +138,7 @@ Purchased datasets reside in Snowflake. Root `data/` and `.agent-work/assets/` a
 
 ## Strategy names and visual review
 
-Keep the README's first heading `Gator Quant Hacks – Systematic Trading Track`. Preserve its main-branch section skeleton and fill the sections with concise experiment-specific content. Put the strategy's title and acronym expansion under Hypothesis. Keep commands under Reproduction; move detailed setup and research exposition to their relevant documents.
+Keep the README's first heading `Gator Quant Hacks: Systematic Trading Track`. Preserve its main-branch section skeleton and fill the sections with concise experiment-specific content. Put the strategy's title and acronym expansion under Hypothesis. Keep commands under Reproduction; move detailed setup and research exposition to their relevant documents.
 
 Name every strategy `MORTIMER: Subtitle`. Expand MORTIMER into a method-specific phrase at first use. Use a concise subtitle identifying the method or application. Keep the title consistent across the README, notebook and quant note. Preserve historical preregistration identifiers when renaming a frozen strategy.
 
