@@ -136,11 +136,9 @@ Keep notebook-only research self-contained: acquisition, transformations, strate
 
 Purchased datasets reside in Snowflake. Root `data/` and `.agent-work/assets/` are ignored caches. Keep acquisition separate from evaluation; retain availability timestamps, adjustments, hashes and immutable asset versions.
 
-## Strategy names and visual review
+## README and visual review
 
 Keep the README's first heading `Gator Quant Hacks: Systematic Trading Track`. Preserve its main-branch section skeleton and fill the sections with concise experiment-specific content. Put the strategy's title and acronym expansion under Hypothesis. Keep commands under Reproduction; move detailed setup and research exposition to their relevant documents.
-
-Name every strategy `MORTIMER: Subtitle`. Expand MORTIMER into a method-specific phrase at first use. Use a concise subtitle identifying the method or application. Keep the title consistent across the README, notebook and quant note. Preserve historical preregistration identifiers when renaming a frozen strategy.
 
 Inspect every exported visual at its intended display size and within the final document. Check readable labels and legends, units, tick spacing, font sizes, contrast, positioning, alignment and centring. Fix clipping, overlaps and crowded panels before delivery. Record the visual review; exporting a file does not establish readability.
 
