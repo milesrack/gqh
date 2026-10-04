@@ -1,6 +1,6 @@
-# Gator Quant Hacks: Systematic Trading Track
+# MORTIMER: Multi-asset Optimisation and Risk Targeting with Integrated Monthly E6 Rebalancing
 
-Research for the [Gator Quant Hacks Systematic Trading competition](https://www.gqhacks.com/tracks/systematic-trading), 2–4 October 2026.
+MORTIMER is a six-asset equal-risk-contribution (ERC) strategy that dynamically scales exposure to forecast volatility, delivering systematic downside-risk mitigation with low return drag after costs.
 
 ## Hypothesis
 
