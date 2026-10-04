@@ -4,13 +4,23 @@ Research for the [Gator Quant Hacks Systematic Trading competition](https://www.
 
 ## Hypothesis
 
+Develop and test systematic trading hypotheses on separate experiment branches. No strategy has been adopted.
+
 ## Data
+
+Restore versioned inputs from [shared assets](docs/shared-assets.md). Keep raw market data and credentials outside Git.
 
 ## Methodology
 
+Preregister rules and search budgets. Lag signals, include costs and freeze the strategy before final evaluation.
+
 ## Results
 
+Each experiment branch contains its trial ledger, notebook, reproduction command and quant note.
+
 ## Risk and capacity
+
+Report exposure limits, adverse regimes, doubled costs and trade participation. Distinguish measured capacity from assumed impact.
 
 ## Reproduction
 
