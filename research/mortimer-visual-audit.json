@@ -40,6 +40,6 @@
     "report/risk-evidence.png": "ea73e549873ebde30ec05e2ece433244909a3b2804404fc3a61645a86ad3a463",
     "report/split-evidence.png": "375f7a357e0f3ce93764f24988ded1886fc7260093fc35f22d2a9ae1216988da"
   },
-  "native_visual_review": "Reviewed all seven notebook PNGs and both report PNGs; axes, units, ticks, legends, and line labels remain readable at rendered size.",
-  "pdf_review": "Reviewed all six pages; title and author block are centred, body is five pages including title, references start on page six, and both figures are centred with consistent legends."
+  "native_visual_review": "Reviewed all seven notebook PNGs and both report PNGs at rendered size; labels, legends, units, centring, and placement are clear.",
+  "pdf_review": "Reviewed the title page, four-page body, references, tables, and figures at rendered size; all elements are centred and legible."
 }

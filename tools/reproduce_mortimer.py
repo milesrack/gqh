@@ -98,7 +98,7 @@ def reproduce(output=Path("results/mortimer-submission"), reuse=True):
     """Verify recorded series and rebuild deterministic result tables.
 
     The default path reads saved returns. Development replay checks arithmetic
-    before the OOS boundary and never simulates the held-out period.
+    before the out-of-sample (OOS) boundary and never simulates the held-out period.
     """
     output = Path(output)
     provenance = json.loads(Path("research/mortimer-provenance.json").read_text())

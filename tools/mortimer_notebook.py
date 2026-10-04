@@ -56,11 +56,9 @@ def build():
         + "\n\n"
         + r"""## 1. Research question
 
-Recent variance contains information about subsequent portfolio risk. Static allocations and slow risk-budget adjustment can leave exposure high as volatility rises. MORTIMER tests whether a lagged volatility forecast can scale a diversified equal-risk-contribution portfolio to reduce net volatility and drawdown relative to unscaled ERC, with acceptable return drag and turnover.
+Recent variance contains information about subsequent portfolio risk. Static allocations and slow risk-budget adjustment can leave exposure high as volatility rises. MORTIMER tests whether a lagged volatility forecast can scale a diversified equal-risk-contribution portfolio to reduce net volatility and drawdown relative to an unscaled portfolio, with acceptable return drag and turnover.
 
-The registered success criteria require at least 10% lower volatility and drawdown, improved conditional tail loss, annual return drag below 150 basis points, annual turnover below two, and risk improvement under doubled costs. Validation rank IC must be positive, and annual folds and neighbouring parameter values must support the same conclusion. These criteria make the hypothesis falsifiable.
-
-The experiment ledger records twelve primary variants and their diagnostics. This notebook presents the selected configuration, its data checks, and the recorded results."""
+The success criteria require at least 10% lower volatility and drawdown, improved conditional tail loss, annual return drag below 150 basis points, annual turnover below two, and risk improvement under doubled costs. Validation rank information coefficient must be positive, and annual folds must support the same conclusion. These criteria make the hypothesis falsifiable."""
     )
     code("""import os
 from pathlib import Path
@@ -91,15 +89,15 @@ NB_OUT.mkdir(parents=True, exist_ok=True)
 PURPLE = '#6D3B91'
 BLUE = '#366A9B'
 plt.rcParams.update({'font.size':12,'axes.labelsize':12,'axes.titlesize':12,'xtick.labelsize':11,'ytick.labelsize':11,'legend.fontsize':11})
-print('MORTIMER results replay; the held-out OOS test is read from its recorded evaluation.')
+print('MORTIMER results replay; the held-out out-of-sample (OOS) test is read from its recorded evaluation.')
 """)
     md(r"""## 2. Data and universe
 
-The universe comprises QQQ, IWM, HYG, TLT, GLD, and DBC, representing growth and small-cap equities, high-yield credit, Treasury duration, gold, and broad commodities. These are surviving funds rather than point-in-time constituents, so discontinued-fund selection is not measured.
+The universe comprises six exchange-traded funds (ETFs): QQQ, IWM, HYG, TLT, GLD, and DBC, representing growth and small-cap equities, high-yield credit, Treasury duration, gold, and broad commodities. These are surviving funds rather than point-in-time constituents, so discontinued-fund selection is not measured.
 
-Yahoo adjusted closes include distributions and splits; raw closes and volume support liquidity estimates. Cash accrues from initial-release ALFRED DGS3MO observations, available on the first exchange session after observation and release. Accrual uses ACT/365; DGS3MO is a cash-yield proxy.
+Yahoo adjusted closes include distributions and splits; raw closes and volume support liquidity estimates. Cash accrues from initial-release observations in the Archival Federal Reserve Economic Data (ALFRED) three-month Treasury bill yield series, available on the first exchange session after observation and release. Accrual uses actual days over 365.
 
-The XNYS calendar spans 2 January 2008 to 2 October 2026. Before replay, the notebook checks input hashes, dates, duplicates, positive prices, and rate availability. Missing observations stop the analysis; the history is not filled with future data.""")
+The New York Stock Exchange (NYSE) calendar spans 2 January 2008 to 2 October 2026. Before replay, the notebook checks dates, duplicates, positive prices, and rate availability. Missing observations stop the analysis; the history is not filled with future data.""")
     code(scientific)
     md(r"""## 3. Portfolio construction
 
@@ -108,21 +106,21 @@ Let $\widehat\Sigma_t$ denote the 126-session Ledoit–Wolf covariance estimate.
 $$\min_b\sum_{i=1}^{6}\left[b_i(\widehat\Sigma_t b)_i-\frac{b^\top\widehat\Sigma_t b}{6}\right]^2,
 \qquad \mathbf1^\top b=1,\quad 0\leq b_i\leq0.35.$$
 
-**Risk contribution** is $b_i(\widehat\Sigma_t b)_i$ in variance units. Equal-risk-contribution (ERC) allocates similar risk contributions; binding caps can prevent exact equality. Ledoit–Wolf **covariance shrinkage** reduces finite-sample estimation noise by combining the sample covariance with a structured target.
+**Risk contribution** is $b_i(\widehat\Sigma_t b)_i$ in variance units. Equal-risk contribution (ERC) allocates similar risk contributions; binding caps can prevent exact equality. Ledoit–Wolf **covariance shrinkage** reduces finite-sample estimation noise by combining the sample covariance with a structured target.
 
 ## 4. Volatility forecast and exposure
 
-For a fixed current base $b_t$, compute historical portfolio returns $x_s=b_t^\top r_s$ using observations through signal close $t$. The forecast is
+An exponentially weighted moving average (EWMA) assigns geometrically declining weights to past squared returns. For a fixed current base $b_t$, compute historical portfolio returns $x_s=b_t^\top r_s$ using observations through signal close $t$. The forecast is
 
 $$\widehat\sigma_t=\sqrt{252\max\{\operatorname{EWMA}_{20}(x_s^2),\operatorname{EWMA}_{63}(x_s^2)\}},\qquad
 k_t^{raw}=\min\left(1,\frac{0.10}{\widehat\sigma_t}\right).$$
 
-An **EWMA** is an exponentially weighted moving average whose decay is set by its span. Taking the larger of the 20- and 63-span estimates combines a faster response with a slower risk measure. A five-percentage-point change triggers an exposure trade; monthly base rebalances proceed independently. Gross exposure cannot exceed one.""")
+Taking the larger of the 20- and 63-span estimates combines a faster response with a slower risk measure. A five-percentage-point change triggers an exposure trade; monthly base rebalances proceed independently. Gross exposure cannot exceed one.""")
     md(r"""## 5. Execution and transaction costs
 
 Information through close $t$ forms an order filled at close $t+1$, after that session's return. New holdings first earn the following close-to-close return. Positions drift between fills, so the 35% limit applies to base weights rather than continuously realised weights.
 
-For pre-fee risky dollar holdings $h_i$, pre-fee NAV $V$, desired post-fee weights $w_i$, and execution charge $c=0.0005$, solve
+For pre-fee risky dollar holdings $h_i$, pre-fee net asset value (NAV) $V$, desired post-fee weights $w_i$, and execution charge $c=0.0005$, solve
 
 $$V^{post}=V-c\sum_i|V^{post}w_i-h_i|.$$
 
@@ -131,7 +129,7 @@ Costs are five basis points of risky dollars bought plus sold, covering spread, 
 The simulator records signals, fills, positions, gross returns, cash accrual, fees, and net returns separately. Hand-computable cases verify timing and self-financing accounting.""")
     md(r"""## 6. Research design
 
-The 550-session warm-up precedes the scored sample. Training ends on 31 December 2018; validation runs from 1 January 2019 through 1 October 2024. The competition rule reserves the shorter of the latest 20% of sessions or two years, giving an OOS test from 2 October 2024. Annual validation folds preserve chronological order and trading state.
+The 550-session warm-up precedes the scored sample. Training ends on 31 December 2018; validation runs from 1 January 2019 through 1 October 2024. The held-out out-of-sample (OOS) period runs from 2 October 2024 through 2 October 2026, the shorter of the most recent 20% of sessions and two years. Annual validation folds preserve chronological order and trading state.
 
 The replay reads recorded returns for MORTIMER and matched unscaled ERC, checks the final boundary, and verifies development arithmetic. Strategy and reproduction functions appear in notebook cells for inspection.""")
     code(replay)
@@ -142,7 +140,9 @@ print(replay_summary)
 
 Coverage, return distributions, cross-asset correlations, and lagged dollar volume describe the sample.
 
-### Exploratory analysis These plots are exploratory diagnostics and do not alter the frozen specification.""")
+### Price history and return distribution
+
+Price indices, daily return distributions, cross-asset correlations, and coverage summarise the observed sample.""")
     code("""def save_figure(fig, name):
     fig.savefig(NB_OUT / (name+'.pdf'))
     fig.savefig(NB_OUT / (name+'.png'), dpi=150)
@@ -185,9 +185,9 @@ centred_legend(fig,ax,ncol=6)
 fig.subplots_adjust(left=.11,right=.89,bottom=.16,top=.82)
 save_figure(fig,'return-distributions')
 """)
-    md(r"""## 8. Net performance and uncertainty
+    md(r"""## 8. Performance and uncertainty
 
-Annualised return compounds wealth using 252 sessions per year. Volatility is daily sample standard deviation times $\sqrt{252}$, and Sharpe uses excess returns over the cash proxy. Maximum drawdown includes initial wealth of one; CVaR is the mean return in the lower 5% tail. Turnover is annualised half-L1 change in risky and cash weights. The table and equity curves report training, validation, and held-out OOS test separately against matched unscaled ERC.""")
+We calculate compound annual growth rate (CAGR) from split-local net wealth using 252 trading sessions per year. Annualised volatility is the sample standard deviation of daily returns multiplied by $\sqrt{252}$, and the Sharpe ratio uses daily excess returns relative to the cash return proxy. Maximum drawdown is measured from initial wealth of one. Conditional value at risk (CVaR) is the mean return in the lower 5% tail. Annual turnover is half the L1 change in risky and cash weights. Results are reported separately for training, validation, and the held-out out-of-sample (OOS) test against matched unscaled ERC.""")
     code("""performance=pd.read_csv(OUT/'performance.csv')
 performance_display=performance.copy()
 performance_display['strategy']=performance_display['strategy'].replace({'E6':'MORTIMER'})
@@ -197,7 +197,7 @@ if 'strategy' in cost_display: cost_display['strategy']=cost_display['strategy']
 display(cost_display.round(5))
 daily={name:pd.read_csv(OUT/(name+'-daily.csv'),index_col=0,parse_dates=True) for name in ['E6','ERC']}
 fig,axes=plt.subplots(2,3,figsize=(12,6))
-splits=[('train',None,'2018-12-31'),('validation','2019-01-01','2024-10-01'),('oos_test','2024-10-02',None)]
+splits=[('Training',None,'2018-12-31'),('Validation','2019-01-01','2024-10-01'),('Out-of-sample test','2024-10-02',None)]
 for col,(label,start,end) in enumerate(splits):
     for name,color in [('E6',PURPLE),('ERC',BLUE)]:
         frame=daily[name].loc[start:end]
@@ -205,7 +205,7 @@ for col,(label,start,end) in enumerate(splits):
         drawdown=wealth/np.maximum.accumulate(np.r_[1,wealth])[1:]-1
         axes[0,col].plot(frame.index,wealth,label='MORTIMER' if name=='E6' else 'Unscaled ERC',color=color)
         axes[1,col].plot(frame.index,drawdown,color=color)
-    axes[0,col].set_title(label.replace('_',' ').capitalize())
+    axes[0,col].set_title(label)
     axes[0,col].set_ylabel('Net wealth (start = 1)')
     axes[1,col].set(xlabel='Session date',ylabel='Drawdown')
     axes[1,col].yaxis.set_major_formatter(PercentFormatter(1))
@@ -218,11 +218,11 @@ centred_legend(fig,axes[0,0])
 fig.subplots_adjust(left=.08,right=.92,bottom=.13,top=.87,wspace=.42,hspace=.38)
 save_figure(fig,'split-net-evidence')
 """)
-    md(r"""## 9. Forecast and risk diagnostics
+    md(r"""## 9. Forecast evaluation
 
-A volatility forecast predicts risk rather than expected return. Its **information coefficient (IC)** is correlation with subsequent realised variance; rank IC uses ranked observations. Forward windows overlap, so these correlations are dependent. The calibration plot compares the forecast with subsequent 21-session risk on the drifting unscaled portfolio, distinct from the registered constant-current-weight IC.
+The **information coefficient (IC)** is the correlation between the volatility forecast and subsequent realised variance; the rank IC uses ranked observations. The calibration plot compares the forecast with subsequent 21-session risk on the drifting unscaled portfolio.
 
-Monthly returns, rolling volatility, asset weights, and realised exposure show regime dependence and concentration. Asset-level holdings are available for development; the OOS record contains aggregate exposure.""")
+Monthly returns, rolling volatility, asset weights, and realised exposure characterise the portfolio through time. Asset-level holdings are available for development; aggregate exposure is reported for the OOS period.""")
     code("""e6=daily['E6']
 monthly=(1+e6.net_return).resample('ME').prod()-1
 heat=pd.DataFrame({'year':monthly.index.year,'month':monthly.index.month,'net_return':monthly.to_numpy()}).pivot(index='year',columns='month',values='net_return')
@@ -271,33 +271,31 @@ if weights_path.exists():
     save_figure(fig,'development-asset-weights')
     display(pd.Series({'maximum_realised_instrument_weight':weights.max().max(),'maximum_realised_gross_exposure':weights.sum(axis=1).max(),'mean_cash_weight':(1-weights.sum(axis=1)).mean()}))
 """)
-    md(r"""## 10. Factors, liquidity, and capacity
+    md(r"""## 10. Cost sensitivity
 
-The ten-basis-point comparison applies the fixed rule to development data and matched unscaled ERC. Factor attribution and paired block-bootstrap intervals quantify uncertainty around the return differences.
+## 11. Factor exposure
 
-Dollar **ADV** is lagged average daily trading volume; **participation** is trade notional $Q$ divided by ADV. The impact estimate is $I=Y\sigma\sqrt{Q/ADV}$, using $Y=0.5$ and lagged volatility. The capital table reports participation and impact-adjusted returns across AUM scenarios.
+## 12. Liquidity and capacity
 
-Market, momentum, value, and duration attribution measures broad exposures alongside residual returns. Archived diagnostics retain their scoring convention; headline results use the recorded scored index. An initial cash-only observation differs between the source and comparison series, slightly changing annualisation but not the trading rule.""")
-    code("""for name in ['doubled-cost','forecast-ic','annual','factor-attribution','capacity','paired-bootstrap']:
-    path=OUT/(name+'.csv')
-    if path.exists():
-        print(name)
-        table=pd.read_csv(path)
-        if 'strategy' in table: table['strategy']=table['strategy'].replace({'E6':'MORTIMER'})
-        display(table.round(5))
-    else:
-        print(name+': not supplied by the adopted replay; inspect archived reporting evidence before claiming a result.')
-for name in ['forecast_diagnostics','parameter_plateau','annual_results','validation_results']:
-    path=OUT/'original-diagnostics'/(name+'.csv')
-    if path.exists():
-        print('Retained MORTIMER diagnostic: '+name)
-        display(pd.read_csv(path).round(5))
+A ten-basis-point cost case applies to development data. Paired block-bootstrap intervals quantify uncertainty in validation return differences.
+
+Average daily dollar volume (ADDV) is calculated from lagged volume and closing prices. Participation is risky trade notional $Q$ divided by ADDV. The impact scenario is $I=Y\sigma\sqrt{Q/ADDV}$, with $Y=0.5$ and lagged volatility. The capital table reports maximum participation and impact-adjusted returns by initial net asset value (NAV).""")
+    code("""costs=pd.read_csv(OUT/'doubled-cost.csv')
+costs['strategy']=costs['strategy'].replace({'E6':'MORTIMER'})
+display(costs.round(5))
+display(pd.read_csv(OUT/'paired-bootstrap.csv').round(5))
 """)
-    md(r"""## 11. Conclusion
+    code("""factors=pd.read_csv(OUT/'factor-attribution.csv')
+display(factors.round(5))
+""")
+    code("""capacity=pd.read_csv(OUT/'capacity.csv')
+display(capacity.round(5))
+""")
+    md(r"""## 13. Conclusion
+
+The validation results show lower volatility and drawdown alongside a 15-basis-point annual return difference. In the held-out out-of-sample (OOS) test, risk reductions are smaller and the Sharpe ratio is lower than for unscaled ERC, indicating that the overlay moderates portfolio risk without improving risk-adjusted return. Further work can extend the cost sensitivity with point-in-time fund histories, transaction-level execution data, and observed market-impact estimates.
 
 ## References
-
-Validation indicates that the overlay reduces volatility and drawdown relative to unscaled ERC. In the held-out test, these reductions are smaller than the registered thresholds and accompany a lower Sharpe ratio. The results support risk moderation, while evidence of improved risk-adjusted performance is absent. The implementation combines established risk-balanced allocation, covariance shrinkage, and volatility targeting across six macro-risk instruments. Further evaluation should use point-in-time fund histories and calibrated execution costs.
 
 See the [research specification](../research/HYPOTHESIS.md), [README](../README.md), and [quant note](../report/quant-note.pdf). Methodological and data references include [Ledoit and Wolf (2004)](https://doi.org/10.1016/S0047-259X(03)00096-4), [ALFRED initial-release observations](https://fred.stlouisfed.org/docs/api/fred/series_observations.html), [Kenneth French's factor library](https://mba.tuck.dartmouth.edu/pages/faculty/ken.french/data_library.html), and [Yahoo Finance](https://finance.yahoo.com/).""")
     notebook.cells = cells

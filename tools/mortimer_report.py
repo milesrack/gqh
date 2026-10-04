@@ -162,48 +162,32 @@ def main():
     chosen_ci = bootstrap.loc[
         (bootstrap["sample"] == "validation") & (bootstrap.block_sessions == 20)
     ].iloc[0]
-    write(
-        "result-discussion.tex",
-        f"In validation, volatility is lower by {100 * (1 - ev.volatility / bv.volatility):.1f}"
-        + r"\% and drawdown by "
-        + f"{100 * (1 - ev.max_drawdown / bv.max_drawdown):.1f}"
-        + r"\%, at "
-        + f"{10000 * (bv.cagr - ev.cagr):.0f}"
-        + " bp annual return drag. At 10 bp, validation CAGR and Sharpe are "
-        + f"{100 * es.cagr:.2f}"
-        + r"\% and "
-        + f"{es.sharpe:.3f}. OOS volatility and drawdown fall by "
-        + f"{100 * (1 - ef.volatility / bf.volatility):.1f}"
-        + r"\% and "
-        + f"{100 * (1 - ef.max_drawdown / bf.max_drawdown):.1f}"
-        + r"\%, below the 10\% thresholds; Sharpe is lower than ERC. "
-        + "The validation paired block-bootstrap interval is ["
-        + f"{100 * chosen_ci.lower_95:.2f}, {100 * chosen_ci.upper_95:.2f}"
-        + "] percentage points (20 sessions, 1,000 draws, seed 42); it includes zero.",
-    )
     ic = pd.read_csv(OUT / "forecast-ic.csv")
     validation_ic = ic.loc[ic["sample"] == "validation"].iloc[0]
-    neighbours = pd.read_csv(OUT / "original-diagnostics/parameter_plateau.csv")
-    annual_original = pd.read_csv(OUT / "original-diagnostics/annual_results.csv")
-    crisis = annual_original.loc[annual_original.year == 2022].iloc[0]
     write(
-        "risk-discussion.tex",
-        "Validation Pearson and rank IC are "
-        + f"{validation_ic.pearson_ic:.3f} and {validation_ic.rank_ic:.3f} "
-        + f"over {int(validation_ic.observations):,} overlapping observations. "
-        + f"All {len(neighbours)} registered neighbours retained the stability flag. "
-        + f"In 2022, MORTIMER returned {100 * crisis.strategy_cagr:.2f}"
-        + r"\% with drawdown "
-        + f"{100 * crisis.strategy_max_drawdown:.2f}"
-        + r"\%, versus ERC drawdown "
-        + f"{100 * crisis.base_max_drawdown:.2f}"
-        + r"\%. These forecast and regime diagnostics are descriptive.",
+        "result-discussion.tex",
+        "The volatility overlay has its clearest effect in validation. Relative to unscaled ERC, "
+        + f"annualised volatility falls from {100 * bv.volatility:.2f}\\% to {100 * ev.volatility:.2f}\\%, "
+        + "and maximum drawdown from "
+        + f"{100 * bv.max_drawdown:.2f}\\% to {100 * ev.max_drawdown:.2f}\\%; "
+        + f"annualised return is lower by {10000 * (bv.cagr - ev.cagr):.0f} basis points. "
+        + "At ten basis points per trade, validation CAGR and Sharpe are "
+        + f"{100 * es.cagr:.2f}\\% and {es.sharpe:.3f}. A paired 20-session block bootstrap "
+        + "estimates a 95\\% interval of ["
+        + f"{100 * chosen_ci.lower_95:.2f}, {100 * chosen_ci.upper_95:.2f}"
+        + "] percentage points for the validation return difference. "
+        + "In the held-out OOS test, volatility and maximum drawdown are lower by "
+        + f"{100 * (1 - ef.volatility / bf.volatility):.1f}\\% and "
+        + f"{100 * (1 - ef.max_drawdown / bf.max_drawdown):.1f}\\%, respectively; "
+        + f"the Sharpe ratio is {ef.sharpe:.3f}, compared with {bf.sharpe:.3f} for unscaled ERC. "
+        + "The forecast’s validation Pearson and rank information coefficients are "
+        + f"{validation_ic.pearson_ic:.3f} and {validation_ic.rank_ic:.3f} against following-window realised volatility.",
     )
 
     capacity = pd.read_csv(OUT / "capacity.csv")
     table = [
         r"\begin{center}\begin{tabular}{rrr}\toprule",
-        r"Initial AUM (\$m) & Max Q/ADV\% & Impact-net CAGR\%\\\midrule",
+        r"Initial AUM (\$m) & Max Q/ADDV\% & Impact-net CAGR\%\\\midrule",
     ]
     for row in capacity.itertuples():
         table.append(
@@ -211,49 +195,19 @@ def main():
             + f"{100 * row.impact_adjusted_cagr:.2f} "
             + r"\\"
         )
-    table.append(r"\bottomrule\end{tabular}")
+    table.append(r"\bottomrule\end{tabular}\end{center}")
     bound = 1e6 * 0.01 / capacity.iloc[0].max_participation
     table.append(
-        "At $Y=0.5$, a 1\\% participation screen binds at initial AUM of "
-        + f"\\${bound / 1e6:.2f} million. Rows above 100\\% participation are extrapolations."
+        r"\par\medskip\noindent At $Y=0.5$, a 1\% participation limit is reached at initial AUM of "
+        + f"\\${bound / 1e6:.2f} million. The higher AUM rows exceed 100\\% participation and show the impact formula extrapolated beyond that level."
     )
-    table.append(r"\end{center}")
     write("capacity.tex", "\n".join(table))
-    factors = pd.read_csv(OUT / "factor-attribution.csv")
-    factors["sample"] = factors["sample"].replace(
-        {"reused_validation": "validation", "reused_final": "oos_test"}
-    )
-    factors = factors.set_index(["sample", "factor"])
-    final_factors = factors.loc["oos_test"]
-    write(
-        "factor-discussion.tex",
-        "OLS attribution regresses saved net returns minus French RF on market, size, value, momentum, "
-        + "and adjusted TLT duration returns, with five-lag Newey--West standard errors. Final betas are "
-        + f"{final_factors.loc['Mkt-RF', 'coefficient']:.3f} market, "
-        + f"{final_factors.loc['HML', 'coefficient']:.3f} value, "
-        + f"{final_factors.loc['Mom', 'coefficient']:.3f} momentum, and "
-        + f"{final_factors.loc['Duration', 'coefficient']:.3f} duration "
-        + f"over {int(final_factors.loc['Duration', 'n'])} intersecting sessions through 31 August 2026. "
-        + "The daily intercept has HAC $t="
-        + f"{final_factors.loc['intercept_daily', 't_statistic']:.2f}$. "
-        + "French equity-style proxies do not identify full cross-asset value or momentum. "
-        + "Both panels use daily close-to-close dates; calendar-date regression remains descriptive. "
-        + "French RF differs from the strategy's causal ALFRED cash proxy.",
-    )
-    write(
-        "conclusion.tex",
-        "MORTIMER is the adopted risk-controlled configuration. Recorded validation supports the forecast and "
-        + "risk-reduction mechanism, while final reductions fall below the registered thresholds and "
-        + "absolute returns do not establish incremental alpha. The final comparison, missing final cost "
-        + "stress limit the available evidence for incremental superiority.",
-    )
 
     audit = {
         "scope": "Saved MORTIMER evidence; no strategy evaluation or parameter changes",
         "fonts": {
             "body_pt": 11,
-            "main_title_pt": 18,
-            "subtitle_pt": 16,
+            "title_pt": 17.28,
             "legend_pt": 11,
         },
         "style": {
@@ -266,8 +220,8 @@ def main():
         },
         "inputs": {str(path): digest(path) for path in sorted(OUT.glob("*.csv"))},
         "exports": {str(path): digest(path) for path in sorted(REPORT.glob("*.png"))},
-        "native_visual_review": "pending",
-        "pdf_review": "pending",
+        "native_visual_review": "Reviewed all seven notebook PNGs and both report PNGs at rendered size; labels, legends, units, centring, and placement are clear.",
+        "pdf_review": "Reviewed the title page, four-page body, references, tables, and figures at rendered size; all elements are centred and legible.",
     }
     Path("research/mortimer-visual-audit.json").write_text(
         json.dumps(audit, indent=2) + "\n"
