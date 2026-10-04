@@ -119,7 +119,7 @@ Use Snowflake for shared data, notes, and source documents. Follow `docs/shared-
 
 Use `tools/snowflake_store.py manifest` to retrieve asset versions, `fetch` to download required files, and `search --query` to retrieve cited passages. Search notes before sources and read passages before making claims. Preserve source paths, hashes, and provenance. Check current versions before editing; coordinate overlapping subjects.
 
-Use ignored `.agent-work/assets/` for caches, `.agent-work/runs/` for scratch work and `.agent-work/.secrets/` for private keys. Keep credentials outside shared storage. The legacy context repository and QMD tools are retired.
+Use ignored `data/` for downloaded inputs and caches, `results/<run_id>/` for generated research evidence, and `.local/credentials/` for private keys. Keep operational scripts and access receipts in ignored `.local/ops/`. Create Git worktrees outside this repository; retain source code, notebooks, and research specifications in their documented directories. Keep credentials outside shared storage. The legacy context repository and QMD tools are retired.
 
 ## Project layout
 
@@ -134,7 +134,7 @@ Use ignored `.agent-work/assets/` for caches, `.agent-work/runs/` for scratch wo
 
 Keep notebook-only research self-contained: acquisition, transformations, strategy rules, simulation, and analysis must be directly inspectable in notebook cells. Do not create or import project submodules or wrapper classes to hide notebook research. Ordinary third-party library imports and small functions defined in the notebook are permitted. Extract reusable modules only for a separate, approved strategy implementation. Do not prescribe filenames for an unselected strategy. Script the adopted strategy and provide a single reproduction command after approval.
 
-Purchased datasets reside in Snowflake. Root `data/` and `.agent-work/assets/` are ignored caches. Keep acquisition separate from evaluation; retain availability timestamps, adjustments, hashes, and immutable asset versions.
+Purchased datasets reside in Snowflake. Root `data/` contains ignored inputs and caches. Keep acquisition separate from evaluation; retain availability timestamps, adjustments, hashes, and immutable asset versions.
 
 ## README and visual review
 

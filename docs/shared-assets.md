@@ -4,8 +4,8 @@ Snowflake stores shared source files, market data and searchable context. Each c
 
 ```sh
 uv sync --locked
-uv run --env-file .env --locked python tools/snowflake_store.py manifest --collection market --manifest .agent-work/runs/market.json
-uv run --env-file .env --locked python tools/snowflake_store.py fetch --manifest .agent-work/runs/market.json --source data --path '<required asset glob>'
+uv run --env-file .env --locked python tools/snowflake_store.py manifest --collection market --manifest data/manifests/market.json
+uv run --env-file .env --locked python tools/snowflake_store.py fetch --manifest data/manifests/market.json --source data --path '<required asset glob>'
 uv run --env-file .env --locked python tools/snowflake_store.py search --query '<research question>'
 ```
 
@@ -26,9 +26,9 @@ Configure `GQH_NOTEBOOK_HOST`, `GQH_DEPLOY_USER`, `GQH_NOTEBOOK_HOST_KEY` and `S
 Use a dedicated source directory containing only the assets to share. Paths are relative to that directory; use unique dataset or subject names. Never inventory the repository root or a directory containing credentials.
 
 ```sh
-uv run --locked python tools/snowflake_store.py inventory --collection market --source data --path 'my-dataset/*' --manifest .agent-work/runs/upload.json
-uv run --env-file .env --locked python tools/snowflake_store.py upload --source data --manifest .agent-work/runs/upload.json
-uv run --env-file .env --locked python tools/snowflake_store.py verify --manifest .agent-work/runs/upload.json
+uv run --locked python tools/snowflake_store.py inventory --collection market --source data --path 'my-dataset/*' --manifest data/manifests/upload.json
+uv run --env-file .env --locked python tools/snowflake_store.py upload --source data --manifest data/manifests/upload.json
+uv run --env-file .env --locked python tools/snowflake_store.py verify --manifest data/manifests/upload.json
 ```
 
 Use collection `context` for documents and `results` for experiment evidence. Each upload publishes an immutable manifest after all files finish. Changed files receive new hashes and versions. Context uploads insert searchable passages; the administrator provisions the search service once with `index-context`. Upload requires `GQH_PUBLISHER`; each researcher receives this role during registration.
