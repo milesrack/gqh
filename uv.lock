@@ -475,7 +475,7 @@ wheels = [
 ]
 
 [[package]]
-name = "gqh-systematic-track"
+name = "gqh"
 version = "0.1.0"
 source = { virtual = "." }
 dependencies = [
