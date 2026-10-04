@@ -136,6 +136,12 @@ Keep notebook-only research self-contained: acquisition, transformations, strate
 
 Purchased datasets reside in Snowflake. Root `data/` and `.agent-work/assets/` are ignored caches. Keep acquisition separate from evaluation; retain availability timestamps, adjustments, hashes and immutable asset versions.
 
+## Strategy names and visual review
+
+Name every strategy `MORTIMER: Subtitle`. Expand MORTIMER into a method-specific phrase at first use. Use a concise subtitle identifying the method or application. Keep the title consistent across the README, notebook and quant note. Preserve historical preregistration identifiers when renaming a frozen strategy.
+
+Inspect every exported visual at its intended display size and within the final document. Check readable labels and legends, units, tick spacing, font sizes, contrast, positioning, alignment and centring. Fix clipping, overlaps and crowded panels before delivery. Record the visual review; exporting a file does not establish readability.
+
 ## Experiment notebooks
 
 Organise notebooks in research order: hypothesis and frozen specification; data provenance and quality; exploratory analysis; signals and IC; execution and costs; validation, sensitivity and conclusions. Show sample counts and visible progress. Include distributions, Pearson/rank IC, equity, drawdown, exposure, turnover and parameter sensitivity where applicable.

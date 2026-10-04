@@ -35,3 +35,11 @@ Copy `.env.example` to `.env` and supply the required provider credentials. Load
 ## References
 
 Shared data and context: [asset access](docs/shared-assets.md). Notebook compute uses SSH tunnels.
+
+## Contribute
+
+Follow [CONTRIBUTING.md](CONTRIBUTING.md) and [AGENTS.md](AGENTS.md).
+
+## Licence
+
+Project code is available under the [MIT Licence](LICENSE). Market data and cited third-party materials retain their source terms.
