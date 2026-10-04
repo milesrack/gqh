@@ -1,0 +1,31 @@
+{
+  "collection": "market",
+  "files": [
+    {
+      "path": "cache/erc/market-20080102-20241002.json",
+      "bytes": 2945,
+      "sha256": "daf950c4c9330f45a67ce5ac14d0ee3f1c3e69bce6c93c3556405aff4159d822"
+    },
+    {
+      "path": "cache/erc/market-20080102-20241002.parquet",
+      "bytes": 1153217,
+      "sha256": "e5f957a2b78b4a08cede2183cd59012f73beaffc38f0821d43bb458df08be222"
+    },
+    {
+      "path": "cache/erc/rates-20080102-20241002.parquet",
+      "bytes": 81852,
+      "sha256": "5eb2ada6d8d007969c111064ae6c5de089e8bd61c0156cb49cc98484cea2b5d9"
+    },
+    {
+      "path": "cache/erc-final/market.parquet",
+      "bytes": 74837,
+      "sha256": "e78f255bef24c0f5a5cdc03b11d00e79d7879d6cf01ca37f4c3bc7538dc149ef"
+    },
+    {
+      "path": "cache/erc-final/rates.parquet",
+      "bytes": 16304,
+      "sha256": "c7f1d19f3ab2adbecc57c71333153286bd85ab7602b8493384efb421f191b92d"
+    }
+  ],
+  "bytes": 1329155
+}

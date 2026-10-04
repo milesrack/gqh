@@ -1,0 +1,438 @@
+{
+  "collection": "results",
+  "files": [
+    {
+      "path": "erc-guarded-improvement/README.md",
+      "bytes": 3075,
+      "sha256": "3de9f11640478b5daa02e38111568e1a23bab523c4552eb0660b094da8bb3ec3",
+      "version": "5856942c472be37ecbae993f5f5ad66a271ac9c4fd9e43e95be981bb55de29bc"
+    },
+    {
+      "path": "erc-guarded-improvement/erc-final-access.json",
+      "bytes": 225,
+      "sha256": "30b85dfad6e7b3dbbec62fa95c09f00c23c2d9d849c42b119b527e2d928680fd",
+      "version": "58aa392cd7f94e678f52621c1906225b9f38197c49d9fd732df18263ccb7fb47"
+    },
+    {
+      "path": "erc-guarded-improvement/erc-final-v1/E6-daily.csv",
+      "bytes": 89024,
+      "sha256": "34538e8db361ba1c8ce2473570c06ce468de44150a1098c50c33d6dad98e6ac2",
+      "version": "58aa392cd7f94e678f52621c1906225b9f38197c49d9fd732df18263ccb7fb47"
+    },
+    {
+      "path": "erc-guarded-improvement/erc-final-v1/ERC-G120-10bp-daily.csv",
+      "bytes": 94136,
+      "sha256": "433d687728659f8b08a7c5a7ce8fc50d479b460f74e1f46c3602cd62e5119de8",
+      "version": "58aa392cd7f94e678f52621c1906225b9f38197c49d9fd732df18263ccb7fb47"
+    },
+    {
+      "path": "erc-guarded-improvement/erc-final-v1/ERC-G120-daily.csv",
+      "bytes": 94122,
+      "sha256": "e92f1b2d6c022c0dcf19da009a4a13070951f83813798760a27c7b7c1ec339ce",
+      "version": "58aa392cd7f94e678f52621c1906225b9f38197c49d9fd732df18263ccb7fb47"
+    },
+    {
+      "path": "erc-guarded-improvement/erc-final-v1/ERC-daily.csv",
+      "bytes": 79687,
+      "sha256": "cd6204dfbbd49cc67eef36364c9f0d52bb2dbd8a04430ed493608ed6fd331520",
+      "version": "58aa392cd7f94e678f52621c1906225b9f38197c49d9fd732df18263ccb7fb47"
+    },
+    {
+      "path": "erc-guarded-improvement/erc-final-v1/equity.csv",
+      "bytes": 33804,
+      "sha256": "e88c0f1542226101ceb1707c747e446a2e0730bced826038c9fdd52659a7ec45",
+      "version": "58aa392cd7f94e678f52621c1906225b9f38197c49d9fd732df18263ccb7fb47"
+    },
+    {
+      "path": "erc-guarded-improvement/erc-final-v1/equity.png",
+      "bytes": 123785,
+      "sha256": "094a2de69b1dfd8901dc157bd20faffb9f36f1eb896ae23811f55a9140e88154",
+      "version": "58aa392cd7f94e678f52621c1906225b9f38197c49d9fd732df18263ccb7fb47"
+    },
+    {
+      "path": "erc-guarded-improvement/erc-final-v1/performance.csv",
+      "bytes": 1447,
+      "sha256": "e44ccd8e10a325dee29e51ded40a8a54e35d8e88eef64b795f1d8e2efc4e4f48",
+      "version": "58aa392cd7f94e678f52621c1906225b9f38197c49d9fd732df18263ccb7fb47"
+    },
+    {
+      "path": "erc-guarded-improvement/erc-final-v1/provenance.json",
+      "bytes": 939,
+      "sha256": "97fb929e21ebdacfe48262b1bf5b4757e175f2ade1600485a89b5e2ceddf1f64",
+      "version": "58aa392cd7f94e678f52621c1906225b9f38197c49d9fd732df18263ccb7fb47"
+    },
+    {
+      "path": "erc-guarded-improvement/erc-final-v1/report-equity.png",
+      "bytes": 74954,
+      "sha256": "e6726e1966d93f039ae46b22b469bf73bbe215c4727920726ebea50f41bb69f2",
+      "version": "58aa392cd7f94e678f52621c1906225b9f38197c49d9fd732df18263ccb7fb47"
+    },
+    {
+      "path": "erc-guarded-improvement/erc-freeze.json",
+      "bytes": 606,
+      "sha256": "d7d7bfc669154adee9cb208fc95fa09a33a044cdda049d25917824be3962addd",
+      "version": "58aa392cd7f94e678f52621c1906225b9f38197c49d9fd732df18263ccb7fb47"
+    },
+    {
+      "path": "erc-guarded-improvement/erc-guarded-v1/E6-base_weights.csv",
+      "bytes": 540946,
+      "sha256": "5b152ad6fd405d2ff3b084121d4575d5613ba7fba64d6bfee5fb558ef8c4ee82",
+      "version": "58aa392cd7f94e678f52621c1906225b9f38197c49d9fd732df18263ccb7fb47"
+    },
+    {
+      "path": "erc-guarded-improvement/erc-guarded-v1/E6-daily.csv",
+      "bytes": 648203,
+      "sha256": "07db8fb9f2446b95266bc8459c4e370f7aea69b23fc9065de857e13de09f43ea",
+      "version": "58aa392cd7f94e678f52621c1906225b9f38197c49d9fd732df18263ccb7fb47"
+    },
+    {
+      "path": "erc-guarded-improvement/erc-guarded-v1/E6-orders.csv",
+      "bytes": 46106,
+      "sha256": "6ea7df4452ff2d0c320379ef723f70c1fa4b6ad8ed38e301101edf3f6237ea83",
+      "version": "58aa392cd7f94e678f52621c1906225b9f38197c49d9fd732df18263ccb7fb47"
+    },
+    {
+      "path": "erc-guarded-improvement/erc-guarded-v1/E6-trades.csv",
+      "bytes": 179673,
+      "sha256": "209aed9e724f231556eee97a81d861449a3c75050d20a743fdc237d40cd71bbe",
+      "version": "58aa392cd7f94e678f52621c1906225b9f38197c49d9fd732df18263ccb7fb47"
+    },
+    {
+      "path": "erc-guarded-improvement/erc-guarded-v1/E6-weights.csv",
+      "bytes": 493242,
+      "sha256": "06598cfb94a9686303f044a653dc3c50ec15250037a6343dd896c247125e19b4",
+      "version": "58aa392cd7f94e678f52621c1906225b9f38197c49d9fd732df18263ccb7fb47"
+    },
+    {
+      "path": "erc-guarded-improvement/erc-guarded-v1/ERC-G110-base_weights.csv",
+      "bytes": 540946,
+      "sha256": "5b152ad6fd405d2ff3b084121d4575d5613ba7fba64d6bfee5fb558ef8c4ee82",
+      "version": "58aa392cd7f94e678f52621c1906225b9f38197c49d9fd732df18263ccb7fb47"
+    },
+    {
+      "path": "erc-guarded-improvement/erc-guarded-v1/ERC-G110-daily.csv",
+      "bytes": 667582,
+      "sha256": "1fba7e2eb295c6e0ba063afa54072f2b6df3ddf9810523d9ee7a9e5a8c11611e",
+      "version": "58aa392cd7f94e678f52621c1906225b9f38197c49d9fd732df18263ccb7fb47"
+    },
+    {
+      "path": "erc-guarded-improvement/erc-guarded-v1/ERC-G110-orders.csv",
+      "bytes": 56928,
+      "sha256": "775f36ef6d2ceaa7bc14fc9803c103c0a54b2eb8d65608fc03df1b32089627b1",
+      "version": "58aa392cd7f94e678f52621c1906225b9f38197c49d9fd732df18263ccb7fb47"
+    },
+    {
+      "path": "erc-guarded-improvement/erc-guarded-v1/ERC-G110-trades.csv",
+      "bytes": 186950,
+      "sha256": "65b5de51bba02f6ad43f2e9cf26853c2c1ea4e8f0191c7e71d7c4e859a2b50e6",
+      "version": "58aa392cd7f94e678f52621c1906225b9f38197c49d9fd732df18263ccb7fb47"
+    },
+    {
+      "path": "erc-guarded-improvement/erc-guarded-v1/ERC-G110-weights.csv",
+      "bytes": 492660,
+      "sha256": "b909fcff7593329210da6e86115a5f92922a5ea31fa3ea29f5b565550b2d4203",
+      "version": "58aa392cd7f94e678f52621c1906225b9f38197c49d9fd732df18263ccb7fb47"
+    },
+    {
+      "path": "erc-guarded-improvement/erc-guarded-v1/ERC-G115-base_weights.csv",
+      "bytes": 540946,
+      "sha256": "5b152ad6fd405d2ff3b084121d4575d5613ba7fba64d6bfee5fb558ef8c4ee82",
+      "version": "58aa392cd7f94e678f52621c1906225b9f38197c49d9fd732df18263ccb7fb47"
+    },
+    {
+      "path": "erc-guarded-improvement/erc-guarded-v1/ERC-G115-daily.csv",
+      "bytes": 676786,
+      "sha256": "d180e761329bfe442a8a2e12f672d58af879a2dae1e65c54404ff4ab13d6a360",
+      "version": "58aa392cd7f94e678f52621c1906225b9f38197c49d9fd732df18263ccb7fb47"
+    },
+    {
+      "path": "erc-guarded-improvement/erc-guarded-v1/ERC-G115-orders.csv",
+      "bytes": 63722,
+      "sha256": "d27830c5f4ff956f5286d7596bd375c105536a4cf57918141f29d11d25fdb512",
+      "version": "58aa392cd7f94e678f52621c1906225b9f38197c49d9fd732df18263ccb7fb47"
+    },
+    {
+      "path": "erc-guarded-improvement/erc-guarded-v1/ERC-G115-trades.csv",
+      "bytes": 191600,
+      "sha256": "9f6c604e2e2117fc58db5520c89252c506603cbb024d7b9880cda51927d2cc4c",
+      "version": "58aa392cd7f94e678f52621c1906225b9f38197c49d9fd732df18263ccb7fb47"
+    },
+    {
+      "path": "erc-guarded-improvement/erc-guarded-v1/ERC-G115-weights.csv",
+      "bytes": 492534,
+      "sha256": "bcbc930a8011fa219426ed70dd3701b58dd0d16770e8004a9f4bb912462eb659",
+      "version": "58aa392cd7f94e678f52621c1906225b9f38197c49d9fd732df18263ccb7fb47"
+    },
+    {
+      "path": "erc-guarded-improvement/erc-guarded-v1/ERC-G120-base_weights.csv",
+      "bytes": 540946,
+      "sha256": "5b152ad6fd405d2ff3b084121d4575d5613ba7fba64d6bfee5fb558ef8c4ee82",
+      "version": "58aa392cd7f94e678f52621c1906225b9f38197c49d9fd732df18263ccb7fb47"
+    },
+    {
+      "path": "erc-guarded-improvement/erc-guarded-v1/ERC-G120-daily.csv",
+      "bytes": 678981,
+      "sha256": "75eae6e36b6db1cb7e6dfedf69c9d5b3671cccd827743a2951c3c74074fafb6b",
+      "version": "58aa392cd7f94e678f52621c1906225b9f38197c49d9fd732df18263ccb7fb47"
+    },
+    {
+      "path": "erc-guarded-improvement/erc-guarded-v1/ERC-G120-orders.csv",
+      "bytes": 69598,
+      "sha256": "42df83b5977fcbc1e62c8a830efdab3e1458f4780b5a19c9615dd8a05e10f944",
+      "version": "58aa392cd7f94e678f52621c1906225b9f38197c49d9fd732df18263ccb7fb47"
+    },
+    {
+      "path": "erc-guarded-improvement/erc-guarded-v1/ERC-G120-trades.csv",
+      "bytes": 195483,
+      "sha256": "cb2338a49ea78765b4d6b33a13ce5eee160958e7850d20cb512667d2ae8f4789",
+      "version": "58aa392cd7f94e678f52621c1906225b9f38197c49d9fd732df18263ccb7fb47"
+    },
+    {
+      "path": "erc-guarded-improvement/erc-guarded-v1/ERC-G120-weights.csv",
+      "bytes": 492111,
+      "sha256": "333163a4f27172a5810bfd83c480c3011eeae99e7460828dea37bf4563457568",
+      "version": "58aa392cd7f94e678f52621c1906225b9f38197c49d9fd732df18263ccb7fb47"
+    },
+    {
+      "path": "erc-guarded-improvement/erc-guarded-v1/ERC-base_weights.csv",
+      "bytes": 540946,
+      "sha256": "5b152ad6fd405d2ff3b084121d4575d5613ba7fba64d6bfee5fb558ef8c4ee82",
+      "version": "58aa392cd7f94e678f52621c1906225b9f38197c49d9fd732df18263ccb7fb47"
+    },
+    {
+      "path": "erc-guarded-improvement/erc-guarded-v1/ERC-daily.csv",
+      "bytes": 588193,
+      "sha256": "7318c8705638cc00fc5d79e724b2234d1b8f239a922ecc7911caa1632fb62366",
+      "version": "58aa392cd7f94e678f52621c1906225b9f38197c49d9fd732df18263ccb7fb47"
+    },
+    {
+      "path": "erc-guarded-improvement/erc-guarded-v1/ERC-orders.csv",
+      "bytes": 24270,
+      "sha256": "ae126ff956307d5d95cf21959a3ee47ffaa0eb31fa7c84c1aa3a6f54d83a4a90",
+      "version": "58aa392cd7f94e678f52621c1906225b9f38197c49d9fd732df18263ccb7fb47"
+    },
+    {
+      "path": "erc-guarded-improvement/erc-guarded-v1/ERC-trades.csv",
+      "bytes": 166185,
+      "sha256": "972d4f4efe153f339a759ba199677374aec2242cba7c72996075017d5147aaa9",
+      "version": "58aa392cd7f94e678f52621c1906225b9f38197c49d9fd732df18263ccb7fb47"
+    },
+    {
+      "path": "erc-guarded-improvement/erc-guarded-v1/ERC-weights.csv",
+      "bytes": 492787,
+      "sha256": "631d45ad200d8240523206f32f6907521ec7c144627a62358b52f26f7a9509d5",
+      "version": "58aa392cd7f94e678f52621c1906225b9f38197c49d9fd732df18263ccb7fb47"
+    },
+    {
+      "path": "erc-guarded-improvement/erc-guarded-v1/annual.csv",
+      "bytes": 23206,
+      "sha256": "8892a897c2ccdcd60d6352df7e9046c20aa900042b3aeb65628b87bec6bade15",
+      "version": "58aa392cd7f94e678f52621c1906225b9f38197c49d9fd732df18263ccb7fb47"
+    },
+    {
+      "path": "erc-guarded-improvement/erc-guarded-v1/bootstrap.csv",
+      "bytes": 103,
+      "sha256": "1511af411940b08229e5084642485b6e6f3f1ad6f02ff78d0b2be514b0025d32",
+      "version": "58aa392cd7f94e678f52621c1906225b9f38197c49d9fd732df18263ccb7fb47"
+    },
+    {
+      "path": "erc-guarded-improvement/erc-guarded-v1/capacity.csv",
+      "bytes": 423,
+      "sha256": "2d4ea20e6575f9f86b821bfaf82cff0c1c3affb937dc1d3675d2a2e7d7129c8d",
+      "version": "58aa392cd7f94e678f52621c1906225b9f38197c49d9fd732df18263ccb7fb47"
+    },
+    {
+      "path": "erc-guarded-improvement/erc-guarded-v1/doubled-cost.csv",
+      "bytes": 1110,
+      "sha256": "778844043d28cb67b7b40e630ab1297e3749d984eb95bec3f0300cd500547b1b",
+      "version": "58aa392cd7f94e678f52621c1906225b9f38197c49d9fd732df18263ccb7fb47"
+    },
+    {
+      "path": "erc-guarded-improvement/erc-guarded-v1/drawdown.png",
+      "bytes": 129490,
+      "sha256": "b5e97812fa3787c345ab42f9984f10b53caa102fdc5d173bf9c45e7bdbd2b1ff",
+      "version": "58aa392cd7f94e678f52621c1906225b9f38197c49d9fd732df18263ccb7fb47"
+    },
+    {
+      "path": "erc-guarded-improvement/erc-guarded-v1/equity-data.csv",
+      "bytes": 151680,
+      "sha256": "297a28d73c6637a8e99473cc8e5971646a4e28a7015934c366e42c05d18065cf",
+      "version": "58aa392cd7f94e678f52621c1906225b9f38197c49d9fd732df18263ccb7fb47"
+    },
+    {
+      "path": "erc-guarded-improvement/erc-guarded-v1/equity.png",
+      "bytes": 146085,
+      "sha256": "1cbe754b3bd167ac10b222039e12d8fbfed5f3708832799d6b5f5a976c7f34ac",
+      "version": "58aa392cd7f94e678f52621c1906225b9f38197c49d9fd732df18263ccb7fb47"
+    },
+    {
+      "path": "erc-guarded-improvement/erc-guarded-v1/factor-attribution.csv",
+      "bytes": 1375,
+      "sha256": "8038eede1e12064888de1509300a1fb32955d96cde30219bb69db3683771dadd",
+      "version": "58aa392cd7f94e678f52621c1906225b9f38197c49d9fd732df18263ccb7fb47"
+    },
+    {
+      "path": "erc-guarded-improvement/erc-guarded-v1/factor-sources.json",
+      "bytes": 510,
+      "sha256": "fe2c95683e9acd01aec411521a95710f235971c1823ff0ba776eccf14f4704f9",
+      "version": "58aa392cd7f94e678f52621c1906225b9f38197c49d9fd732df18263ccb7fb47"
+    },
+    {
+      "path": "erc-guarded-improvement/erc-guarded-v1/financing-sensitivity.csv",
+      "bytes": 1398,
+      "sha256": "f77f8dac08b783e118d36932f8cb4d76c9f317ca3325c0d3ec125a0057a0588d",
+      "version": "58aa392cd7f94e678f52621c1906225b9f38197c49d9fd732df18263ccb7fb47"
+    },
+    {
+      "path": "erc-guarded-improvement/erc-guarded-v1/forecast-ic.csv",
+      "bytes": 59,
+      "sha256": "c37887db51ff518ee4f00865f2e6b5d4bffadb3b9d8e33c9e93e48c38f95c526",
+      "version": "58aa392cd7f94e678f52621c1906225b9f38197c49d9fd732df18263ccb7fb47"
+    },
+    {
+      "path": "erc-guarded-improvement/erc-guarded-v1/performance.csv",
+      "bytes": 3311,
+      "sha256": "3cbe993c401f1d774948ead7da0ec8670dd63f0f1f0ae1dc6fcdad249c718e3f",
+      "version": "58aa392cd7f94e678f52621c1906225b9f38197c49d9fd732df18263ccb7fb47"
+    },
+    {
+      "path": "erc-guarded-improvement/erc-guarded-v1/provenance.json",
+      "bytes": 491,
+      "sha256": "1ae72637b5ecc8cfaf3cac5d9721782988515ad46bd0341d8ffadf4ba57fd670",
+      "version": "58aa392cd7f94e678f52621c1906225b9f38197c49d9fd732df18263ccb7fb47"
+    },
+    {
+      "path": "erc-guarded-improvement/erc-guarded-v1/report-drawdown.png",
+      "bytes": 64663,
+      "sha256": "be8dcd240f1252356713818a551f4cc05a7b97f0644a3cbaae7336dbecf66967",
+      "version": "58aa392cd7f94e678f52621c1906225b9f38197c49d9fd732df18263ccb7fb47"
+    },
+    {
+      "path": "erc-guarded-improvement/erc-guarded-v1/report-weights.png",
+      "bytes": 82821,
+      "sha256": "599b1a8bb11a4a5f349466c7c8f0962532b6867d0787f5c7035b5c87a707d4be",
+      "version": "58aa392cd7f94e678f52621c1906225b9f38197c49d9fd732df18263ccb7fb47"
+    },
+    {
+      "path": "erc-guarded-improvement/erc-guarded-v1/reproduced-experiments.csv",
+      "bytes": 433,
+      "sha256": "8a3001f15eca713fc13e06fd637e0a6366eefcd747b6fb04eb00322df76892ae",
+      "version": "58aa392cd7f94e678f52621c1906225b9f38197c49d9fd732df18263ccb7fb47"
+    },
+    {
+      "path": "erc-guarded-improvement/erc-guarded-v1/search-adjusted.csv",
+      "bytes": 146,
+      "sha256": "26f84f19db9917adeb403b024a57b6e2e1346f2f436d46326f287e371d5ea5bb",
+      "version": "58aa392cd7f94e678f52621c1906225b9f38197c49d9fd732df18263ccb7fb47"
+    },
+    {
+      "path": "erc-guarded-improvement/erc-guarded-v1/weights.png",
+      "bytes": 165139,
+      "sha256": "636431b3763030dfe53144648cfdc3e1ad8c933929bae3a2977ef4e848c201ba",
+      "version": "58aa392cd7f94e678f52621c1906225b9f38197c49d9fd732df18263ccb7fb47"
+    },
+    {
+      "path": "erc-guarded-improvement/erc-market-manifest.json",
+      "bytes": 928,
+      "sha256": "e4ac8fe6b7f0102e0caee172547c2567dcec8aaf0f901463e77c0c8a47e6a789",
+      "version": "58aa392cd7f94e678f52621c1906225b9f38197c49d9fd732df18263ccb7fb47"
+    },
+    {
+      "path": "erc-guarded-improvement/erc-reproduction.json",
+      "bytes": 296,
+      "sha256": "318715a6c823cbf6624c142b840f224f19133caadfbad41221f8f7e6afa12708",
+      "version": "58aa392cd7f94e678f52621c1906225b9f38197c49d9fd732df18263ccb7fb47"
+    },
+    {
+      "path": "erc-guarded-improvement/erc-runtime.json",
+      "bytes": 303,
+      "sha256": "e66e10628e12fe27f1224f1fa0377a7cdc9dd73adc1ba476f14ed8a15b8d609a",
+      "version": "58aa392cd7f94e678f52621c1906225b9f38197c49d9fd732df18263ccb7fb47"
+    },
+    {
+      "path": "erc-guarded-improvement/erc-visual-audit.json",
+      "bytes": 3171,
+      "sha256": "ce0779b234ad709240b93c8b3f60a01547ffbab6f7f1b9ad4e6110fbe73d7cb2",
+      "version": "a464227c39f3eb32d87fd9048f2234c09f5e4421efacd55c6767ca258671e7ca"
+    },
+    {
+      "path": "erc-guarded-improvement/executed-notebook.ipynb",
+      "bytes": 931491,
+      "sha256": "88596474ebd23b3fce4bf6a04e2ff5120c28ea6f108ea59fb231434303eb794e",
+      "version": "58aa392cd7f94e678f52621c1906225b9f38197c49d9fd732df18263ccb7fb47"
+    },
+    {
+      "path": "erc-guarded-improvement/experiments.csv",
+      "bytes": 399344,
+      "sha256": "b735c92bb2c44ce6711bdd165988f05d21fefabb022f7a6a9e2d79ad4e459c2d",
+      "version": "58aa392cd7f94e678f52621c1906225b9f38197c49d9fd732df18263ccb7fb47"
+    },
+    {
+      "path": "erc-guarded-improvement/frozen-source/manifest.json",
+      "bytes": 954,
+      "sha256": "36ffd8c79a775f08a3790f4288da987835d1d9227739f3801b9c975774bb414e",
+      "version": "58aa392cd7f94e678f52621c1906225b9f38197c49d9fd732df18263ccb7fb47"
+    },
+    {
+      "path": "erc-guarded-improvement/frozen-source/pyproject.toml",
+      "bytes": 598,
+      "sha256": "32117ef64190740c41c3cf867e646f95ea3886bed7bd96761d89165f9bd1b80e",
+      "version": "58aa392cd7f94e678f52621c1906225b9f38197c49d9fd732df18263ccb7fb47"
+    },
+    {
+      "path": "erc-guarded-improvement/frozen-source/research/erc-grid.csv",
+      "bytes": 107,
+      "sha256": "599fff5efe05665614f3556cfef0f73a14f9aa26e5695dfd8811cc038587a0ac",
+      "version": "58aa392cd7f94e678f52621c1906225b9f38197c49d9fd732df18263ccb7fb47"
+    },
+    {
+      "path": "erc-guarded-improvement/frozen-source/research/hypothesis.md",
+      "bytes": 3648,
+      "sha256": "6ebce8ed023267b97bf19821228e60cd2a136fe48123a5fada9d75bfc05887ec",
+      "version": "58aa392cd7f94e678f52621c1906225b9f38197c49d9fd732df18263ccb7fb47"
+    },
+    {
+      "path": "erc-guarded-improvement/frozen-source/tools/erc_final.py",
+      "bytes": 9194,
+      "sha256": "929a75e132db5b0bae49468517755268465af335c9d92e8ed4ec8e27e60fa7ef",
+      "version": "58aa392cd7f94e678f52621c1906225b9f38197c49d9fd732df18263ccb7fb47"
+    },
+    {
+      "path": "erc-guarded-improvement/frozen-source/tools/erc_guarded.py",
+      "bytes": 21959,
+      "sha256": "8999a1a70e4068526608a579a92ff5eb0c5edf5dbc2969b3da3e061cc8cd4ffc",
+      "version": "58aa392cd7f94e678f52621c1906225b9f38197c49d9fd732df18263ccb7fb47"
+    },
+    {
+      "path": "erc-guarded-improvement/frozen-source/uv.lock",
+      "bytes": 187996,
+      "sha256": "f5e7d9f716bb220e327dfb006501d50c821a79590dfd8f133877c27f9701c6cb",
+      "version": "58aa392cd7f94e678f52621c1906225b9f38197c49d9fd732df18263ccb7fb47"
+    },
+    {
+      "path": "erc-guarded-improvement/hypothesis.md",
+      "bytes": 3648,
+      "sha256": "6ebce8ed023267b97bf19821228e60cd2a136fe48123a5fada9d75bfc05887ec",
+      "version": "58aa392cd7f94e678f52621c1906225b9f38197c49d9fd732df18263ccb7fb47"
+    },
+    {
+      "path": "erc-guarded-improvement/notebook-source.ipynb",
+      "bytes": 39161,
+      "sha256": "0b6a8d94b1850bcaf67606f07d24036666729227683f6d9d3c3c2ef63190b09f",
+      "version": "a464227c39f3eb32d87fd9048f2234c09f5e4421efacd55c6767ca258671e7ca"
+    },
+    {
+      "path": "erc-guarded-improvement/quant-note.pdf",
+      "bytes": 349920,
+      "sha256": "4b52e1737810e11c17510d8945c45a3710f939cf1fd3710aba6fcbae3b6e2bc9",
+      "version": "a464227c39f3eb32d87fd9048f2234c09f5e4421efacd55c6767ca258671e7ca"
+    },
+    {
+      "path": "erc-guarded-improvement/quant-note.tex",
+      "bytes": 11711,
+      "sha256": "f3f961ec42bd152fb7014715e0685070d6ddf6f4f61a5d5b25e0c1c346db4b57",
+      "version": "a464227c39f3eb32d87fd9048f2234c09f5e4421efacd55c6767ca258671e7ca"
+    }
+  ],
+  "bytes": 12941000
+}

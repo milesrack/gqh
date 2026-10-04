@@ -1,0 +1,8 @@
+{
+  "strategy": "E6",
+  "status": "previously_accessed",
+  "access_utc": "2026-10-04T01:47:19.270530+00:00",
+  "source_receipt": "research/archive/erc-control/erc-final-access.json",
+  "source_sha256": "30b85dfad6e7b3dbbec62fa95c09f00c23c2d9d849c42b119b527e2d928680fd",
+  "purpose": "Prevent the restored original research notebook from reopening development or final evaluation."
+}
