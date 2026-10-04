@@ -115,7 +115,7 @@ def main():
     )
     save(fig, "split-evidence")
 
-    fig, axes = plt.subplots(1, 2, figsize=(6.5, 2.8))
+    fig, axes = plt.subplots(3, 1, figsize=(6.5, 3.6), sharex=True)
     for name, color in [("E6", PURPLE), ("ERC", BLUE)]:
         frame = daily[name]
         rolling = frame.net_return.rolling(126).std() * np.sqrt(252)
@@ -125,16 +125,45 @@ def main():
             color=color,
             label="MORTIMER" if name == "E6" else "Unscaled ERC",
         )
-    axes[0].set_ylabel("126-session volatility")
+    axes[0].set_ylabel("Volatility")
     axes[0].yaxis.set_major_formatter(PercentFormatter(1, decimals=0))
     e6 = daily["E6"]
     axes[1].plot(e6.index, e6.exposure, color=PURPLE)
-    axes[1].set(xlabel="Session date", ylabel="Risky exposure", ylim=(0, 1.05))
+    axes[1].set(ylabel="Exposure", ylim=(0, 1.05))
+    for name, color in [("E6", PURPLE), ("ERC", BLUE)]:
+        trailing_turnover = daily[name].turnover.rolling(252).sum()
+        axes[2].plot(
+            trailing_turnover.index,
+            trailing_turnover,
+            color=color,
+            label="MORTIMER" if name == "E6" else "Unscaled ERC",
+        )
+    axes[2].set(xlabel="Session date", ylabel="Turnover")
+    start, end = daily["E6"].index.min(), daily["E6"].index.max()
+    sample_periods = [
+        ("Training", start, pd.Timestamp("2018-12-31")),
+        ("Validation", pd.Timestamp("2019-01-01"), pd.Timestamp("2024-10-01")),
+        ("Test", pd.Timestamp("2024-10-02"), end),
+    ]
     for ax in axes:
+        for boundary in (pd.Timestamp("2019-01-01"), pd.Timestamp("2024-10-02")):
+            ax.axvline(boundary, color="#68717A", linestyle="--", linewidth=0.8)
         ax.grid(alpha=0.2)
-        ax.set_xlabel("Session date")
         ax.xaxis.set_major_locator(mdates.YearLocator(4))
         ax.xaxis.set_major_formatter(mdates.DateFormatter("%Y"))
+    for label, period_start, period_end in sample_periods:
+        midpoint = period_start + (period_end - period_start) / 2
+        axes[0].text(
+            midpoint,
+            0.96,
+            label,
+            transform=axes[0].get_xaxis_transform(),
+            ha="center",
+            va="top",
+            fontsize=8,
+            color="#4D5661",
+            bbox={"facecolor": "white", "edgecolor": "none", "alpha": 0.8, "pad": 1},
+        )
     handles, labels = axes[0].get_legend_handles_labels()
     fig.legend(
         handles,
@@ -145,7 +174,7 @@ def main():
         frameon=False,
         fontsize=11,
     )
-    fig.subplots_adjust(left=0.10, right=0.96, bottom=0.20, top=0.78, wspace=0.32)
+    fig.subplots_adjust(left=0.14, right=0.96, bottom=0.14, top=0.84, hspace=0.32)
     save(fig, "risk-evidence")
 
     selected = performance.set_index(["strategy", "sample"])

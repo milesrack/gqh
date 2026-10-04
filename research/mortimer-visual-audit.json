@@ -37,7 +37,7 @@
     "results/mortimer-submission/performance.csv": "95c247ce9392581dfdf22794bcd157bde32846425c3ecfa225ba1fda1a9c5e6c"
   },
   "exports": {
-    "report/risk-evidence.png": "ea73e549873ebde30ec05e2ece433244909a3b2804404fc3a61645a86ad3a463",
+    "report/risk-evidence.png": "116042b405294d01b51ec9cf4ae6bcbb204eb1c8a6b6d3c4ec59e6900e6d5a3f",
     "report/split-evidence.png": "2de2ee0ad0b8905766848d971d840622f702a6478c86f72081e0f0384403ffaa"
   },
   "native_visual_review": "Reviewed all seven notebook PNGs and both report PNGs at rendered size; labels, legends, units, centring, and placement are clear.",

@@ -23,18 +23,18 @@
 MORTIMER combines monthly equal-risk-contribution (ERC) weights with a causal volatility overlay across six exchange-traded funds (ETFs). In the held-out out-of-sample (OOS) test, the portfolio returned 9.52\% annualised after five basis points of trading costs, with 7.47\% volatility, a 0.714 Sharpe ratio, a $-7.00$\% maximum drawdown, and annual half-L1 turnover of 1.119. Relative to matched unscaled ERC, volatility fell by 8.2\% and drawdown by 9.9\%, while the Sharpe ratio also declined. Validation showed larger risk reductions alongside a 15-basis-point annual return difference. The results indicate that volatility targeting moderated portfolio risk without improving risk-adjusted return.
 
 \section*{Economic hypothesis}
-Investors accept equity, credit, duration, and commodity risk premia, while benchmark mandates and slow risk-budget adjustment can leave portfolios exposed as volatility rises. Since variance clusters, a forecast based on recent returns may help manage subsequent portfolio risk without predicting return direction. MORTIMER reduces risky exposure when forecast volatility exceeds its target. We test whether this rule lowers volatility and tail losses after costs, while limiting the associated return drag. A shock can arrive before the overlay responds, and lower exposure can delay recovery.
+Investors accept equity, credit, duration, and commodity risk premia, while benchmark mandates and slow risk-budget adjustment can leave portfolios exposed as volatility rises. Absolute and squared returns exhibit persistent dependence across financial markets, the empirical basis for treating recent variance as informative about near-term risk (Cont, 2001; Engle, 1982; Bollerslev, 1986). Realized-volatility research applies this persistence to forecasting future risk (Andersen et al., 2003), while volatility-managed portfolios apply it to portfolio exposure (Moreira and Muir, 2017). MORTIMER reduces risky exposure when forecast volatility exceeds its target. We test whether this rule lowers volatility and tail losses after costs, while limiting the associated return drag. A shock can arrive before the overlay responds, and lower exposure can delay recovery.
 
 \section*{Data and universe}
-The fixed universe comprises QQQ, IWM, HYG, TLT, GLD, and DBC. Yahoo adjusted closes include distributions and splits; raw closes and volume support liquidity estimates. Cash accrues from initial-release observations in the Archival Federal Reserve Economic Data (ALFRED) DGS3MO series, using the next exchange session for availability and actual/365 day-count accrual. The New York Stock Exchange (NYSE) calendar spans 2 January 2008 to 2 October 2026, with 550 sessions reserved for estimation before scored returns. Training ends on 31 December 2018, and validation runs from 1 January 2019 to 1 October 2024. The held-out OOS period runs from 2 October 2024 to 2 October 2026, the shorter of the most recent 20\% of sessions and two years. The six funds were selected for continuous price and volume histories through the end of the sample; membership is fixed throughout the analysis.
+The fixed universe comprises QQQ, IWM, HYG, TLT, GLD, and DBC. Yahoo adjusted closes include distributions and splits; raw closes and volume support liquidity estimates (Yahoo Finance, n.d.). Cash accrues from initial-release observations in the Archival Federal Reserve Economic Data (ALFRED) DGS3MO series (Federal Reserve Bank of St. Louis, n.d.-a, n.d.-b), using the next exchange session for availability and actual/365 day-count accrual. Factor returns use the Kenneth French data library (French, n.d.). The New York Stock Exchange (NYSE) calendar spans 2 January 2008 to 2 October 2026, with 550 sessions reserved for estimation before scored returns. Training ends on 31 December 2018, and validation runs from 1 January 2019 to 1 October 2024. The held-out OOS period runs from 2 October 2024 to 2 October 2026, the shorter of the most recent 20\% of sessions and two years. The six funds were selected for continuous price and volume histories through the end of the sample; membership is fixed throughout the analysis.
 
 \section*{Methodology}
-At each month-end, estimate daily covariance from 126 completed observations using Ledoit--Wolf shrinkage toward a scaled-identity target (Ledoit and Wolf, 2004). The constrained equal-risk-contribution (ERC) allocation for six assets solves
+At each month-end, estimate daily covariance from 126 completed observations using Ledoit--Wolf shrinkage toward a scaled-identity target (Ledoit and Wolf, 2004). The constrained equal-risk-contribution (ERC) allocation follows the risk-budgeting framework of Maillard, Roncalli, and Teïletche (2010) and solves
 \[
 \min_b\sum_{i=1}^{6}\left[b_i(\widehat\Sigma_t b)_i-\frac{b^\top\widehat\Sigma_t b}{6}\right]^2,
 \qquad \mathbf 1^\top b=1,\quad 0\le b_i\le0.35.
 \]
-Here $b_i$ is the base weight, $\widehat\Sigma_t$ is daily return covariance, and $b_i(\widehat\Sigma_t b)_i$ is variance contribution. Binding name caps can prevent exact equality.
+Here $b_i$ is the base weight, $\widehat\Sigma_t$ is daily return covariance, and $b_i(\widehat\Sigma_t b)_i$ is variance contribution. Binding name caps can prevent exact equality. Shrinkage limits covariance estimation error, which can materially impair optimised allocations out of sample (DeMiguel, Garlappi, and Uppal, 2009).
 
 For current base $b_t$, calculate historical portfolio returns $x_s=b_t^\top r_s$ using observations through close $t$. An exponentially weighted moving average (EWMA) with span $n$ applies geometrically declining weights to squared returns. The annualised volatility forecast and capped risky exposure are
 \[
@@ -49,18 +49,18 @@ V^{post}=V-c\sum_i|V^{post}w_i-h_i|.
 Costs are five basis points of risky dollars bought plus sold, representing spread, commission, and closing slippage; cash transfers carry no charge. A ten-basis-point cost case is evaluated on development data. The cash return proxy is derived from initial-release three-month Treasury bill yields.
 
 \section*{Results}
-We calculate annualised return as compound annual growth rate (CAGR) from split-local net wealth using 252 trading sessions per year. Annualised volatility is the sample standard deviation of daily returns multiplied by $\sqrt{252}$, and the Sharpe ratio uses daily excess returns relative to the cash return proxy. Maximum drawdown is measured from initial wealth of one. Annual turnover is half the L1 change in risky and cash weights, and transaction costs apply to risky purchases and sales. The table reports each metric net of five-basis-point transaction costs for training, validation, and the held-out out-of-sample test; the adjacent panels show net equity curves and drawdowns for validation and test.
+We calculate annualised return as compound annual growth rate (CAGR) from split-local net wealth using 252 trading sessions per year. Annualised volatility is the sample standard deviation of daily returns multiplied by $\sqrt{252}$, and the Sharpe ratio uses daily excess returns relative to the cash return proxy (Sharpe, 1994). Maximum drawdown is measured from initial wealth of one. Annual turnover is half the L1 change in risky and cash weights, and transaction costs apply to risky purchases and sales. The table reports all metrics net of five-basis-point costs for each split. Net equity begins at one in each split; the Results figure plots equity and drawdown separately for validation and the held-out test. A separate figure traces rolling volatility, risky exposure, and trailing annual turnover over the full sample, with dashed lines marking the training, validation, and test boundaries.
 \input{../results/mortimer-submission/report-build/performance.tex}
-\begin{center}\includegraphics[width=0.80\linewidth]{split-evidence.png}\end{center}
+\begin{center}\includegraphics[width=0.90\linewidth]{split-evidence.png}\end{center}
 \input{../results/mortimer-submission/report-build/result-discussion.tex}
 
 \section*{Risk management}
 Base weights are long-only and capped at 35\% per instrument. Gross exposure cannot exceed 100\%, with the remainder held as cash. Weights drift between executions and may exceed target caps. The overlay reduces or restores exposure when the forecast changes by five percentage points. Ordinary least squares (OLS) attribution on 479 common sessions estimates betas of 0.272 to the market, 0.031 to value, 0.066 to momentum, and 0.198 to Treasury-duration returns.
 
-\begin{center}\includegraphics[width=0.78\linewidth]{risk-evidence.png}\end{center}
+\begin{center}\includegraphics[width=0.88\linewidth]{risk-evidence.png}\end{center}
 
 \section*{Liquidity and capacity}
-Liquidity is measured with previous-session trailing 20-session average daily dollar volume (ADDV). Participation is $Q/ADDV$, where $Q$ is risky trade notional. The square-root impact scenario is
+Liquidity is measured with previous-session trailing 20-session average daily dollar volume (ADDV). Participation is $Q/ADDV$, where $Q$ is risky trade notional. The square-root impact scenario follows the empirical market-impact relation documented by Tóth et al. (2011):
 \[
 I=Y\sigma\sqrt{Q/ADDV},\qquad \text{NAV cost}=I\,Q/NAV,
 \]
@@ -68,7 +68,7 @@ We set $Y=0.5$ and use lagged volatility $\sigma$ for each AUM scenario.
 \input{../results/mortimer-submission/report-build/capacity.tex}
 
 \section*{Limitations and further work}
-The portfolio history uses funds that survive to the end of the sample, so it does not capture discontinued funds. Further work can extend the analysis with point-in-time fund histories and transaction-level execution data, and test the capacity estimates against observed market impact and extend the doubled-cost sensitivity using empirically calibrated spreads and fees.
+The fixed universe omits discontinued funds. Point-in-time membership and transaction-level execution data would support survivorship adjustment and cost estimates across the AUM range.
 
 \clearpage
 \section*{References}

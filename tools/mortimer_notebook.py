@@ -56,7 +56,7 @@ def build():
         + "\n\n"
         + r"""## 1. Research question
 
-Recent variance contains information about subsequent portfolio risk. Static allocations and slow risk-budget adjustment can leave exposure high as volatility rises. MORTIMER tests whether a lagged volatility forecast can scale a diversified equal-risk-contribution portfolio to reduce net volatility and drawdown relative to an unscaled portfolio, with acceptable return drag and turnover.
+Volatility clustering—the persistence in absolute and squared returns—has been documented across financial markets and motivates forecasts of conditional risk (Cont, 2001; Engle, 1982; Bollerslev, 1986). Realized-volatility research uses this persistence to forecast future risk (Andersen et al., 2003), while volatility-managed portfolios apply it to portfolio exposure (Moreira and Muir, 2017). MORTIMER tests whether a lagged volatility forecast can scale a diversified equal-risk-contribution portfolio to reduce net volatility and drawdown relative to an unscaled portfolio, with acceptable return drag and turnover.
 
 The success criteria require at least 10% lower volatility and drawdown, improved conditional tail loss, annual return drag below 150 basis points, annual turnover below two, and risk improvement under doubled costs. Validation rank information coefficient must be positive, and annual folds must support the same conclusion. These criteria make the hypothesis falsifiable."""
     )
@@ -153,6 +153,21 @@ def centred_legend(fig, axes, ncol=2):
     handles, labels = axes.get_legend_handles_labels()
     fig.legend(handles, labels, loc='upper center', bbox_to_anchor=(0.5,0.995), ncol=ncol, frameon=False, fontsize=11)
 
+def mark_sample_periods(ax, dates):
+    start, end = dates.min(), dates.max()
+    periods = [
+        ('Training', start, pd.Timestamp('2018-12-31')),
+        ('Validation', pd.Timestamp('2019-01-01'), pd.Timestamp('2024-10-01')),
+        ('Test', pd.Timestamp('2024-10-02'), end),
+    ]
+    for boundary in (pd.Timestamp('2019-01-01'), pd.Timestamp('2024-10-02')):
+        ax.axvline(boundary, color='#68717A', linestyle='--', linewidth=.8)
+    for label, period_start, period_end in periods:
+        ax.text(period_start + (period_end-period_start)/2, .96, label,
+                transform=ax.get_xaxis_transform(), ha='center', va='top',
+                fontsize=9, color='#4D5661',
+                bbox={'facecolor':'white','edgecolor':'none','alpha':.8,'pad':1})
+
 # Cached market inputs are inspected without acquisition.
 dev_panel = pd.read_parquet('data/cache/erc/market-20080102-20241002.parquet')
 final_panel = pd.read_parquet('data/cache/erc-final/market.parquet')
@@ -187,7 +202,7 @@ save_figure(fig,'return-distributions')
 """)
     md(r"""## 8. Performance and uncertainty
 
-We calculate compound annual growth rate (CAGR) from split-local net wealth using 252 trading sessions per year. Annualised volatility is the sample standard deviation of daily returns multiplied by $\sqrt{252}$, and the Sharpe ratio uses daily excess returns relative to the cash return proxy. Maximum drawdown is measured from initial wealth of one. Conditional value at risk (CVaR) is the mean return in the lower 5% tail. Annual turnover is half the L1 change in risky and cash weights. Results are reported separately for training, validation, and the held-out out-of-sample (OOS) test against matched unscaled ERC.""")
+We calculate annualised return as compound annual growth rate (CAGR) from split-local net wealth using 252 trading sessions per year. Annualised volatility is the sample standard deviation of daily returns multiplied by $\sqrt{252}$, and the Sharpe ratio uses daily excess returns relative to the cash return proxy (Sharpe, 1994). Maximum drawdown is measured from initial wealth of one. Conditional value at risk (CVaR) is the mean return in the lower 5% tail. Annual turnover is half the L1 change in risky and cash weights. Results are net of transaction costs and reported separately for training, validation, and the held-out out-of-sample (OOS) test against matched unscaled ERC. Equity curves are normalised to one at each split's start; the drawdown and turnover series are plotted alongside them.""")
     code("""performance=pd.read_csv(OUT/'performance.csv')
 performance_display=performance.copy()
 performance_display['strategy']=performance_display['strategy'].replace({'E6':'MORTIMER'})
@@ -206,7 +221,7 @@ for col,(label,start,end) in enumerate(splits):
         axes[0,col].plot(frame.index,wealth,label='MORTIMER' if name=='E6' else 'Unscaled ERC',color=color)
         axes[1,col].plot(frame.index,drawdown,color=color)
     axes[0,col].set_title(label)
-    axes[0,col].set_ylabel('Net wealth (start = 1)')
+    axes[0,col].set_ylabel('Net equity (start = 1)')
     axes[1,col].set(xlabel='Session date',ylabel='Drawdown')
     axes[1,col].yaxis.set_major_formatter(PercentFormatter(1))
     ticks=pd.to_datetime(['2010-01-01','2014-01-01','2018-01-01'] if col==0 else ['2019-01-01','2021-01-01','2023-01-01'] if col==1 else ['2024-10-02','2025-10-01','2026-10-02'])
@@ -237,16 +252,21 @@ for name,color in [('E6',PURPLE),('ERC',BLUE)]:
     axes[1].plot(rolling.index,rolling,label='MORTIMER' if name=='E6' else 'Unscaled ERC',color=color)
 axes[1].set(xlabel='Session date',ylabel='126-session net volatility')
 axes[1].yaxis.set_major_formatter(PercentFormatter(1))
+mark_sample_periods(axes[1],daily['E6'].index)
 axes[1].legend(loc='upper center',bbox_to_anchor=(.5,1.13),ncol=2,frameon=False)
 fig.subplots_adjust(left=.10,right=.90,bottom=.09,top=.96,hspace=.35)
 save_figure(fig,'monthly-and-rolling-risk')
 fig,axes=plt.subplots(2,1,figsize=(9,5))
 axes[0].plot(e6.index,e6.exposure,color=PURPLE,label='MORTIMER')
 axes[0].set(ylabel='Realised risky exposure',ylim=(0,1.05))
-axes[1].plot(e6.index,e6.turnover.rolling(63).sum(),color=PURPLE)
-axes[1].set(xlabel='Session date',ylabel='63-session turnover')
+for name,color in [('E6',PURPLE),('ERC',BLUE)]:
+    axes[1].plot(daily[name].index,daily[name].turnover.rolling(252).sum(),color=color,label='MORTIMER' if name=='E6' else 'Unscaled ERC')
+axes[1].set(xlabel='Session date',ylabel='Trailing annual turnover')
+for ax in axes:
+    mark_sample_periods(ax,daily['E6'].index)
 centred_legend(fig,axes[0],ncol=1)
-fig.subplots_adjust(left=.14,right=.86,bottom=.13,top=.86,hspace=.28)
+axes[1].legend(loc='upper center',bbox_to_anchor=(.5,1.17),ncol=2,frameon=False)
+fig.subplots_adjust(left=.14,right=.86,bottom=.13,top=.84,hspace=.38)
 save_figure(fig,'exposure-and-turnover')
 heat.to_csv(NB_OUT/'monthly-net-returns.csv')
 # Following-window risk is a retrospective diagnostic, never a trading feature.
@@ -297,7 +317,7 @@ The validation results show lower volatility and drawdown alongside a 15-basis-p
 
 ## References
 
-See the [research specification](../research/HYPOTHESIS.md), [README](../README.md), and [quant note](../report/quant-note.pdf). Methodological and data references include [Ledoit and Wolf (2004)](https://doi.org/10.1016/S0047-259X(03)00096-4), [ALFRED initial-release observations](https://fred.stlouisfed.org/docs/api/fred/series_observations.html), [Kenneth French's factor library](https://mba.tuck.dartmouth.edu/pages/faculty/ken.french/data_library.html), and [Yahoo Finance](https://finance.yahoo.com/).""")
+See the [research specification](../research/HYPOTHESIS.md), [README](../README.md), and [quant note](../report/quant-note.pdf). Volatility persistence and forecasting are studied by [Cont (2001)](https://doi.org/10.1080/713665670), [Engle (1982)](https://doi.org/10.2307/1912773), [Bollerslev (1986)](https://doi.org/10.1016/0304-4076(86)90063-1), and [Andersen et al. (2003)](https://doi.org/10.1111/1468-0262.00418). Portfolio methods include [Ledoit and Wolf (2004)](https://doi.org/10.1016/S0047-259X(03)00096-4), [Maillard, Roncalli, and Teïletche (2010)](https://doi.org/10.3905/jpm.2010.36.4.060), [Moreira and Muir (2017)](https://doi.org/10.1111/jofi.12513), and [DeMiguel, Garlappi, and Uppal (2009)](https://doi.org/10.1093/rfs/hhm075). The Sharpe ratio follows [Sharpe (1994)](https://doi.org/10.3905/jpm.1994.409501); the impact scenario draws on [Tóth et al. (2011)](https://doi.org/10.1103/PhysRevX.1.021006). Data sources are [ALFRED](https://fred.stlouisfed.org/docs/api/fred/series_observations.html), the [Federal Reserve three-month Treasury yield series](https://fred.stlouisfed.org/series/DGS3MO), [Kenneth French's factor library](https://mba.tuck.dartmouth.edu/pages/faculty/ken.french/data_library.html), and [Yahoo Finance](https://finance.yahoo.com/).""")
     notebook.cells = cells
     nbformat.validate(notebook)
     Path("notebooks").mkdir(exist_ok=True)
