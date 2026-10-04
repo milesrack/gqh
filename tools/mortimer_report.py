@@ -191,30 +191,26 @@ def main():
     chosen_ci = bootstrap.loc[
         (bootstrap["sample"] == "validation") & (bootstrap.block_sessions == 20)
     ].iloc[0]
-    write(
-        "bootstrap-interval.tex",
-        f"{100 * chosen_ci.lower_95:.2f}, {100 * chosen_ci.upper_95:.2f}",
-    )
     ic = pd.read_csv(OUT / "forecast-ic.csv")
     validation_ic = ic.loc[ic["sample"] == "validation"].iloc[0]
     write(
         "result-discussion.tex",
-        "Validation provides the clearest evidence on the overlay’s risk mechanism. "
+        "Validation shows the clearest effect of the volatility overlay. "
         + f"Against unscaled ERC, annualised volatility falls from {100 * bv.volatility:.2f}\\% to {100 * ev.volatility:.2f}\\%, "
         + "and maximum drawdown narrows from "
         + f"{100 * abs(bv.max_drawdown):.2f}\\% to {100 * abs(ev.max_drawdown):.2f}\\%. "
         + f"Annualised return is {10000 * (bv.cagr - ev.cagr):.0f} basis points lower. "
-        + "Under the ten-basis-point cost assumption, validation CAGR and Sharpe are "
+        + "Under the doubled ten-basis-point cost assumption, validation CAGR and Sharpe are "
         + f"{100 * es.cagr:.2f}\\% and {es.sharpe:.3f}, respectively. "
-        + "A paired 20-session block bootstrap places the validation return difference within a 95\\% interval of ["
+        + "A paired moving-block bootstrap with 20-session blocks and 1,000 resamples gives a 95\\% interval of ["
         + f"{100 * chosen_ci.lower_95:.2f}, {100 * chosen_ci.upper_95:.2f}"
-        + "] percentage points. The interval includes zero, consistent with the modest return difference.\\par\n"
-        + "Over the held-out out-of-sample test, annualised volatility and maximum drawdown are lower than unscaled ERC by "
+        + "] percentage points for the annualised return difference.\\par\n"
+        + "In the held-out out-of-sample test, annualised volatility and maximum drawdown are lower than unscaled ERC by "
         + f"{100 * (1 - ef.volatility / bf.volatility):.1f}\\% and {100 * (1 - abs(ef.max_drawdown) / abs(bf.max_drawdown)):.1f}\\%, respectively. "
         + f"The Sharpe ratio is {ef.sharpe:.3f}, compared with {bf.sharpe:.3f} for the benchmark. "
-        + "This pattern is consistent with the intended reduction in risky exposure, while the validation forecast’s Pearson and rank information coefficients of "
-        + f"{validation_ic.pearson_ic:.3f} and {validation_ic.rank_ic:.3f} indicate that the volatility signal also orders subsequent realised volatility. "
-        + "Taken together, the results support risk moderation; they do not show improved risk-adjusted performance over unscaled ERC.",
+        + "In validation, the forecast’s Pearson and rank information coefficients are "
+        + f"{validation_ic.pearson_ic:.3f} and {validation_ic.rank_ic:.3f} against subsequent 21-session realised volatility. "
+        + "MORTIMER reduces realised risk, while its lower held-out Sharpe shows that the reduction does not improve risk-adjusted performance over unscaled ERC.",
     )
 
     capacity = pd.read_csv(OUT / "capacity.csv")
@@ -235,9 +231,33 @@ def main():
         + f"{100 * capacity.iloc[0].max_participation:.2f}\\% at \\${capacity.iloc[0].aum / 1e6:.0f} million to "
         + f"{100 * capacity.iloc[1].max_participation:.2f}\\% at \\${capacity.iloc[1].aum / 1e6:.0f} million. "
         + f"A 1\\% participation limit is reached at initial AUM of \\${bound / 1e6:.2f} million. "
-        + "Peak rebalance orders relative to recent volume therefore determine modelled capacity; rows above 100\\% participation extrapolate the impact formula beyond full daily volume."
+        + f"At \\${capacity.iloc[-2].aum / 1e6:.0f} million and \\${capacity.iloc[-1].aum / 1e6:.0f} million, peak orders are "
+        + f"{100 * capacity.iloc[-2].max_participation:.0f}\\% and {100 * capacity.iloc[-1].max_participation:.0f}\\% of ADDV, respectively; the corresponding impact-adjusted returns extend the square-root model beyond observed daily volume."
     )
     write("capacity.tex", "\n".join(table))
+
+    factors = pd.read_csv(OUT / "factor-attribution.csv")
+    final_factors = factors.loc[factors["sample"] == "reused_final"].set_index("factor")
+    factor_names = [
+        ("Mkt-RF", "market"),
+        ("SMB", "size"),
+        ("HML", "value"),
+        ("Mom", "momentum"),
+        ("Duration", "Treasury duration"),
+    ]
+    betas = ", ".join(
+        f"{final_factors.loc[key, 'coefficient']:.3f} for {label}"
+        for key, label in factor_names
+    )
+    intercept = final_factors.loc["intercept_daily"]
+    last_date = pd.Timestamp(intercept["last"]).strftime("%d %B %Y").lstrip("0")
+    write(
+        "factor-summary.tex",
+        "An ordinary least squares regression of daily portfolio returns in excess of the Kenneth French risk-free rate on market, size, value, momentum, and Treasury-duration returns uses "
+        + f"{int(intercept['n'])} held-out observations through {last_date}. Estimated loadings are {betas}. "
+        + "The daily intercept has a Newey--West $t$-statistic of "
+        + f"{intercept['t_statistic']:.2f} using five lags.",
+    )
 
     audit = {
         "scope": "Saved MORTIMER evidence; no strategy evaluation or parameter changes",
