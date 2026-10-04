@@ -132,7 +132,7 @@ Use ignored `.agent-work/assets/` for caches, `.agent-work/runs/` for scratch wo
 | `results/<run_id>/` | Generated tables, figures, trades, returns and metrics |
 | `report/quant-note.tex` | Submission paper and selected evidence |
 
-Create modules when needed; do not prescribe filenames for an unselected strategy. Script the adopted strategy and provide a single reproduction command after approval.
+Keep notebook-only research self-contained: acquisition, transformations, strategy rules, simulation and analysis must be directly inspectable in notebook cells. Do not create or import project submodules or wrapper classes to hide notebook research. Ordinary third-party library imports and small functions defined in the notebook are permitted. Extract reusable modules only for a separate, approved strategy implementation. Do not prescribe filenames for an unselected strategy. Script the adopted strategy and provide a single reproduction command after approval.
 
 Purchased datasets reside in Snowflake. Root `data/` and `.agent-work/assets/` are ignored caches. Keep acquisition separate from evaluation; retain availability timestamps, adjustments, hashes and immutable asset versions.
 
