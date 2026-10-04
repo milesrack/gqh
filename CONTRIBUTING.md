@@ -51,6 +51,8 @@ Keep licensed inputs and notebook outputs untracked. Store generated evidence in
 
 ## Write documentation
 
+Name the strategy `MORTIMER: Subtitle`. Define a method-specific expansion of MORTIMER at first use. Use the same title in the README, notebook and quant note; retain historical preregistration identifiers.
+
 Use concise commands, tables and short declarative sentences in developer documentation. Define mathematical notation and technical terms in notebooks and the quant note. Use precise academic exposition; support empirical claims with tables, figures and primary sources.
 
 Keep the note body within five pages, including figures and tables. Use at least 11-point type and standard margins. Put references and optional supporting material after the body; keep essential claims in the body.
@@ -64,6 +66,8 @@ uv run --locked python -m compileall -q tools src
 ```
 
 Run the experiment's documented tests and reproduction command. Validate notebooks and compile the quant note. Compare generated metrics with every reported number. Inspect the staged diff for credentials, licensed data and generated notebook output.
+
+Inspect every exported figure at its intended size and in the final document. Check label and legend readability, units, ticks, fonts, contrast, centring and placement. Resolve clipping and overlaps. Record the visual checks actually performed.
 
 Use Conventional Commits with imperative summaries, for example `feat: add guarded ERC leverage experiment`. Use [.github/pull_request_template.md](.github/pull_request_template.md). Record checks actually run and unresolved limitations.
 
