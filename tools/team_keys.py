@@ -24,7 +24,7 @@ def prepare_registration(username, path):
     ssh = bundle["ssh_public_key"]
     if not re.fullmatch(r"ssh-ed25519 [A-Za-z0-9+/=]+(?: [^\r\n]*)?", ssh):
         raise ValueError("Expected an Ed25519 SSH public key")
-    folder = Path(".agent-work/runs")
+    folder = Path(".local/ops")
     folder.mkdir(parents=True, exist_ok=True)
     sql = folder / f"{name}-register.sql"
     sql.write_text(
@@ -52,7 +52,7 @@ def main():
         prepare_registration(args.username, args.bundle)
         return
     name = args.username.lower()
-    folder = Path(".agent-work/.secrets") / name
+    folder = Path(".local/credentials") / name
     folder.mkdir(parents=True, exist_ok=True, mode=0o700)
     private = folder / "snowflake.p8"
     if not private.exists():
@@ -84,7 +84,7 @@ def main():
         "snowflake_public_key": public,
         "ssh_public_key": ssh.with_suffix(".pub").read_text().strip(),
     }
-    output = Path(".agent-work/runs") / f"{name}-access.json"
+    output = Path(".local/ops") / f"{name}-access.json"
     output.parent.mkdir(parents=True, exist_ok=True)
     output.write_text(json.dumps(bundle, indent=2) + "\n")
     print("Share only:", output)

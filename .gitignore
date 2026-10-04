@@ -1,5 +1,5 @@
-# Local agent context, copied references, scratch work and source snapshots
-/.agent-work/
+# Local credentials and operational state
+/.local/
 
 # Credentials and licensed market data
 .env
