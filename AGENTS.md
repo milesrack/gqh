@@ -138,7 +138,7 @@ Purchased datasets reside in Snowflake. Root `data/` contains ignored inputs and
 
 ## README and visual review
 
-Keep the README's first heading `Gator Quant Hacks: Systematic Trading Track`. Preserve its main-branch section skeleton and fill the sections with concise experiment-specific content. Keep commands under Reproduction; move detailed setup and research exposition to their relevant documents.
+Preserve the main-branch section skeleton and fill the sections with concise experiment-specific content. Keep commands under Reproduction; move detailed setup and research exposition to their relevant documents.
 
 Inspect every exported visual at its intended display size and within the final document, checking labels, legends, units, tick spacing, font sizes, contrast, positioning, alignment, and centring. Resolve clipping, overlaps, and crowded panels before recording the completed review.
 
