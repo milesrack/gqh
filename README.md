@@ -4,23 +4,23 @@ Research for the [Gator Quant Hacks Systematic Trading competition](https://www.
 
 ## Hypothesis
 
-Develop and test systematic trading hypotheses on separate experiment branches. No strategy has been adopted.
+Develop each trading hypothesis on a separate experiment branch; adoption requires an approved research specification and implementation.
 
 ## Data
 
-Restore versioned inputs from [shared assets](docs/shared-assets.md). Keep raw market data and credentials outside Git.
+Restore versioned inputs through [shared assets](docs/shared-assets.md), keeping raw market data and credentials outside Git.
 
 ## Methodology
 
-Preregister rules and search budgets. Lag signals, include costs and freeze the strategy before final evaluation.
+Preregister the rules and search budget, evaluate lagged signals after costs, and freeze the strategy before final evaluation.
 
 ## Results
 
-Each experiment branch contains its trial ledger, notebook, reproduction command and quant note.
+Use each experiment branch's trial ledger, executed notebook, reproduction command, and quant note to review its evidence.
 
 ## Risk and capacity
 
-Report exposure limits, adverse regimes, doubled costs and trade participation. Distinguish measured capacity from assumed impact.
+Report exposure limits, adverse regimes, doubled costs, and trade participation, separating measured capacity from assumed impact.
 
 ## Reproduction
 
@@ -28,7 +28,7 @@ Report exposure limits, adverse regimes, doubled costs and trade participation. 
 uv sync --locked
 ```
 
-Copy `.env.example` to `.env` and supply the required provider credentials. Load them with `uv run --env-file .env --locked`.
+Copy `.env.example` to `.env`, add the selected provider's credentials, and load them with `uv run --env-file .env --locked`.
 
 ## Repository
 
@@ -38,13 +38,13 @@ Copy `.env.example` to `.env` and supply the required provider credentials. Load
 | `src/` | Reusable code and the selected strategy |
 | `tools/` | Acquisition and experiment commands |
 | `data/` | Ignored local caches; shared datasets reside in Snowflake |
-| `research/` | Economic hypothesis, evaluation plan and experiment ledger |
+| `research/` | Economic hypothesis, evaluation plan, and experiment ledger |
 | `results/` | Generated run outputs, ignored |
-| `report/` | LaTeX quant note and selected figures and tables |
+| `report/` | Quant note source, required figure and table assets, and `quant-note.pdf` |
 
 ## References
 
-Shared data and context: [asset access](docs/shared-assets.md). Notebook compute uses SSH tunnels.
+Follow [asset access](docs/shared-assets.md) for shared data, source documents, and notebook compute.
 
 ## Contribute
 
