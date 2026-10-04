@@ -59,7 +59,7 @@ def main():
     }
     table = [
         r"\begin{center}\setlength{\tabcolsep}{4pt}\begin{tabular}{llrrrrrrr}\toprule",
-        r"Sample & Rule & CAGR\% & Vol.\% & Sharpe & Sortino & MDD\% & Calmar & Turnover\\\midrule",
+        r"Sample & Rule & Ann. return\% & Vol.\% & Sharpe & Sortino & MDD\% & Calmar & Turnover\\\midrule",
     ]
     for sample, _, _, label in SPLITS:
         for strategy in ["E6", "ERC"]:
@@ -91,7 +91,7 @@ def main():
             )
             axes[1, col].plot(frame.index, drawdown, color=color)
         axes[0, col].set_title(label)
-        axes[0, col].set_ylabel("Net wealth")
+        axes[0, col].set_ylabel("Net equity (initial = 1)")
         axes[1, col].set(xlabel="Session date", ylabel="Drawdown")
         axes[1, col].yaxis.set_major_formatter(PercentFormatter(1, decimals=0))
         for row in range(2):

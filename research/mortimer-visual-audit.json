@@ -38,7 +38,7 @@
   },
   "exports": {
     "report/risk-evidence.png": "ea73e549873ebde30ec05e2ece433244909a3b2804404fc3a61645a86ad3a463",
-    "report/split-evidence.png": "375f7a357e0f3ce93764f24988ded1886fc7260093fc35f22d2a9ae1216988da"
+    "report/split-evidence.png": "2de2ee0ad0b8905766848d971d840622f702a6478c86f72081e0f0384403ffaa"
   },
   "native_visual_review": "Reviewed all seven notebook PNGs and both report PNGs at rendered size; labels, legends, units, centring, and placement are clear.",
   "pdf_review": "Reviewed the title page, four-page body, references, tables, and figures at rendered size; all elements are centred and legible."
