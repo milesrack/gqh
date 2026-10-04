@@ -1,0 +1,7 @@
+{
+  "strategy": "E6",
+  "status": "evaluated_once_after_freeze",
+  "access_utc": "2026-10-04T01:47:19.270530+00:00",
+  "source_receipt": "research/archive/erc-control/erc-final-access.json",
+  "purpose": "Prevent any retuning or repeat evaluation of the held-out OOS test."
+}

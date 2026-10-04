@@ -1,0 +1,66 @@
+{
+  "title": "MORTIMER: Multi-asset Optimisation and Risk Targeting with Integrated Monthly E6 Rebalancing",
+  "identity": "MORTIMER is the frozen long-only, volatility-targeted ERC portfolio.",
+  "universe": [
+    "QQQ",
+    "IWM",
+    "HYG",
+    "TLT",
+    "GLD",
+    "DBC"
+  ],
+  "base": {
+    "method": "Ledoit-Wolf constrained ERC",
+    "covariance_sessions": 126,
+    "name_cap": 0.35,
+    "rebalance": "Known month-end session decision, next-close execution"
+  },
+  "forecast": {
+    "method": "max EWMA squared current-base portfolio returns",
+    "spans": [
+      20,
+      63
+    ],
+    "minimum_sessions": 63,
+    "annualisation": 252
+  },
+  "overlay": {
+    "volatility_target": 0.1,
+    "gross_cap": 1.0,
+    "trigger_absolute_exposure": 0.05,
+    "initial_exposure": "raw capped target",
+    "restoration": "Same causal target and symmetric event trigger; no discretionary stop"
+  },
+  "execution": {
+    "decision": "Information through close t",
+    "fill": "Close t+1 after that session return",
+    "effective_return": "Close t+1 to t+2",
+    "fee_bps_one_way_risky_notional": 5,
+    "stress_bps": 10,
+    "shorting": false,
+    "borrowing": false,
+    "warm_up_sessions": 550,
+    "scored_start": "2010-03-10"
+  },
+  "splits": {
+    "train_end": "2018-12-31",
+    "observed_sessions": 4718,
+    "boundary_rule": "Shorter of most recent20% of actual observed sessions and most recent2calendar years",
+    "oos_test_start": "2024-10-02",
+    "oos_test_end": "2026-10-02",
+    "validation_start": "2019-01-01",
+    "validation_end": "2024-10-01"
+  },
+  "metric_conventions": {
+    "return": "Geometric session annualisation252/n",
+    "volatility": "Sample standard deviation of raw daily net returns times sqrt252",
+    "sharpe": "Mean daily excess over recorded cash times252 divided by raw-return annual volatility",
+    "turnover": "Annualised half-L1 risky and cash weight change",
+    "drawdown": "Includes initial wealth1"
+  },
+  "controls": "Matched unscaled ERC on identical samples; original recorded static/nearby diagnostics remain in the archival protocol",
+  "capital_risk": "No leverage or shorts; .35 target-base name cap, cash remainder, .10 risk target. Exposure and weights drift between executions; no newly introduced stop or sector constraint. Original loss/stress diagnostics retained.",
+  "evaluation": {
+    "protocol": "Training, validation, and held-out OOS test; the frozen specification was evaluated once on the OOS test."
+  }
+}

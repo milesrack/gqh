@@ -1,0 +1,45 @@
+{
+  "scope": "Saved MORTIMER evidence; no strategy evaluation or parameter changes",
+  "fonts": {
+    "body_pt": 11,
+    "title_pt": 17.28,
+    "legend_pt": 11
+  },
+  "style": {
+    "legend_center_x": 0.5,
+    "framed_legend": false,
+    "first_strategy": "MORTIMER",
+    "first_color": "#6D3B91",
+    "tight_crop": false,
+    "symmetric_subplot_bounds": true
+  },
+  "inputs": {
+    "results/mortimer-submission/E6-10bp-development-daily.csv": "a5c6532c572535546e8dfed74ce4cf6955992d7ff9e63449686f1c40acb3a1ce",
+    "results/mortimer-submission/E6-daily.csv": "595c1442ea15e974cff9dd001fed8e10b9561d8a1a68f7ddf594367ed43f970d",
+    "results/mortimer-submission/E6-development-base_weights.csv": "5b152ad6fd405d2ff3b084121d4575d5613ba7fba64d6bfee5fb558ef8c4ee82",
+    "results/mortimer-submission/E6-development-orders.csv": "6ea7df4452ff2d0c320379ef723f70c1fa4b6ad8ed38e301101edf3f6237ea83",
+    "results/mortimer-submission/E6-development-trades.csv": "209aed9e724f231556eee97a81d861449a3c75050d20a743fdc237d40cd71bbe",
+    "results/mortimer-submission/E6-development-weights.csv": "06598cfb94a9686303f044a653dc3c50ec15250037a6343dd896c247125e19b4",
+    "results/mortimer-submission/ERC-10bp-development-daily.csv": "9c8704fd076a28fad050606925fe78de8174387fcdd6af310bd78a15ea914fae",
+    "results/mortimer-submission/ERC-daily.csv": "d39f2dcec4006052c9a95f8c278e46a6c8fc8c7b7ab7c1bb840c254a40960d8b",
+    "results/mortimer-submission/ERC-development-base_weights.csv": "5b152ad6fd405d2ff3b084121d4575d5613ba7fba64d6bfee5fb558ef8c4ee82",
+    "results/mortimer-submission/ERC-development-orders.csv": "ae126ff956307d5d95cf21959a3ee47ffaa0eb31fa7c84c1aa3a6f54d83a4a90",
+    "results/mortimer-submission/ERC-development-trades.csv": "972d4f4efe153f339a759ba199677374aec2242cba7c72996075017d5147aaa9",
+    "results/mortimer-submission/ERC-development-weights.csv": "631d45ad200d8240523206f32f6907521ec7c144627a62358b52f26f7a9509d5",
+    "results/mortimer-submission/annual.csv": "6c7ff9d37bc13b1169b8bf0f930d7e2a185fe15cd40b53e4b48dec63dd0f6fac",
+    "results/mortimer-submission/capacity.csv": "505a45fe67d8b9d3591ff5c0298819ba49fe44940c8a69dc524e6d71914b7a24",
+    "results/mortimer-submission/cash-returns.csv": "9b1a6003848a16a837c72a0174bf601e0d94d7ec493f58d6d2af2e398dd832dd",
+    "results/mortimer-submission/doubled-cost.csv": "5815d7ebfc487b15969e63cec912a752affd9ac762b60d5a992c6c50604dda70",
+    "results/mortimer-submission/factor-attribution.csv": "88b48a67a3a7dc8b7fdfadffb7db78e56e9f38b94375a786cce6938ae55d5fb7",
+    "results/mortimer-submission/forecast-ic.csv": "06677f3a9be6194decd9f32e88a4224849236a5784a58dd477c71377ce401b90",
+    "results/mortimer-submission/market-adjusted-prices.csv": "072be0ddc9fbb64cb9153a513fc03362ae07912f9467e61bcfb9059aeb4d26f4",
+    "results/mortimer-submission/paired-bootstrap.csv": "ea727141b52e8999f12beac4184a77697d7ace1905a4e8381c2f4df79d220090",
+    "results/mortimer-submission/performance.csv": "95c247ce9392581dfdf22794bcd157bde32846425c3ecfa225ba1fda1a9c5e6c"
+  },
+  "exports": {
+    "report/risk-evidence.png": "116042b405294d01b51ec9cf4ae6bcbb204eb1c8a6b6d3c4ec59e6900e6d5a3f",
+    "report/split-evidence.png": "2de2ee0ad0b8905766848d971d840622f702a6478c86f72081e0f0384403ffaa"
+  },
+  "native_visual_review": "Reviewed all seven notebook PNGs and both report PNGs at rendered size; labels, legends, units, centring, and placement are clear.",
+  "pdf_review": "Reviewed the title page, four-page body, references, tables, and figures at rendered size; all elements are centred and legible."
+}
