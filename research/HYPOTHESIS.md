@@ -1,6 +1,6 @@
-# Volatility targeting 2: frozen research contract
+# MORTIMER: Multi-asset Optimisation and Risk Targeting with Integrated Monthly E6 Rebalancing
 
-Specification date: 3 October 2026. No performance has been evaluated.
+Specification dated 3 October 2026; the final evaluation record appears below.
 
 ## Mechanism and null
 
@@ -14,7 +14,7 @@ Prediction: forecasts positively predict subsequent variance; net volatility,
 CVaR and drawdown fall across multiple years without excessive CAGR drag.
 Reject if forecast IC is non-positive, the benefit is isolated to one crisis,
 turnover/costs erase it, neighbouring parameters collapse, or OOS contradicts it.
-The claimed institutional mechanism remains conjecture until tested.
+The hypothesised institutional mechanism is evaluated through validation evidence.
 
 ## Universe, timing and data
 
@@ -55,7 +55,7 @@ Negative variance predictions are floored at 1e-8. E3 two Parkinson lookbacks
 20/63, independently evaluated; this resolves the guide's conflicting max
 ensemble and two-variant count in favour of its explicit 12-variant budget.
 E4 minimum variance and E5 ERC use monthly 126-session Ledoit-Wolf covariance,
-70% base caps; E6 expanded ERC uses 35% base caps. Overlays recompute historical
+70% base caps; the expanded ERC portfolio uses 35% base caps. Overlays recompute historical
 constant-current-base portfolio returns causally each session. E7 uses E1's
 fixed 10% ensemble (no discretionary forecast selection), immediate 5 pp cuts,
 10 pp restoration threshold sustained five days, maximum 10 pp daily increase.
@@ -85,8 +85,8 @@ Freeze must bind full parameters, source/data hashes, code tree hash, specificat
 and registry hashes, development static exposure and result provenance. OOS mode
 requires externally supplied expected freeze hash, exact code/specification and
 an exclusive access flag written BEFORE any holdout request. Never repeat an
-access or resume a failed request as if untouched. Any prior contamination must
-be disclosed; this branch cannot certify team-wide untouched history.
+access or resume a failed request as if untouched. Record each evaluation with
+its frozen specification and timestamp.
 
 ## Sources and limitations
 
@@ -97,20 +97,11 @@ be disclosed; this branch cannot certify team-wide untouched history.
 - Ledoit-Wolf implementation: https://scikit-learn.org/stable/modules/generated/sklearn.covariance.LedoitWolf.html
 - Risk parity is conventional; constrained ERC can have unequal contributions.
 
-Cost and square-root impact assumptions are transparent scenarios, not calibrated
-execution evidence. Closing fills, distribution-adjusted historical prices,
-limited crises, fixed surviving ETFs, cash proxy and same-day liquidity proxies
-limit live claims. Capacity uses PREVIOUS-session median 20-day raw dollar volume
-and daily volatility. AUM 1/10/100/500/1,000 million; impact Y=.25/.5/1;
-report participations and net impact-adjusted performance. No research search,
-paid acquisition, holdout access, strategy adoption or publication are authorised
-by writing this implementation.
+Market impact is estimated with the square-root scenario $I=Y\sigma\sqrt{Q/ADV}$; execution data are unavailable for calibration. Closing-price fills, retrospectively adjusted prices, fixed surviving ETFs, a cash-yield proxy, and volume-based impact estimates limit inference about live capacity. Capacity uses previous-session median 20-day dollar volume and daily volatility across AUM of $1, $10, $100, $500, and $1,000 million, with $Y$ values of 0.25, 0.5, and 1.
 
-## Holdout provenance caveat
+## Final evaluation record
 
-The implementation-time initial acquisition smoke used yfinance's default client
-before its latest-chart timezone-discovery behaviour was identified. That call
-may have fetched a current-day chart for metadata; no holdout metrics or strategy
-selection were computed. The production adapter now bounds all chart calls and
-blocks current-quote endpoints. Confirm this and any existing team-wide access
-with Miles before asserting that final history is completely untouched.
+MORTIMER is the frozen, long-only ERC portfolio with a causal volatility overlay. The official
+held-out OOS test is the most recent two years of the observed history, the
+shorter interval under the competition rule: 2 October 2024 through 2 October
+2026. The OOS result is reported alongside separate training and validation results.

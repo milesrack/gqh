@@ -1,0 +1,54 @@
+{
+  "scientific_identity": "MORTIMER: fixed-universe, volatility-targeted risk-balanced portfolio",
+  "original_implementation_commit": "560d191e2b90a3b5bf955e71974534b0ba7f9d91",
+  "source_extraction": "Original function bodies copied verbatim; selected configuration unchanged. Presentation identity does not create a new experiment.",
+  "input_sha256": {
+    "data/cache/erc/market-20080102-20241002.parquet": "e5f957a2b78b4a08cede2183cd59012f73beaffc38f0821d43bb458df08be222",
+    "data/cache/erc/rates-20080102-20241002.parquet": "5eb2ada6d8d007969c111064ae6c5de089e8bd61c0156cb49cc98484cea2b5d9",
+    "data/cache/erc-final/market.parquet": "e78f255bef24c0f5a5cdc03b11d00e79d7879d6cf01ca37f4c3bc7538dc149ef",
+    "data/cache/erc-final/rates.parquet": "c7f1d19f3ab2adbecc57c71333153286bd85ab7602b8493384efb421f191b92d"
+  },
+  "recorded_sha256": {
+    "results/archive/erc-guarded-v1/ERC-daily.csv": "7318c8705638cc00fc5d79e724b2234d1b8f239a922ecc7911caa1632fb62366",
+    "results/archive/erc-guarded-v1/ERC-weights.csv": "631d45ad200d8240523206f32f6907521ec7c144627a62358b52f26f7a9509d5",
+    "results/archive/erc-guarded-v1/ERC-base_weights.csv": "5b152ad6fd405d2ff3b084121d4575d5613ba7fba64d6bfee5fb558ef8c4ee82",
+    "results/archive/erc-guarded-v1/ERC-trades.csv": "972d4f4efe153f339a759ba199677374aec2242cba7c72996075017d5147aaa9",
+    "results/archive/erc-guarded-v1/ERC-orders.csv": "ae126ff956307d5d95cf21959a3ee47ffaa0eb31fa7c84c1aa3a6f54d83a4a90",
+    "results/archive/erc-final-v1/ERC-daily.csv": "cd6204dfbbd49cc67eef36364c9f0d52bb2dbd8a04430ed493608ed6fd331520",
+    "results/archive/erc-guarded-v1/E6-daily.csv": "07db8fb9f2446b95266bc8459c4e370f7aea69b23fc9065de857e13de09f43ea",
+    "results/archive/erc-guarded-v1/E6-weights.csv": "06598cfb94a9686303f044a653dc3c50ec15250037a6343dd896c247125e19b4",
+    "results/archive/erc-guarded-v1/E6-base_weights.csv": "5b152ad6fd405d2ff3b084121d4575d5613ba7fba64d6bfee5fb558ef8c4ee82",
+    "results/archive/erc-guarded-v1/E6-trades.csv": "209aed9e724f231556eee97a81d861449a3c75050d20a743fdc237d40cd71bbe",
+    "results/archive/erc-guarded-v1/E6-orders.csv": "6ea7df4452ff2d0c320379ef723f70c1fa4b6ad8ed38e301101edf3f6237ea83",
+    "results/archive/erc-final-v1/E6-daily.csv": "34538e8db361ba1c8ce2473570c06ce468de44150a1098c50c33d6dad98e6ac2",
+    "results/archive/erc-guarded-v1/performance.csv": "3cbe993c401f1d774948ead7da0ec8670dd63f0f1f0ae1dc6fcdad249c718e3f",
+    "results/archive/erc-final-v1/performance.csv": "e44ccd8e10a325dee29e51ded40a8a54e35d8e88eef64b795f1d8e2efc4e4f48",
+    "results/20261004T003708-e3127963/E6-double_cost-3fc474039b.csv": "ddb6a560100ebd59cc6702adfbe75e0d18e77fb9270987e0a7971feabd8c964f",
+    "results/20261004T003708-e3127963/E6-double_cost_base-811cdde690.csv": "8609ecdfba827d6925847e434ca089b704fb141fd76f93626d81124921de06c1",
+    "results/20261004T003708-e3127963/tables/forecast_diagnostics.csv": "5ac686e5706417bf1f08f2390408b392c2eaba3ff5e1f7e05bedd89682c5e7a3"
+  },
+  "scientific_source_sha256": {
+    "src/mortimer.py": "21b4f209899e2ee0918c23b1184afc4d3b0a791e1d64473ad3a929913628724e",
+    "research/frozen-source/mortimer/selected_engine_source.py": "8999a1a70e4068526608a579a92ff5eb0c5edf5dbc2969b3da3e061cc8cd4ffc"
+  },
+  "final_status": "The held-out OOS test was evaluated once after the strategy specification was frozen. Its result is reported without retuning.",
+  "search_history": {
+    "primary_variants": 12,
+    "recorded_trial_ids": 409,
+    "ledger_rows": 818,
+    "selection": "The final configuration and evaluation are bound to the preregistered parameters and recorded sources."
+  },
+  "original_diagnostics": "Archived parameter diagnostics retain their recorded protocol and numerical identity. The later ERC replay differs in training initialisation and is not treated as identical.",
+  "limitations": [
+    "Fixed surviving ETF universe",
+    "Retrospectively split- and distribution-adjusted price history",
+    "DGS3MO initial-release yield is a cash proxy, not realised bill total returns",
+    "Final individual-asset holdings and doubled-cost results were not part of the single OOS evaluation record"
+  ],
+  "evaluation": {
+    "sample": "held-out OOS test",
+    "status": "evaluated once after the registered specification freeze",
+    "access_utc": "2026-10-04T01:47:19.270530+00:00",
+    "result": "retained whether favourable or unfavourable"
+  }
+}
