@@ -51,6 +51,8 @@ Keep licensed inputs and notebook outputs untracked. Store generated evidence in
 
 ## Write documentation
 
+Keep the README title and main-branch section skeleton. Fill each section concisely. Put the strategy title under Hypothesis and essential commands under Reproduction.
+
 Name the strategy `MORTIMER: Subtitle`. Define a method-specific expansion of MORTIMER at first use. Use the same title in the README, notebook and quant note; retain historical preregistration identifiers.
 
 Use concise commands, tables and short declarative sentences in developer documentation. Define mathematical notation and technical terms in notebooks and the quant note. Use precise academic exposition; support empirical claims with tables, figures and primary sources.
