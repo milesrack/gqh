@@ -4,7 +4,7 @@ MORTIMER is a six-asset equal-risk-contribution (ERC) strategy that dynamically 
 
 ## Hypothesis
 
-**MORTIMER: Multi-asset Optimisation and Risk Targeting with Integrated Monthly E6 Rebalancing** is a portfolio of six exchange-traded funds (ETFs) allocated by equal-risk contribution (ERC), with causal volatility scaling. The hypothesis is that persistent volatility permits lower portfolio risk after trading costs; see [the research specification](research/HYPOTHESIS.md).
+**MORTIMER: Multi-asset Optimisation and Risk Targeting with Integrated Monthly E6 Rebalancing** is a portfolio of six exchange-traded funds (ETFs) allocated by equal-risk contribution (ERC), with causal volatility scaling. The hypothesis is that persistent volatility permits lower portfolio risk after trading costs; see [the research specification](research/hypothesis.md).
 
 ## Data
 
